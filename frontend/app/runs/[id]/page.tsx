@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback } from "react";
-import { Transcript } from "@/components/transcript";
+import { ActivityFeed } from "@/components/activity-feed";
 import { ErrorBanner, StatusChip } from "@/components/ui";
 import { getRun } from "@/lib/api";
 import type { RunDetail } from "@/lib/types";
@@ -40,6 +40,9 @@ export default function RunDetailPage() {
   );
 }
 
+const isLive = (s: RunDetail["status"]) =>
+  s === "running" || s === "queued" || s === "waiting_approval";
+
 function RunView({ run }: { run: RunDetail }) {
   return (
     <div className="mt-4">
@@ -50,6 +53,18 @@ function RunView({ run }: { run: RunDetail }) {
         </div>
         <StatusChip status={run.status} />
       </div>
+
+      {run.status === "waiting_approval" ? (
+        <div
+          className="mb-6 flex items-center justify-between rounded-xl border border-warn/40
+            bg-warn-soft px-4 py-3 text-sm text-warn"
+        >
+          <span>The agent is paused, waiting for your decision on a sensitive action.</span>
+          <Link href="/approvals" className="font-medium underline">
+            Review approval
+          </Link>
+        </div>
+      ) : null}
 
       {run.output ? (
         <section className="mb-6">
@@ -75,61 +90,10 @@ function RunView({ run }: { run: RunDetail }) {
         </section>
       ) : null}
 
-      {run.status === "waiting_approval" ? (
-        <div
-          className="mb-6 flex items-center justify-between rounded-xl border border-warn/40
-            bg-warn-soft px-4 py-3 text-sm text-warn"
-        >
-          <span>The agent is paused, waiting for your decision on a sensitive action.</span>
-          <Link href="/approvals" className="font-medium underline">
-            Review approval
-          </Link>
-        </div>
-      ) : null}
-
       <section>
-        <h2 className="mb-2 text-[15px] font-semibold">Transcript</h2>
-        <TranscriptBody run={run} />
+        <h2 className="mb-3 text-[15px] font-semibold">Activity</h2>
+        <ActivityFeed transcript={run.transcript} live={isLive(run.status)} />
       </section>
-    </div>
-  );
-}
-
-const isLive = (s: RunDetail["status"]) =>
-  s === "running" || s === "queued" || s === "waiting_approval";
-
-function TranscriptBody({ run }: { run: RunDetail }) {
-  const empty = !Array.isArray(run.transcript) || run.transcript.length === 0;
-
-  if (empty && isLive(run.status)) {
-    return <WorkingIndicator label="Starting up — waiting for the first model response…" />;
-  }
-  return (
-    <>
-      <Transcript transcript={run.transcript} />
-      {isLive(run.status) ? (
-        <div className="mt-4">
-          <WorkingIndicator label="Working on it — updates live as the agent progresses…" />
-        </div>
-      ) : null}
-    </>
-  );
-}
-
-function WorkingIndicator({ label }: { label: string }) {
-  return (
-    <div
-      className="flex items-center gap-3 rounded-xl border border-line bg-surface px-4 py-3
-        text-sm text-muted"
-    >
-      <span className="relative flex h-2.5 w-2.5">
-        <span
-          className="absolute inline-flex h-full w-full animate-ping rounded-full
-            bg-accent opacity-60"
-        />
-        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
-      </span>
-      {label}
     </div>
   );
 }

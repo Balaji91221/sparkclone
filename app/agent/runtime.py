@@ -134,6 +134,8 @@ def _redact(messages: list[dict]) -> list[dict]:
     out = []
     for m in messages:
         m = dict(m)
+        if isinstance(m.get("reasoning"), str):
+            m["reasoning"] = m["reasoning"][:4000]
         c = m.get("content")
         if isinstance(c, str):
             m["content"] = c[:4000]

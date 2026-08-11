@@ -59,9 +59,12 @@ def _openai_tool_specs(tools: list[dict]) -> list[dict]:
 
 
 def _nvidia_complete(system: str, messages: list[dict], tools: list[dict]) -> dict:
+    # Strip transcript-only keys (e.g. "reasoning") before resending history —
+    # unknown fields can 400 on OpenAI-compatible endpoints.
+    history = [{k: v for k, v in m.items() if k != "reasoning"} for m in messages]
     payload = {
         "model": settings.nvidia_model,
-        "messages": [{"role": "system", "content": system}, *messages],
+        "messages": [{"role": "system", "content": system}, *history],
         "temperature": settings.nvidia_temperature,
         "top_p": settings.nvidia_top_p,
         "max_tokens": settings.max_tokens,
@@ -93,6 +96,9 @@ def _nvidia_complete(system: str, messages: list[dict], tools: list[dict]) -> di
             "role": "assistant",
             "content": msg.get("content"),
             **({"tool_calls": msg["tool_calls"]} if msg.get("tool_calls") else {}),
+            # Kept for the dashboard's activity feed; stripped before resending.
+            **({"reasoning": msg["reasoning_content"]}
+               if msg.get("reasoning_content") else {}),
         },
     }
 
