@@ -69,6 +69,12 @@ def execute_run(run_id: str) -> None:
     final_text = ""
 
     completed = False
+    # Models sometimes end a turn narrating their next step instead of calling
+    # the tool for it. One nudge separates "actually done" from "stopped early".
+    nudges_left = 2
+    NUDGE = ("If the task is fully complete, reply with the final summary and "
+             "nothing else. If it is NOT complete, do not describe your next "
+             "step — call the tool for it now.")
     try:
         for _ in range(settings.max_agent_iterations):
             result = providers.complete(system, messages, tools)
@@ -78,8 +84,13 @@ def execute_run(run_id: str) -> None:
                 final_text = result["text"]
 
             if not result["tool_calls"]:
+                if nudges_left > 0:
+                    nudges_left -= 1
+                    messages.append({"role": "user", "content": NUDGE})
+                    continue
                 completed = True
                 break
+            nudges_left = 2
 
             tool_results = []
             for tc in result["tool_calls"]:
