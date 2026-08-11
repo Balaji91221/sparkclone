@@ -12,6 +12,19 @@ from .config import settings
 from .db import (Approval, Run, RunStatus, Skill, Task, db_session, init_db,
                  utcnow)
 
+
+def _reap_orphaned_runs() -> None:
+    """Runs left queued/running by a previous process died with it."""
+    with db_session() as db:
+        stale = db.query(Run).filter(
+            Run.status.in_([RunStatus.queued, RunStatus.running,
+                            RunStatus.waiting_approval])).all()
+        for r in stale:
+            r.status = RunStatus.failed
+            r.error = "Server restarted while this run was in progress. Run the task again."
+            r.finished_at = utcnow()
+        db.commit()
+
 app = FastAPI(title="SparkClone", version="1.0.0")
 app.include_router(google_router)
 WEB_DIR = Path(__file__).resolve().parent.parent / "web"
@@ -20,6 +33,7 @@ WEB_DIR = Path(__file__).resolve().parent.parent / "web"
 @app.on_event("startup")
 def _startup() -> None:
     init_db()
+    _reap_orphaned_runs()
     scheduler.start()
 
 

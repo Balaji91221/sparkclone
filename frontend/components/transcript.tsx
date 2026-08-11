@@ -30,14 +30,49 @@ function toBlock(v: unknown): Block {
   return { kind: "raw", value: v };
 }
 
+// OpenAI-style assistant tool calls: {id, function: {name, arguments: "<json>"}}
+function openAiToolCallBlocks(v: unknown): Block[] {
+  if (!Array.isArray(v)) return [];
+  const blocks: Block[] = [];
+  for (const tc of v) {
+    if (!isRecord(tc) || !isRecord(tc.function)) continue;
+    const name = typeof tc.function.name === "string" ? tc.function.name : "(tool)";
+    let input: unknown = tc.function.arguments;
+    if (typeof input === "string") {
+      try {
+        input = JSON.parse(input);
+      } catch {
+        // keep the raw string when arguments are not valid JSON
+      }
+    }
+    blocks.push({ kind: "tool_use", name, input });
+  }
+  return blocks;
+}
+
 function toTurns(transcript: unknown): Turn[] | null {
   if (!Array.isArray(transcript) || transcript.length === 0) return null;
   const turns: Turn[] = [];
   for (const msg of transcript) {
     if (!isRecord(msg) || typeof msg.role !== "string") return null;
     const content = msg.content;
-    const blocks = Array.isArray(content) ? content.map(toBlock) : [toBlock(content)];
-    turns.push({ role: msg.role, blocks });
+    let blocks: Block[];
+    if (msg.role === "tool") {
+      // OpenAI-style tool result message
+      blocks = [{
+        kind: "tool_result",
+        content: typeof content === "string" ? content : JSON.stringify(content, null, 2),
+      }];
+    } else if (Array.isArray(content)) {
+      blocks = content.map(toBlock);
+    } else if (content == null) {
+      blocks = [];
+    } else {
+      blocks = [toBlock(content)];
+    }
+    blocks.push(...openAiToolCallBlocks(msg.tool_calls));
+    if (blocks.length === 0) continue;
+    turns.push({ role: msg.role === "tool" ? "tool result" : msg.role, blocks });
   }
   return turns;
 }

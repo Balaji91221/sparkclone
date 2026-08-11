@@ -40,6 +40,15 @@ def _wait_for_approval(approval_id: str, poll: float = 3.0,
     return "denied"  # timed out => treat as denied
 
 
+def _save_progress(run_id: str, messages: list[dict]) -> None:
+    """Persist the partial transcript so the dashboard can stream progress."""
+    with db_session() as db:
+        r = db.get(Run, run_id)
+        if r:
+            r.transcript = _redact(messages)
+            db.commit()
+
+
 def execute_run(run_id: str) -> None:
     with db_session() as db:
         run = db.get(Run, run_id)
@@ -63,6 +72,7 @@ def execute_run(run_id: str) -> None:
         for _ in range(settings.max_agent_iterations):
             result = providers.complete(system, messages, tools)
             messages.append(result["raw_assistant_msg"])
+            _save_progress(run_id, messages)
             if result["text"]:
                 final_text = result["text"]
 
@@ -101,6 +111,7 @@ def execute_run(run_id: str) -> None:
                     out = f"Tool error: {e}"
                 tool_results.append({"id": tc["id"], "content": str(out)[:30000]})
             messages.extend(providers.make_tool_results_msgs(tool_results))
+            _save_progress(run_id, messages)
 
         with db_session() as db:
             r = db.get(Run, run_id)
