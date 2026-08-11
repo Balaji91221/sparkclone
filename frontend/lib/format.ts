@@ -29,8 +29,11 @@ export function cronHuman(cron: string): string {
   const [min, hour, dom, , dow] = p;
   if (!/^\d+$/.test(min) || !/^\d+$/.test(hour)) return cron;
   const time = `${hour.padStart(2, "0")}:${min.padStart(2, "0")}`;
-  const day = WEEKDAYS[dow.toUpperCase()];
-  if (day) return `Weekly on ${day} at ${time}`;
+  if (dow !== "*") {
+    const days = dow.split(",").map((d) => WEEKDAYS[d.toUpperCase()]);
+    if (days.every(Boolean)) return `Weekly on ${days.join(", ")} at ${time}`;
+    return cron;
+  }
   if (dom !== "*") return `Monthly on day ${dom} at ${time}`;
   return `Daily at ${time}`;
 }

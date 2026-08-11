@@ -7,11 +7,13 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from . import scheduler
+from .auth.google_oauth import router as google_router
 from .config import settings
 from .db import (Approval, Run, RunStatus, Skill, Task, db_session, init_db,
                  utcnow)
 
 app = FastAPI(title="SparkClone", version="1.0.0")
+app.include_router(google_router)
 WEB_DIR = Path(__file__).resolve().parent.parent / "web"
 
 

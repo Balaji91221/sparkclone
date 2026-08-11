@@ -49,5 +49,16 @@ class Settings(BaseModel):
     # Auth token for the dashboard/API (single-user product)
     api_token: str = os.getenv("SPARK_API_TOKEN", "change-me")
 
+    # Google OAuth (Gmail + Drive). The redirect URL must be registered on the
+    # OAuth client in Google Cloud Console; it points at the dashboard origin,
+    # which proxies /auth/* to this backend.
+    google_client_id: str = os.getenv("GOOGLE_CLIENT_ID", "")
+    google_client_secret: str = os.getenv("GOOGLE_CLIENT_SECRET", "")
+    oauth_redirect_url: str = os.getenv(
+        "OAUTH_REDIRECT_URL", "http://localhost:3000/auth/google/callback")
+
+    # Signs OAuth state values and encrypts stored refresh tokens.
+    spark_secret_key: str = os.getenv("SPARK_SECRET_KEY", "dev-secret-change-me")
+
 
 settings = Settings()

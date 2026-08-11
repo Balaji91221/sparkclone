@@ -88,6 +88,17 @@ class Approval(Base):
     run = relationship("Run", back_populates="approvals")
 
 
+class GoogleCredential(Base):
+    __tablename__ = "google_credentials"
+    id = Column(String, primary_key=True, default=new_id)
+    email = Column(String, default="")
+    refresh_token_enc = Column(Text, nullable=False)  # Fernet-encrypted at rest
+    access_token = Column(Text, default="")
+    token_expiry = Column(DateTime(timezone=True))
+    scopes = Column(JSON, default=list)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+
+
 def init_db() -> None:
     Base.metadata.create_all(engine)
 

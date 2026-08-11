@@ -24,6 +24,7 @@ export const RUN_STATUSES = [
   "waiting_approval",
   "succeeded",
   "failed",
+  "cancelled",
 ] as const;
 
 export type RunStatus = (typeof RUN_STATUSES)[number];

@@ -10,6 +10,7 @@ const STATUS_STYLES: Record<RunStatus, string> = {
   waiting_approval: "bg-warn-soft text-warn",
   succeeded: "bg-ok-soft text-ok",
   failed: "bg-danger-soft text-danger",
+  cancelled: "bg-surface-2 text-muted",
 };
 
 export function StatusChip({ status }: { status: RunStatus }) {

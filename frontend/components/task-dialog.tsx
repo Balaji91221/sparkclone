@@ -4,6 +4,7 @@ import { useState } from "react";
 import { createTask, updateTask } from "@/lib/api";
 import type { TaskInput } from "@/lib/api";
 import type { SkillDef, Task } from "@/lib/types";
+import { ScheduleField } from "./schedule-field";
 import { Button, Field, Modal, inputClass } from "./ui";
 
 export type TaskDialogRequest =
@@ -125,15 +126,10 @@ function TaskForm({ request, skills, onClose, onSaved }: TaskFormProps) {
           placeholder="Every run: read my inbox, summarize the important emails, and notify me with a prioritized to-do list."
         />
       </Field>
-      <Field
-        label="Schedule (cron)"
-        hint="Leave empty to run manually. Example: 30 8 * * * = daily 08:30."
-      >
-        <input
-          className={`${inputClass} font-mono`}
+      <Field label="When to run">
+        <ScheduleField
           value={form.cron}
-          onChange={(e) => setForm((f) => ({ ...f, cron: e.target.value }))}
-          placeholder="30 8 * * *"
+          onChange={(cron) => setForm((f) => ({ ...f, cron }))}
         />
       </Field>
       {skills.length > 0 ? (

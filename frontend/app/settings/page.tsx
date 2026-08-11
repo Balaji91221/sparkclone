@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback } from "react";
-import { Card, PageHeader } from "@/components/ui";
+import { useCallback, useState } from "react";
+import { Button, Card, PageHeader } from "@/components/ui";
+import { googleDisconnect, googleStatus } from "@/lib/api";
 import { usePoll } from "@/lib/use-poll";
 
 type Health = { kind: "ok" } | { kind: "down"; message: string };
@@ -37,7 +38,7 @@ export default function SettingsPage() {
         <div className="flex items-center justify-between px-5 py-4">
           <div>
             <p className="text-sm font-medium">FastAPI server</p>
-            <p className="text-[13px] text-muted">Proxied from this dashboard to :8000</p>
+            <p className="text-[13px] text-muted">Proxied from this dashboard to the API server</p>
           </div>
           {health?.kind === "ok" ? (
             <span className="rounded-full bg-ok-soft px-2.5 py-0.5 text-xs font-medium text-ok">
@@ -52,28 +53,70 @@ export default function SettingsPage() {
       </Card>
 
       <h2 className="mb-3 mt-8 text-[15px] font-semibold">Google account</h2>
-      <Card>
-        <div className="flex items-center justify-between gap-4 px-5 py-4">
-          <div>
-            <p className="text-sm font-medium">Gmail &amp; Drive</p>
-            <p className="max-w-md text-[13px] text-muted">
-              Sign in with Google to let the agent read your inbox and Drive files. The
-              OAuth backend ships in the next phase — credentials are already configured
-              in <code className="font-mono">.env</code>.
-            </p>
-          </div>
-          <button
-            type="button"
-            disabled
-            className="cursor-not-allowed rounded-full border border-line bg-surface-2 px-4
-              py-1.5 text-[13px] font-medium text-muted"
-            title="Coming in Phase 1/2 of the Google integration plan"
-          >
-            Not connected
-          </button>
-        </div>
-      </Card>
+      <GoogleCard />
 
+      <AgentToolsSection />
+    </div>
+  );
+}
+
+function GoogleCard() {
+  const [error, setError] = useState("");
+  const fetchStatus = useCallback((signal: AbortSignal) => googleStatus(signal), []);
+  const { state, reload } = usePoll(fetchStatus, 8000);
+  const status = state.kind === "ready" ? state.data : null;
+
+  const disconnect = async () => {
+    if (!window.confirm("Disconnect Google? Stored tokens are revoked and deleted.")) return;
+    setError("");
+    try {
+      await googleDisconnect();
+      reload();
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : String(e));
+    }
+  };
+
+  return (
+    <Card>
+      <div className="flex items-center justify-between gap-4 px-5 py-4">
+        <div>
+          <p className="text-sm font-medium">Gmail &amp; Drive</p>
+          <p className="max-w-md text-[13px] text-muted">
+            {status?.connected
+              ? `Connected as ${status.email}. The agent can read Gmail and Drive, and send
+                 mail with your approval.`
+              : "Sign in with Google to let the agent read your inbox and Drive files."}
+          </p>
+          {error ? <p className="mt-1 text-xs text-danger">{error}</p> : null}
+        </div>
+        {status?.connected ? (
+          <div className="flex shrink-0 items-center gap-2">
+            <span className="rounded-full bg-ok-soft px-2.5 py-0.5 text-xs font-medium text-ok">
+              connected
+            </span>
+            <Button onClick={() => void disconnect()}>Disconnect</Button>
+          </div>
+        ) : (
+          <Button
+            variant="primary"
+            // Backend route (proxied), not a Next.js page — full-page navigation
+            // is required so Google's redirects can take over.
+            // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+            onClick={() => window.location.assign(`${window.location.origin}/auth/google/login`)}
+            disabled={!status}
+          >
+            Connect Google
+          </Button>
+        )}
+      </div>
+    </Card>
+  );
+}
+
+function AgentToolsSection() {
+  return (
+    <div>
       <h2 className="mb-3 mt-8 text-[15px] font-semibold">Agent tools</h2>
       <Card>
         {TOOLS.map((t) => (

@@ -137,3 +137,25 @@ export async function listApprovals(signal?: AbortSignal): Promise<Approval[]> {
 export async function decideApproval(id: string, decision: "approve" | "deny"): Promise<void> {
   await request(`/api/approvals/${id}/${decision}`, { method: "POST" });
 }
+
+export type GoogleStatus = { connected: boolean; email: string; scopes: string[] };
+
+function parseGoogleStatus(v: unknown): GoogleStatus {
+  if (typeof v !== "object" || v === null) return { connected: false, email: "", scopes: [] };
+  const r = v as Record<string, unknown>;
+  return {
+    connected: r.connected === true,
+    email: typeof r.email === "string" ? r.email : "",
+    scopes: Array.isArray(r.scopes)
+      ? r.scopes.filter((s): s is string => typeof s === "string")
+      : [],
+  };
+}
+
+export async function googleStatus(signal?: AbortSignal): Promise<GoogleStatus> {
+  return parseGoogleStatus(await request("/auth/google/status", { signal }));
+}
+
+export async function googleDisconnect(): Promise<void> {
+  await request("/auth/google/disconnect", { method: "POST" });
+}
