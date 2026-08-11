@@ -64,5 +64,9 @@ class Settings(BaseModel):
     # youtube-transcript-api, which needs no key).
     youtube_api_key: str = os.getenv("YOUTUBE_API_KEY", "")
 
+    # Email attachments may only be read from inside this directory.
+    attachments_dir: str = os.getenv(
+        "SPARK_ATTACHMENTS_DIR", os.path.expanduser("~/Market Reports"))
+
 
 settings = Settings()

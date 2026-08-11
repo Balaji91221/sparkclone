@@ -97,9 +97,10 @@ def read_gmail(limit: int = 10, query: str = "") -> str:
     return UNTRUSTED_WRAP.format(body=json.dumps(res, ensure_ascii=False, indent=1))
 
 
-def send_gmail(to: str, subject: str, body: str) -> str:
+def send_gmail(to: str, subject: str, body: str, html: str = "",
+               attachments: list[str] | None = None) -> str:
     from ..google import client as g
-    return g.gmail_send(to, subject, body)
+    return g.gmail_send(to, subject, body, html, attachments)
 
 
 def list_drive_files(query: str = "", limit: int = 20) -> str:
@@ -293,9 +294,14 @@ register(Tool(
 ))
 register(Tool(
     name="send_gmail",
-    description="Send an email from the user's Gmail account. Requires human approval before executing.",
+    description="Send an email from the user's Gmail account. Requires human approval before executing. Pass PLAIN TEXT in body and (optionally) a full HTML document in html — the tool builds the multipart message itself; NEVER write raw MIME/--boundary markup. attachments takes file paths inside the allowed reports directory.",
     input_schema={"type": "object", "properties": {
-        "to": {"type": "string"}, "subject": {"type": "string"}, "body": {"type": "string"},
+        "to": {"type": "string"},
+        "subject": {"type": "string"},
+        "body": {"type": "string", "description": "Plain-text part"},
+        "html": {"type": "string", "description": "Optional HTML alternative part"},
+        "attachments": {"type": "array", "items": {"type": "string"},
+                        "description": "File paths to attach (allowlisted directory only)"},
     }, "required": ["to", "subject", "body"]},
     fn=send_gmail,
     requires_approval=True,

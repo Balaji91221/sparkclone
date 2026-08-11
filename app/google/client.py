@@ -7,11 +7,13 @@ raising, so a run degrades gracefully.
 from __future__ import annotations
 
 import base64
-from email.mime.text import MIMEText
+import os
+from email.message import EmailMessage
 
 import httpx
 
 from ..auth.google_oauth import get_access_token
+from ..config import settings
 
 GMAIL = "https://gmail.googleapis.com/gmail/v1/users/me"
 DRIVE = "https://www.googleapis.com/drive/v3"
@@ -54,18 +56,53 @@ def gmail_list_messages(limit: int, query: str) -> list[dict] | str:
         return out
 
 
-def gmail_send(to: str, subject: str, body: str) -> str:
+def _resolve_attachment(path: str) -> str | None:
+    """Only files inside the allowlisted attachments directory may be sent."""
+    allowed = os.path.realpath(os.path.expanduser(settings.attachments_dir))
+    real = os.path.realpath(os.path.expanduser(path))
+    if not real.startswith(allowed + os.sep):
+        return None
+    return real if os.path.isfile(real) else None
+
+
+def build_email(to: str, subject: str, body: str, html: str = "",
+                attachments: list[str] | None = None) -> tuple[EmailMessage, list[str]]:
+    """Assemble the MIME message; returns (message, rejected_attachment_paths)."""
+    msg = EmailMessage()
+    msg["To"], msg["Subject"] = to, subject
+    msg.set_content(body)
+    if html.strip():
+        msg.add_alternative(html, subtype="html")
+    rejected = []
+    for path in attachments or []:
+        real = _resolve_attachment(path)
+        if not real:
+            rejected.append(path)
+            continue
+        with open(real, "rb") as f:
+            data = f.read()
+        subtype = "pdf" if real.lower().endswith(".pdf") else "octet-stream"
+        msg.add_attachment(data, maintype="application", subtype=subtype,
+                           filename=os.path.basename(real))
+    return msg, rejected
+
+
+def gmail_send(to: str, subject: str, body: str, html: str = "",
+               attachments: list[str] | None = None) -> str:
     token = get_access_token()
     if not token:
         return RECONNECT_MSG
-    msg = MIMEText(body)
-    msg["To"], msg["Subject"] = to, subject
+    msg, rejected = build_email(to, subject, body, html, attachments)
     raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
     with _client(token) as c:
         res = c.post(f"{GMAIL}/messages/send", json={"raw": raw})
         if res.status_code != 200:
             return f"Gmail send failed {res.status_code}: {res.text[:300]}"
-        return f"Email sent to {to} via Gmail (id {res.json().get('id', '?')})."
+        note = ""
+        if rejected:
+            note = (f" NOTE: {len(rejected)} attachment(s) were refused (outside "
+                    f"{settings.attachments_dir}): {rejected}")
+        return f"Email sent to {to} via Gmail (id {res.json().get('id', '?')}).{note}"
 
 
 def drive_list(query: str, limit: int) -> list[dict] | str:
