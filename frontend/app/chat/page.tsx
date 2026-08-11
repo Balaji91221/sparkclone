@@ -47,30 +47,31 @@ export default function ChatPage() {
 
   return (
     <div className="flex h-[calc(100vh-4rem)] gap-6">
-      <aside
-        className="flex w-60 shrink-0 flex-col overflow-hidden rounded-xl border
-          border-line bg-surface shadow-sm"
-      >
-        <div className="flex items-center justify-between border-b border-line px-4 py-3">
-          <p className="text-[13px] font-semibold">Chats</p>
+      <aside className="flex w-52 shrink-0 flex-col">
+        <div className="mb-2 flex items-center justify-between px-2">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted">
+            Recent
+          </p>
           <button
             type="button"
             onClick={() => void startNew()}
-            className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-fg
-              transition hover:opacity-90"
+            className="rounded-full px-2.5 py-1 text-xs font-medium text-accent
+              transition hover:bg-accent-soft"
           >
-            + New
+            + New chat
           </button>
         </div>
-        <div className="flex-1 space-y-0.5 overflow-y-auto p-2">
-          {chatsState.kind === "loading" ? <Skeleton rows={3} /> : null}
+        <div className="flex-1 space-y-0.5 overflow-y-auto">
+          {chatsState.kind === "loading" ? (
+            <div className="skeleton-shimmer h-10 rounded-lg" />
+          ) : null}
           {chats.length === 0 && chatsState.kind === "ready" ? (
-            <p className="px-2 py-3 text-xs text-muted">No chats yet.</p>
+            <p className="px-2 py-2 text-xs text-muted">No chats yet.</p>
           ) : null}
           {chats.map((c) => (
             <div
               key={c.id}
-              className={`group flex items-center gap-1 rounded-lg px-3 py-2 text-sm
+              className={`group flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[13px]
                 transition ${
                   c.id === activeId
                     ? "bg-accent-soft text-accent"
@@ -83,7 +84,7 @@ export default function ChatPage() {
                 className="min-w-0 flex-1 text-left"
               >
                 <p className="truncate font-medium">{c.title}</p>
-                <p className="text-[11px] opacity-70">
+                <p className="text-[11px] opacity-60">
                   {c.status === "thinking" ? "thinking…" : ago(c.updated_at)}
                 </p>
               </button>
@@ -91,8 +92,8 @@ export default function ChatPage() {
                 type="button"
                 aria-label={`Delete chat ${c.title}`}
                 onClick={() => void remove(c.id)}
-                className="hidden rounded p-1 text-xs text-muted hover:text-danger
-                  group-hover:block"
+                className="hidden shrink-0 rounded p-1 text-xs text-muted
+                  hover:text-danger group-hover:block"
               >
                 ✕
               </button>
