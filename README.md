@@ -29,6 +29,20 @@ export $(grep -v '^#' .env | xargs)
 uvicorn app.main:app --reload
 ```
 
+### Dashboard (Next.js)
+
+The dashboard lives in `frontend/` and proxies `/api` + `/health` to the FastAPI
+server on :8000, so no CORS setup is needed:
+
+```bash
+cd frontend
+npm install
+npm run dev        # http://localhost:3000 — sign in with SPARK_API_TOKEN
+```
+
+The legacy single-file dashboard is still served by FastAPI at
+http://localhost:8000 and will be removed once the Google OAuth phases land.
+
 ## Example: Monday inbox digest
 
 1. Create a skill `inbox-digest-style`: *"Group by importance; flag invoices and deadlines first."*

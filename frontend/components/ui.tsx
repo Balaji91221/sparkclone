@@ -1,0 +1,139 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import type { ReactNode } from "react";
+import type { RunStatus } from "@/lib/types";
+
+const STATUS_STYLES: Record<RunStatus, string> = {
+  queued: "bg-info-soft text-info",
+  running: "bg-accent-soft text-accent",
+  waiting_approval: "bg-warn-soft text-warn",
+  succeeded: "bg-ok-soft text-ok",
+  failed: "bg-danger-soft text-danger",
+};
+
+export function StatusChip({ status }: { status: RunStatus }) {
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs
+        font-medium ${STATUS_STYLES[status]}`}
+    >
+      {status === "running" && (
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current" />
+      )}
+      {status.replace("_", " ")}
+    </span>
+  );
+}
+
+type ModalProps = { open: boolean; title: string; onClose: () => void; children: ReactNode };
+
+export function Modal({ open, title, onClose, children }: ModalProps) {
+  const ref = useRef<HTMLDialogElement | null>(null);
+
+  useEffect(() => {
+    const dlg = ref.current;
+    if (!dlg) return;
+    if (open && !dlg.open) dlg.showModal();
+    if (!open && dlg.open) dlg.close();
+  }, [open]);
+
+  return (
+    <dialog
+      ref={ref}
+      onClose={onClose}
+      className="m-auto w-[min(560px,92vw)] rounded-2xl border border-line bg-surface p-7
+        text-foreground shadow-2xl backdrop:bg-black/40"
+    >
+      <h3 className="mb-5 text-lg font-semibold">{title}</h3>
+      {open ? children : null}
+    </dialog>
+  );
+}
+
+type FieldProps = { label: string; hint?: string; children: ReactNode };
+
+export function Field({ label, hint, children }: FieldProps) {
+  return (
+    <label className="mb-4 block">
+      <span className="mb-1.5 block text-[13px] font-medium text-muted">{label}</span>
+      {children}
+      {hint ? <span className="mt-1 block text-xs text-muted">{hint}</span> : null}
+    </label>
+  );
+}
+
+export const inputClass =
+  "w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-foreground " +
+  "outline-none placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20";
+
+type ButtonVariant = "primary" | "ghost" | "danger";
+
+const BUTTON_STYLES: Record<ButtonVariant, string> = {
+  primary: "bg-accent text-accent-fg hover:opacity-90",
+  ghost: "bg-surface-2 text-foreground hover:bg-line",
+  danger: "bg-danger-soft text-danger hover:opacity-85",
+};
+
+type ButtonProps = {
+  variant?: ButtonVariant;
+  onClick?: () => void;
+  type?: "button" | "submit";
+  disabled?: boolean;
+  children: ReactNode;
+};
+
+export function Button({ variant = "ghost", onClick, type = "button", disabled, children }: ButtonProps) {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition
+        disabled:cursor-not-allowed disabled:opacity-50 ${BUTTON_STYLES[variant]}`}
+    >
+      {children}
+    </button>
+  );
+}
+
+type PageHeaderProps = { title: string; lede: string; action?: ReactNode };
+
+export function PageHeader({ title, lede, action }: PageHeaderProps) {
+  return (
+    <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+        <p className="mt-1 max-w-xl text-sm text-muted">{lede}</p>
+      </div>
+      {action}
+    </div>
+  );
+}
+
+export function Card({ children }: { children: ReactNode }) {
+  return (
+    <div className="overflow-hidden rounded-xl border border-line bg-surface shadow-sm">
+      {children}
+    </div>
+  );
+}
+
+type EmptyStateProps = { title: string; hint: string };
+
+export function EmptyState({ title, hint }: EmptyStateProps) {
+  return (
+    <div className="rounded-xl border border-dashed border-line bg-surface px-6 py-14 text-center">
+      <p className="text-[15px] font-medium">{title}</p>
+      <p className="mt-1 text-sm text-muted">{hint}</p>
+    </div>
+  );
+}
+
+export function ErrorBanner({ message }: { message: string }) {
+  return (
+    <div className="mb-4 rounded-lg border border-danger/30 bg-danger-soft px-4 py-2.5 text-sm text-danger">
+      {message}
+    </div>
+  );
+}
