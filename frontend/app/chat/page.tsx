@@ -46,11 +46,27 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] gap-5">
-      <aside className="w-56 shrink-0 overflow-y-auto">
-        <Button variant="primary" onClick={() => void startNew()}>New chat</Button>
-        <div className="mt-3 space-y-1">
+    <div className="flex h-[calc(100vh-4rem)] gap-6">
+      <aside
+        className="flex w-60 shrink-0 flex-col overflow-hidden rounded-xl border
+          border-line bg-surface shadow-sm"
+      >
+        <div className="flex items-center justify-between border-b border-line px-4 py-3">
+          <p className="text-[13px] font-semibold">Chats</p>
+          <button
+            type="button"
+            onClick={() => void startNew()}
+            className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-fg
+              transition hover:opacity-90"
+          >
+            + New
+          </button>
+        </div>
+        <div className="flex-1 space-y-0.5 overflow-y-auto p-2">
           {chatsState.kind === "loading" ? <Skeleton rows={3} /> : null}
+          {chats.length === 0 && chatsState.kind === "ready" ? (
+            <p className="px-2 py-3 text-xs text-muted">No chats yet.</p>
+          ) : null}
           {chats.map((c) => (
             <div
               key={c.id}
@@ -143,24 +159,26 @@ function Conversation({ chatId }: { chatId: string }) {
 
   return (
     <>
-      <div className="min-h-0 flex-1 overflow-y-auto pr-1">
-        {state.kind === "loading" ? <Skeleton rows={3} /> : null}
-        {state.kind === "error" ? <ErrorBanner message={state.message} /> : null}
-        {chat ? (
-          chat.messages.length === 0 && !busy ? (
-            <p className="mt-8 text-center text-sm text-muted">
-              Say hello, or try: “check my inbox every weekday at 9am and send
-              me a summary”.
-            </p>
-          ) : (
-            <ActivityFeed
-              transcript={chat.messages}
-              live={busy}
-              finishedOk
-              variant="chat"
-            />
-          )
-        ) : null}
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="mx-auto w-full max-w-2xl px-1 pt-2">
+          {state.kind === "loading" ? <Skeleton rows={3} /> : null}
+          {state.kind === "error" ? <ErrorBanner message={state.message} /> : null}
+          {chat ? (
+            chat.messages.length === 0 && !busy ? (
+              <p className="mt-10 text-center text-sm text-muted">
+                Say hello, or try: “check my inbox every weekday at 9am and send
+                me a summary”.
+              </p>
+            ) : (
+              <ActivityFeed
+                transcript={chat.messages}
+                live={busy}
+                finishedOk
+                variant="chat"
+              />
+            )
+          ) : null}
+        </div>
       </div>
 
       {sendError ? (
@@ -180,9 +198,9 @@ function Conversation({ chatId }: { chatId: string }) {
           e.preventDefault();
           void send();
         }}
-        className="mt-3 flex items-center gap-3 rounded-full border border-line bg-surface
-          py-2 pl-5 pr-2 shadow-sm transition focus-within:border-accent/60
-          focus-within:ring-2 focus-within:ring-accent/15"
+        className="mx-auto mt-3 flex w-full max-w-2xl items-center gap-3 rounded-full
+          border border-line bg-surface py-2 pl-5 pr-2 shadow-sm transition
+          focus-within:border-accent/60 focus-within:ring-2 focus-within:ring-accent/15"
       >
         <input
           value={draft}

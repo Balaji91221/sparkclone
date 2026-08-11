@@ -25,6 +25,14 @@ const TOOL_LOOKS: Record<string, ToolLook> = {
   youtube_video_info: { label: "YouTube · info", icon: "▶️", className: "bg-danger-soft" },
   list_drive_files: { label: "Drive", icon: "📁", className: "bg-ok-soft" },
   read_drive_file: { label: "Drive · read", icon: "📁", className: "bg-ok-soft" },
+  create_task: { label: "Create task", icon: "🗓️", className: "bg-accent-soft" },
+  update_task: { label: "Update task", icon: "🗓️", className: "bg-accent-soft" },
+  list_tasks: { label: "List tasks", icon: "🗓️", className: "bg-surface-2" },
+  delete_task: { label: "Delete task", icon: "🗑️", className: "bg-danger-soft" },
+  run_task_now: { label: "Run task", icon: "▶", className: "bg-accent-soft" },
+  list_recent_runs: { label: "Recent runs", icon: "🗓️", className: "bg-surface-2" },
+  create_skill: { label: "Create skill", icon: "📘", className: "bg-accent-soft" },
+  list_skills: { label: "List skills", icon: "📘", className: "bg-surface-2" },
 };
 
 const toolLook = (name: string): ToolLook => {
@@ -108,7 +116,7 @@ function Chevron({ open }: { open: boolean }) {
 
 const REASONING_CLAMP = 420;
 
-function ReasoningGroup({ texts }: { texts: string[] }) {
+function ReasoningBody({ texts, small }: { texts: string[]; small?: boolean }) {
   const [expanded, setExpanded] = useState(false);
   const total = texts.reduce((n, t) => n + t.length, 0);
   const overflow = texts.length > 2 || total > REASONING_CLAMP;
@@ -125,30 +133,68 @@ function ReasoningGroup({ texts }: { texts: string[] }) {
     }
   }
   return (
+    <div className="space-y-2">
+      {visible.map((t, i) => (
+        <p
+          key={i}
+          className={`whitespace-pre-wrap italic leading-relaxed text-muted ${
+            small ? "text-[13px]" : "text-sm"
+          } ${!expanded && overflow && i === visible.length - 1 ? "opacity-45" : ""}`}
+        >
+          {t}
+        </p>
+      ))}
+      {overflow ? (
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          className="rounded-full border border-line px-3 py-1 text-xs font-medium
+            text-accent transition hover:bg-accent-soft"
+        >
+          {expanded ? "Show less" : "Show all thinking"}
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
+function ReasoningGroup({ texts }: { texts: string[] }) {
+  return (
     <Row icon={<ClockIcon />}>
-      <div className="space-y-2">
-        {visible.map((t, i) => (
-          <p
-            key={i}
-            className={`whitespace-pre-wrap text-sm italic leading-relaxed text-muted ${
-              !expanded && overflow && i === visible.length - 1 ? "opacity-45" : ""
-            }`}
-          >
-            {t}
-          </p>
-        ))}
-        {overflow ? (
-          <button
-            type="button"
-            onClick={() => setExpanded((v) => !v)}
-            className="rounded-full border border-line px-3 py-1 text-xs font-medium
-              text-accent transition hover:bg-accent-soft"
-          >
-            {expanded ? "Show less" : "Show all thinking"}
-          </button>
-        ) : null}
-      </div>
+      <ReasoningBody texts={texts} />
     </Row>
+  );
+}
+
+function ToolDetails({ input, result }: {
+  input: unknown;
+  result: { text: string; external: boolean } | null;
+}) {
+  return (
+    <div className="anim-fade mt-2 space-y-2.5 rounded-xl border border-line bg-surface p-3">
+      <div>
+        <p className="mb-1 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-muted">
+          Input
+        </p>
+        <pre className={mono}>{JSON.stringify(input, null, 2)}</pre>
+      </div>
+      {result ? (
+        <div>
+          <p className="mb-1 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-muted">
+            Result
+            {result.external ? (
+              <span className="rounded-full bg-warn-soft px-2 py-0.5 text-[10px] font-medium normal-case tracking-normal text-warn">
+                external content — treated as data
+              </span>
+            ) : null}
+            <span className="font-normal normal-case tracking-normal">
+              {result.text.length.toLocaleString()} chars
+            </span>
+          </p>
+          <pre className={mono}>{result.text}</pre>
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -163,9 +209,11 @@ function ToolStep({ step, live }: { step: Extract<Step, { kind: "tool" }>; live:
     <Row icon={look.icon} iconClass={look.className} state={rowState}>
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-sm font-semibold">{look.label}</span>
-        <code className="rounded-full bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-muted">
-          {step.name}
-        </code>
+        {look.label !== step.name ? (
+          <code className="rounded-full bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-muted">
+            {step.name}
+          </code>
+        ) : null}
         {step.result === null ? (
           live ? (
             <span className="flex items-center gap-1.5 text-xs text-accent">
@@ -190,56 +238,105 @@ function ToolStep({ step, live }: { step: Extract<Step, { kind: "tool" }>; live:
         <Chevron open={open} />
         Input &amp; result
       </button>
-
-      {open ? (
-        <div className="anim-fade mt-2 space-y-2.5 rounded-xl border border-line bg-surface p-3">
-          <div>
-            <p className="mb-1 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-muted">
-              Input
-            </p>
-            <pre className={mono}>{JSON.stringify(step.input, null, 2)}</pre>
-          </div>
-          {result ? (
-            <div>
-              <p className="mb-1 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-muted">
-                Result
-                {result.external ? (
-                  <span className="rounded-full bg-warn-soft px-2 py-0.5 text-[10px] font-medium normal-case tracking-normal text-warn">
-                    external content — treated as data
-                  </span>
-                ) : null}
-                <span className="font-normal normal-case tracking-normal">
-                  {result.text.length.toLocaleString()} chars
-                </span>
-              </p>
-              <pre className={mono}>{result.text}</pre>
-            </div>
-          ) : null}
-        </div>
-      ) : null}
+      {open ? <ToolDetails input={step.input} result={result} /> : null}
     </Row>
   );
 }
 
-function StepView({ item, live, variant }: {
-  item: FeedItem;
-  live: boolean;
-  variant: "run" | "chat";
-}) {
+// ---------------------------------------------------------------- chat view
+
+function ChatToolStep({ step, live }: { step: Extract<Step, { kind: "tool" }>; live: boolean }) {
+  const [open, setOpen] = useState(false);
+  const look = toolLook(step.name);
+  const running = step.result === null && live;
+  const result = step.result === null ? null : displayResult(step.result);
+
+  return (
+    <div className="anim-rise mb-3 border-l-2 border-line pl-4">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="inline-flex max-w-full items-center gap-2 rounded-full border
+          border-line bg-surface py-1 pl-1.5 pr-3 text-[13px] transition
+          hover:border-accent/50"
+      >
+        <span
+          className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-[11px]
+            ${look.className} ${running ? "spark-pulse ring-2 ring-accent/50" : ""}`}
+        >
+          {look.icon}
+        </span>
+        <span className="font-medium">{look.label}</span>
+        {toolSummary(step.input) ? (
+          <span className="max-w-56 truncate text-muted">{toolSummary(step.input)}</span>
+        ) : null}
+        {running ? <span className="text-xs text-accent">running…</span> : null}
+        <Chevron open={open} />
+      </button>
+      {open ? <ToolDetails input={step.input} result={result} /> : null}
+    </div>
+  );
+}
+
+function ChatItem({ item, live }: { item: FeedItem; live: boolean }) {
   switch (item.kind) {
     case "task":
-      if (variant === "chat") {
-        return (
-          <div className="anim-rise mb-5 flex justify-end">
-            <div
-              className="max-w-[80%] rounded-2xl rounded-br-md bg-accent px-4 py-2.5
-                text-sm leading-relaxed text-accent-fg shadow-sm"
-            >
-              <p className="whitespace-pre-wrap">{item.text}</p>
-            </div>
+      return (
+        <div className="anim-rise mb-6 flex justify-end">
+          <div
+            className="max-w-[75%] rounded-2xl rounded-br-md bg-accent px-4 py-2.5
+              text-sm leading-relaxed text-accent-fg shadow-sm"
+          >
+            <p className="whitespace-pre-wrap">{item.text}</p>
           </div>
-        );
-      }
+        </div>
+      );
+    case "reasoning-group":
+      return (
+        <div className="anim-rise mb-3 border-l-2 border-line pl-4">
+          <ReasoningBody texts={item.texts} small />
+        </div>
+      );
+    case "reasoning":
+      return (
+        <div className="anim-rise mb-3 border-l-2 border-line pl-4">
+          <ReasoningBody texts={[item.text]} small />
+        </div>
+      );
+    case "narration":
+      return (
+        <div className="anim-rise mb-6 flex gap-3">
+          <span
+            aria-hidden
+            className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full
+              bg-accent-soft text-[13px] text-accent"
+          >
+            ✦
+          </span>
+          <div className="min-w-0 flex-1">
+            <Markdown>{item.text}</Markdown>
+          </div>
+        </div>
+      );
+    case "tool":
+      return <ChatToolStep step={item} live={live} />;
+    case "raw":
+      return (
+        <div className="anim-rise mb-3 border-l-2 border-line pl-4">
+          <pre className={mono}>{JSON.stringify(item.value, null, 2)}</pre>
+        </div>
+      );
+    default: {
+      const _exhaustive: never = item;
+      throw new Error(`unhandled chat item: ${JSON.stringify(_exhaustive)}`);
+    }
+  }
+}
+
+function StepView({ item, live }: { item: FeedItem; live: boolean }) {
+  switch (item.kind) {
+    case "task":
       return (
         <Row icon="📋">
           <details>
@@ -321,10 +418,16 @@ export function ActivityFeed({ transcript, live, finishedOk, variant = "run" }: 
     return (
       <div>
         {items.map((item, i) => (
-          <StepView key={i} item={item} live={live} variant="chat" />
+          <ChatItem key={i} item={item} live={live} />
         ))}
         {live ? (
-          <Row icon="✦" iconClass="bg-accent-soft text-accent">
+          <div className="mb-4 flex items-center gap-3">
+            <span
+              className="spark-pulse grid h-7 w-7 place-items-center rounded-full
+                bg-accent-soft text-[13px] text-accent"
+            >
+              ✦
+            </span>
             <p className="flex items-center gap-2 text-sm text-muted">
               <span className="relative flex h-2 w-2">
                 <span className="absolute h-full w-full animate-ping rounded-full bg-accent opacity-60" />
@@ -332,7 +435,7 @@ export function ActivityFeed({ transcript, live, finishedOk, variant = "run" }: 
               </span>
               Thinking…
             </p>
-          </Row>
+          </div>
         ) : null}
         <div ref={endRef} />
       </div>
@@ -364,7 +467,7 @@ export function ActivityFeed({ transcript, live, finishedOk, variant = "run" }: 
       {expanded ? (
         <div>
           {items.map((item, i) => (
-            <StepView key={i} item={item} live={live} variant="run" />
+            <StepView key={i} item={item} live={live} />
           ))}
           {live ? (
             <Row icon="✦" iconClass="bg-accent-soft text-accent">
