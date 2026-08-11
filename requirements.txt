@@ -5,3 +5,4 @@ apscheduler==3.10.*
 httpx==0.27.*
 pydantic==2.*
 cryptography==43.*
+youtube-transcript-api==1.*

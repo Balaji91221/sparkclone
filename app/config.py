@@ -60,5 +60,9 @@ class Settings(BaseModel):
     # Signs OAuth state values and encrypts stored refresh tokens.
     spark_secret_key: str = os.getenv("SPARK_SECRET_KEY", "dev-secret-change-me")
 
+    # YouTube Data API v3 key (video metadata; captions come from
+    # youtube-transcript-api, which needs no key).
+    youtube_api_key: str = os.getenv("YOUTUBE_API_KEY", "")
+
 
 settings = Settings()

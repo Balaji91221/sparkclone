@@ -150,34 +150,51 @@ def youtube_channel_feed(channel: str) -> str:
 
 
 def youtube_transcript(video_id: str, lang: str = "") -> str:
-    """Best-effort captions: scrape captionTracks from the watch page."""
-    import re
-    import html as html_lib
+    """Fetch captions via youtube-transcript-api (works for auto-captions)."""
     try:
-        page = httpx.get(f"https://www.youtube.com/watch?v={video_id}", timeout=30,
-                         headers={"User-Agent": "Mozilla/5.0", "Accept-Language": "en"})
-        m = re.search(r'"captionTracks":(\[.*?\])', page.text)
-        if not m:
-            return ("Captions unavailable for this video (no caption tracks found). "
-                    "Do not invent content; report that the transcript is unavailable.")
-        tracks = json.loads(m.group(1))
-        track = None
-        if lang:
-            track = next((t for t in tracks if t.get("languageCode", "").startswith(lang)), None)
-        track = track or next((t for t in tracks if "en" in t.get("languageCode", "")), tracks[0])
-        url = track["baseUrl"].replace("\\u0026", "&")
-        cap = httpx.get(url, timeout=30)
-        texts = re.findall(r"<text[^>]*>(.*?)</text>", cap.text, re.S)
-        joined = " ".join(html_lib.unescape(re.sub(r"<[^>]+>", "", t)) for t in texts)
+        from youtube_transcript_api import YouTubeTranscriptApi
+        api = YouTubeTranscriptApi()
+        preferred = [lang] if lang else []
+        fetched = api.fetch(video_id, languages=[*preferred, "te", "en", "hi"])
+        joined = " ".join(s.text for s in fetched)
         if not joined.strip():
-            return ("Captions unavailable for this video (empty track). "
+            return ("Captions unavailable for this video (empty transcript). "
                     "Do not invent content; report that the transcript is unavailable.")
-        lang_code = track.get("languageCode", "?")
         return UNTRUSTED_WRAP.format(
-            body=f"Transcript ({lang_code}) for video {video_id}:\n\n{joined[:30000]}")
+            body=f"Transcript ({fetched.language_code}) for video {video_id}:\n\n"
+                 f"{joined[:60000]}")
     except Exception as e:  # noqa: BLE001
-        return (f"Transcript fetch failed: {e}. Do not invent content; "
-                "report that the transcript is unavailable.")
+        return (f"Transcript unavailable ({type(e).__name__}: {str(e)[:200]}). "
+                "Do not invent content; report that the transcript is unavailable.")
+
+
+def youtube_video_info(video_id: str) -> str:
+    """Exact video metadata via the YouTube Data API (needs YOUTUBE_API_KEY)."""
+    if not settings.youtube_api_key:
+        return "YOUTUBE_API_KEY is not configured. Use youtube_channel_feed instead."
+    try:
+        r = httpx.get("https://www.googleapis.com/youtube/v3/videos", params={
+            "id": video_id, "key": settings.youtube_api_key,
+            "part": "snippet,contentDetails,statistics",
+        }, timeout=30)
+        if r.status_code != 200:
+            return f"YouTube API error {r.status_code}: {r.text[:300]}"
+        items = r.json().get("items", [])
+        if not items:
+            return f"No video found for id {video_id}."
+        v = items[0]
+        sn, cd, st = v.get("snippet", {}), v.get("contentDetails", {}), v.get("statistics", {})
+        info = {
+            "title": sn.get("title", ""),
+            "channel": sn.get("channelTitle", ""),
+            "published_at": sn.get("publishedAt", ""),
+            "duration": cd.get("duration", ""),
+            "views": st.get("viewCount", ""),
+            "description": sn.get("description", "")[:1500],
+        }
+        return UNTRUSTED_WRAP.format(body=json.dumps(info, ensure_ascii=False, indent=1))
+    except Exception as e:  # noqa: BLE001
+        return f"Video info fetch failed: {e}"
 
 
 # ------------------------------------------------------------------ web tools
@@ -310,12 +327,20 @@ register(Tool(
 ))
 register(Tool(
     name="youtube_transcript",
-    description="Fetch a YouTube video's captions/transcript by video ID (best effort; may be unavailable). Optional language code preference, e.g. 'te' or 'en'.",
+    description="Fetch a YouTube video's captions/transcript by video ID (supports auto-generated captions). Optional language code preference, e.g. 'te' or 'en'.",
     input_schema={"type": "object", "properties": {
         "video_id": {"type": "string"},
         "lang": {"type": "string", "description": "Preferred language code", "default": ""},
     }, "required": ["video_id"]},
     fn=youtube_transcript,
+))
+register(Tool(
+    name="youtube_video_info",
+    description="Exact metadata for one YouTube video via the official Data API: title, channel, publish datetime, duration, views, description.",
+    input_schema={"type": "object", "properties": {
+        "video_id": {"type": "string"},
+    }, "required": ["video_id"]},
+    fn=youtube_video_info,
 ))
 register(Tool(
     name="notify",
