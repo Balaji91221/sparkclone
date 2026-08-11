@@ -83,10 +83,10 @@ export default function HomePage() {
       <div className="hero-glow" aria-hidden />
 
       <h1
-        className="anim-rise mb-7 text-center text-3xl font-semibold tracking-tight"
+        className="anim-rise mb-7 text-center text-[2.4rem] font-semibold tracking-tight"
         style={{ "--d": "0ms" } as React.CSSProperties}
       >
-        Put SparkClone to work for you
+        Put <span className="grad-text">SparkClone</span> to work for you
       </h1>
 
       <form
@@ -96,8 +96,9 @@ export default function HomePage() {
           void startChat(quick.trim());
         }}
         className="anim-rise mx-auto mb-8 flex max-w-2xl items-center gap-3 rounded-full
-          border border-line bg-surface py-2 pl-6 pr-2 shadow-sm transition
-          focus-within:border-accent/60 focus-within:shadow-lg
+          border border-line bg-surface py-2 pl-6 pr-2 shadow-[var(--shadow-card)]
+          transition focus-within:border-accent/60
+          focus-within:shadow-[var(--shadow-card-hover)]
           focus-within:ring-2 focus-within:ring-accent/15"
         style={{ "--d": "110ms" } as React.CSSProperties}
       >
@@ -110,9 +111,9 @@ export default function HomePage() {
         <button
           type="submit"
           disabled={starting}
-          className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-accent-fg
-            transition duration-200 hover:-translate-y-0.5 hover:opacity-90
-            active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
+          className="grad-primary rounded-full px-5 py-2 text-sm font-medium
+            hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed
+            disabled:opacity-60"
         >
           {starting ? "Starting…" : "Ask Spark"}
         </button>
@@ -199,8 +200,8 @@ export default function HomePage() {
             key={s.title}
             type="button"
             onClick={() => void startChat(s.prompt)}
-            className="anim-rise hover-lift rounded-xl border border-line bg-surface p-4
-              text-left hover:border-accent/50"
+            className="anim-rise hover-lift rounded-2xl border border-line bg-surface p-4
+              text-left shadow-[var(--shadow-card)] hover:border-accent/50"
             style={{ "--d": `${440 + i * 70}ms` } as React.CSSProperties}
           >
             <p className="text-sm font-medium">{s.title}</p>

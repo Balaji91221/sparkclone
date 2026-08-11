@@ -43,8 +43,8 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut }: SidebarPro
     >
       <div className="mb-6 flex items-center gap-2.5 px-2">
         <span
-          className="spark-pulse grid h-8 w-8 place-items-center rounded-lg bg-accent
-            text-[15px] font-bold text-accent-fg shadow-sm"
+          className="grad-primary spark-pulse grid h-8 w-8 place-items-center rounded-lg
+            text-[15px] font-bold"
         >
           ⚡
         </span>

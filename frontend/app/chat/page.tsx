@@ -211,8 +211,10 @@ function Conversation({ chatId }: { chatId: string }) {
           void send();
         }}
         className="mx-auto mt-3 flex w-full max-w-2xl items-center gap-3 rounded-full
-          border border-line bg-surface py-2 pl-5 pr-2 shadow-sm transition
-          focus-within:border-accent/60 focus-within:ring-2 focus-within:ring-accent/15"
+          border border-line bg-surface py-2 pl-5 pr-2 shadow-[var(--shadow-card)]
+          transition focus-within:border-accent/60
+          focus-within:shadow-[var(--shadow-card-hover)]
+          focus-within:ring-2 focus-within:ring-accent/15"
       >
         <input
           value={draft}
@@ -224,10 +226,9 @@ function Conversation({ chatId }: { chatId: string }) {
         <button
           type="submit"
           disabled={busy || !draft.trim()}
-          className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-accent-fg
-            transition duration-200 hover:-translate-y-0.5 hover:opacity-90
-            active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50
-            disabled:hover:translate-y-0"
+          className="grad-primary rounded-full px-5 py-2 text-sm font-medium
+            hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed
+            disabled:opacity-50 disabled:hover:translate-y-0"
         >
           Send
         </button>

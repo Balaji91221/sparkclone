@@ -49,8 +49,8 @@ export function Login() {
       >
         <div className="mb-6 flex items-center gap-3">
           <span
-            className="spark-pulse grid h-10 w-10 place-items-center rounded-xl bg-accent
-              text-lg font-bold text-accent-fg"
+            className="grad-primary spark-pulse grid h-10 w-10 place-items-center
+              rounded-xl text-lg font-bold"
           >
             ⚡
           </span>

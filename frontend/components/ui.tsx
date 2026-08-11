@@ -71,7 +71,7 @@ export const inputClass =
 type ButtonVariant = "primary" | "ghost" | "danger";
 
 const BUTTON_STYLES: Record<ButtonVariant, string> = {
-  primary: "bg-accent text-accent-fg hover:opacity-90",
+  primary: "grad-primary",
   ghost: "bg-surface-2 text-foreground hover:bg-line",
   danger: "bg-danger-soft text-danger hover:opacity-85",
 };
@@ -116,7 +116,10 @@ export function PageHeader({ title, lede, action }: PageHeaderProps) {
 
 export function Card({ children }: { children: ReactNode }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-line bg-surface shadow-sm">
+    <div
+      className="overflow-hidden rounded-2xl border border-line bg-surface
+        shadow-[var(--shadow-card)]"
+    >
       {children}
     </div>
   );
@@ -160,7 +163,10 @@ export function StatCard({ label, value, hint, tone = "default" }: StatCardProps
   const valueClass =
     tone === "ok" ? "text-ok" : tone === "warn" ? "text-warn" : "text-foreground";
   return (
-    <div className="rounded-xl border border-line bg-surface px-4 py-3.5 shadow-sm">
+    <div
+      className="rounded-2xl border border-line bg-surface px-4 py-3.5
+        shadow-[var(--shadow-card)]"
+    >
       <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">{label}</p>
       <p className={`font-display mt-1 text-xl font-semibold tabular-nums ${valueClass}`}>
         {value}
