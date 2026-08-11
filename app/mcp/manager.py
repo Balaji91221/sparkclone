@@ -109,12 +109,22 @@ def discover(server: ServerConfig, force: bool = False) -> list[dict]:
             return hit[1]
 
     async def _list(session):
-        res = await session.list_tools()
-        return [{
-            "name": t.name,
-            "description": t.description or "",
-            "input_schema": t.input_schema or {"type": "object", "properties": {}},
-        } for t in res.tools]
+        out = []
+        cursor = None
+        # list_tools is paginated; follow next_cursor until exhausted.
+        for _ in range(20):
+            from mcp.types import PaginatedRequestParams
+            params = PaginatedRequestParams(cursor=cursor) if cursor else None
+            res = await session.list_tools(params=params)
+            out += [{
+                "name": t.name,
+                "description": t.description or "",
+                "input_schema": t.input_schema or {"type": "object", "properties": {}},
+            } for t in res.tools]
+            cursor = getattr(res, "next_cursor", None)
+            if not cursor:
+                break
+        return out
 
     tools = _run(server, _list)
     with _cache_lock:
@@ -136,8 +146,11 @@ def call(server: ServerConfig, tool_name: str, arguments: dict) -> str:
             text = getattr(c, "text", None)
             parts.append(text if isinstance(text, str) else json.dumps(
                 getattr(c, "__dict__", str(c)), default=str))
+        structured = getattr(res, "structured_content", None)
+        if not parts and structured is not None:
+            parts.append(json.dumps(structured, default=str, indent=1))
         joined = "\n".join(parts) or "(empty result)"
-        if getattr(res, "isError", False):
+        if getattr(res, "is_error", False):
             return f"MCP tool error: {joined}"
         return joined
 

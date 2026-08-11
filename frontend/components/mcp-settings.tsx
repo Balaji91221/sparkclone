@@ -27,6 +27,7 @@ export function MCPSettings() {
   const fetchServers = useCallback((signal: AbortSignal) => listMcpServers(signal), []);
   const { state, reload } = usePoll(fetchServers, 15000);
   const servers = state.kind === "ready" ? state.data : [];
+  const loadError = state.kind === "error" ? state.message : "";
 
   const act = async (fn: () => Promise<void>) => {
     setError("");
@@ -77,6 +78,14 @@ export function MCPSettings() {
       </p>
       {error && dialog.kind === "closed" ? (
         <p className="mb-3 rounded-lg bg-danger-soft px-3 py-2 text-sm text-danger">{error}</p>
+      ) : null}
+      {loadError ? (
+        <p className="mb-3 rounded-lg bg-danger-soft px-3 py-2 text-sm text-danger">
+          Could not load MCP servers: {loadError}
+        </p>
+      ) : null}
+      {state.kind === "loading" ? (
+        <div className="skeleton-shimmer h-14 rounded-xl" />
       ) : null}
 
       {servers.length === 0 && state.kind === "ready" ? (

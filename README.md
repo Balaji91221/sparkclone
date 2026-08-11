@@ -54,7 +54,7 @@ http://localhost:8000 and will be removed once the Google OAuth phases land.
 ## Architecture
 
 ```
-web/index.html  ──► FastAPI (app/main.py) ──► SQLite/Postgres (app/db.py)
+frontend/ (Next.js) ──► FastAPI (app/main.py + app/api routers) ──► SQLite/Postgres (app/db.py)
                         │
                         ├─ scheduler.py  (APScheduler cron → enqueue Run)
                         │        └─ ThreadPool → agent/runtime.py
