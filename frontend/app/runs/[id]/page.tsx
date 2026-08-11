@@ -92,14 +92,16 @@ function RunView({ run }: { run: RunDetail }) {
         </div>
       ) : null}
 
-      {run.output ? (
-        <section className="mb-6">
-          <h2 className="mb-2 text-[15px] font-semibold">Result</h2>
-          <div className="rounded-xl border border-line bg-surface px-5 py-4 shadow-sm">
-            <Markdown>{run.output}</Markdown>
-          </div>
-        </section>
-      ) : null}
+      {/* Gemini/Claude Code order: the agent's activity streams first, and the
+          final response lands below it once the run completes. */}
+      <section className="mb-6">
+        <h2 className="mb-3 text-[15px] font-semibold">Activity</h2>
+        <ActivityFeed
+          transcript={run.transcript}
+          live={isLive(run.status)}
+          finishedOk={run.status === "succeeded"}
+        />
+      </section>
 
       {run.error ? (
         <section className="mb-6">
@@ -113,14 +115,14 @@ function RunView({ run }: { run: RunDetail }) {
         </section>
       ) : null}
 
-      <section>
-        <h2 className="mb-3 text-[15px] font-semibold">Activity</h2>
-        <ActivityFeed
-          transcript={run.transcript}
-          live={isLive(run.status)}
-          finishedOk={run.status === "succeeded"}
-        />
-      </section>
+      {run.output ? (
+        <section className="anim-rise mb-6">
+          <h2 className="mb-2 text-[15px] font-semibold">Response</h2>
+          <div className="rounded-xl border border-line bg-surface px-5 py-4 shadow-sm">
+            <Markdown>{run.output}</Markdown>
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

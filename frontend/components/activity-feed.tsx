@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { displayResult, toSteps, toolSummary } from "@/lib/transcript-steps";
 import type { Step } from "@/lib/transcript-steps";
+import { Markdown } from "./markdown";
 
 type ToolLook = { label: string; icon: string; className: string };
 
@@ -229,7 +230,7 @@ function StepView({ item, live }: { item: FeedItem; live: boolean }) {
     case "narration":
       return (
         <Row icon="✦" iconClass="bg-accent-soft text-accent">
-          <p className="whitespace-pre-wrap text-sm leading-relaxed">{item.text}</p>
+          <Markdown>{item.text}</Markdown>
         </Row>
       );
     case "tool":
