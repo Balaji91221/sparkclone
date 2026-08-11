@@ -7,6 +7,11 @@ type NavItem = { href: string; label: string; icon: string };
 
 const NAV: NavItem[] = [
   { href: "/", label: "Overview", icon: "M3 12l9-8 9 8M5 10v10h14V10" },
+  {
+    href: "/chat",
+    label: "Chat",
+    icon: "M21 12a8 8 0 01-8 8H5l-2 2V12a8 8 0 018-8h2a8 8 0 018 8zM8 12h.01M12 12h.01M16 12h.01",
+  },
   { href: "/tasks", label: "Tasks", icon: "M12 3a9 9 0 110 18 9 9 0 010-18zM12 7v5l3 2" },
   { href: "/skills", label: "Skills", icon: "M6 4h9a3 3 0 013 3v13H8a2 2 0 01-2-2V4zM9 8h6M9 12h6" },
   { href: "/runs", label: "Runs", icon: "M4 17l5-5-5-5M11 19h9" },

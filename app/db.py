@@ -89,10 +89,33 @@ class Run(Base):
     approvals = relationship("Approval", back_populates="run", cascade="all, delete-orphan")
 
 
+class Chat(Base):
+    """An interactive conversation with the agent."""
+    __tablename__ = "chats"
+    id = Column(String, primary_key=True, default=new_id)
+    title = Column(String, default="New chat")
+    status = Column(String, default="idle")  # idle | thinking | waiting_approval
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow)
+
+
+class ChatMessage(Base):
+    """One transcript message (user / assistant / tool) in a chat."""
+    __tablename__ = "chat_messages"
+    id = Column(String, primary_key=True, default=new_id)
+    chat_id = Column(String, ForeignKey("chats.id"), nullable=False)
+    message = Column(JSON, nullable=False)  # provider-format message dict
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+
+
 class Approval(Base):
     __tablename__ = "approvals"
     id = Column(String, primary_key=True, default=new_id)
+    # Exactly one origin: run_id for task runs ("" when from chat), chat_id
+    # for chat turns ("" when from a run). run_id keeps NOT NULL for legacy
+    # rows; SQLite does not enforce the FK, so "" is safe there.
     run_id = Column(String, ForeignKey("runs.id"), nullable=False)
+    chat_id = Column(String, default="")
     tool_name = Column(String, nullable=False)
     tool_input = Column(JSON, default=dict)
     status = Column(String, default="pending")  # pending | approved | denied
@@ -129,6 +152,20 @@ class GoogleCredential(Base):
 
 def init_db() -> None:
     Base.metadata.create_all(engine)
+    _migrate()
+
+
+def _migrate() -> None:
+    """Tiny additive migrations create_all can't do on existing tables."""
+    if not settings.database_url.startswith("sqlite"):
+        return
+    from sqlalchemy import text
+    with engine.connect() as conn:
+        cols = [row[1] for row in conn.execute(text("PRAGMA table_info(approvals)"))]
+        if "chat_id" not in cols:
+            conn.execute(text(
+                "ALTER TABLE approvals ADD COLUMN chat_id VARCHAR DEFAULT ''"))
+            conn.commit()
 
 
 def db_session() -> Session:

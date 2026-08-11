@@ -19,6 +19,11 @@ _executor = ThreadPoolExecutor(max_workers=int(os.getenv("WORKERS", "4")))
 _scheduler = BackgroundScheduler(timezone=os.getenv("TZ", "UTC"))
 
 
+def submit(fn, *args) -> None:
+    """Run a callable on the shared worker pool (used by chat turns)."""
+    _executor.submit(fn, *args)
+
+
 def enqueue_run(task_id: str, trigger: str = "manual") -> str:
     with db_session() as db:
         run = Run(task_id=task_id, trigger=trigger)

@@ -106,10 +106,24 @@ function Chevron({ open }: { open: boolean }) {
   );
 }
 
+const REASONING_CLAMP = 420;
+
 function ReasoningGroup({ texts }: { texts: string[] }) {
   const [expanded, setExpanded] = useState(false);
-  const visible = expanded ? texts : texts.slice(0, 2);
-  const overflow = texts.length > 2;
+  const total = texts.reduce((n, t) => n + t.length, 0);
+  const overflow = texts.length > 2 || total > REASONING_CLAMP;
+  let visible = texts;
+  if (!expanded && overflow) {
+    // Show roughly the first CLAMP characters across items, fade the tail.
+    visible = [];
+    let used = 0;
+    for (const t of texts) {
+      if (used >= REASONING_CLAMP) break;
+      const room = REASONING_CLAMP - used;
+      visible.push(t.length > room ? `${t.slice(0, room)}…` : t);
+      used += t.length;
+    }
+  }
   return (
     <Row icon={<ClockIcon />}>
       <div className="space-y-2">
@@ -117,7 +131,7 @@ function ReasoningGroup({ texts }: { texts: string[] }) {
           <p
             key={i}
             className={`whitespace-pre-wrap text-sm italic leading-relaxed text-muted ${
-              !expanded && overflow && i === 1 ? "opacity-45" : ""
+              !expanded && overflow && i === visible.length - 1 ? "opacity-45" : ""
             }`}
           >
             {t}
@@ -130,7 +144,7 @@ function ReasoningGroup({ texts }: { texts: string[] }) {
             className="rounded-full border border-line px-3 py-1 text-xs font-medium
               text-accent transition hover:bg-accent-soft"
           >
-            {expanded ? "Show less" : `Show all (${texts.length})`}
+            {expanded ? "Show less" : "Show all thinking"}
           </button>
         ) : null}
       </div>
@@ -207,9 +221,25 @@ function ToolStep({ step, live }: { step: Extract<Step, { kind: "tool" }>; live:
   );
 }
 
-function StepView({ item, live }: { item: FeedItem; live: boolean }) {
+function StepView({ item, live, variant }: {
+  item: FeedItem;
+  live: boolean;
+  variant: "run" | "chat";
+}) {
   switch (item.kind) {
     case "task":
+      if (variant === "chat") {
+        return (
+          <div className="anim-rise mb-5 flex justify-end">
+            <div
+              className="max-w-[80%] rounded-2xl rounded-br-md bg-accent px-4 py-2.5
+                text-sm leading-relaxed text-accent-fg shadow-sm"
+            >
+              <p className="whitespace-pre-wrap">{item.text}</p>
+            </div>
+          </div>
+        );
+      }
       return (
         <Row icon="📋">
           <details>
@@ -248,10 +278,24 @@ function StepView({ item, live }: { item: FeedItem; live: boolean }) {
   }
 }
 
-type ActivityFeedProps = { transcript: unknown; live: boolean; finishedOk: boolean };
+// Nudge prompts the runtime injects mid-conversation; hidden from display.
+const NUDGE_PREFIXES = [
+  "If the task is fully complete, reply with the final summary",
+  "If you have finished, reply to the user now.",
+];
 
-export function ActivityFeed({ transcript, live, finishedOk }: ActivityFeedProps) {
-  const steps = toSteps(transcript);
+const isNudge = (s: Step) =>
+  s.kind === "task" && NUDGE_PREFIXES.some((p) => s.text.startsWith(p));
+
+type ActivityFeedProps = {
+  transcript: unknown;
+  live: boolean;
+  finishedOk: boolean;
+  variant?: "run" | "chat";
+};
+
+export function ActivityFeed({ transcript, live, finishedOk, variant = "run" }: ActivityFeedProps) {
+  const steps = toSteps(transcript).filter((s) => !isNudge(s));
   const items = groupSteps(steps);
   // Collapsed by default only for finished, successful runs (Gemini-style):
   // the summary is the star; the trace is a click away.
@@ -261,14 +305,39 @@ export function ActivityFeed({ transcript, live, finishedOk }: ActivityFeedProps
   const count = steps.length;
 
   useEffect(() => {
-    if (live && count > 0) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [count, live]);
+    // Runs scroll only while live; chat follows every new message.
+    if ((live || variant === "chat") && count > 0) {
+      endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, [count, live, variant]);
 
   if (steps.length === 0 && !live) {
     return <p className="text-sm text-muted">No activity recorded.</p>;
   }
 
   const toolCount = steps.filter((s) => s.kind === "tool").length;
+
+  if (variant === "chat") {
+    return (
+      <div>
+        {items.map((item, i) => (
+          <StepView key={i} item={item} live={live} variant="chat" />
+        ))}
+        {live ? (
+          <Row icon="✦" iconClass="bg-accent-soft text-accent">
+            <p className="flex items-center gap-2 text-sm text-muted">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                <span className="relative h-2 w-2 rounded-full bg-accent" />
+              </span>
+              Thinking…
+            </p>
+          </Row>
+        ) : null}
+        <div ref={endRef} />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -295,7 +364,7 @@ export function ActivityFeed({ transcript, live, finishedOk }: ActivityFeedProps
       {expanded ? (
         <div>
           {items.map((item, i) => (
-            <StepView key={i} item={item} live={live} />
+            <StepView key={i} item={item} live={live} variant="run" />
           ))}
           {live ? (
             <Row icon="✦" iconClass="bg-accent-soft text-accent">

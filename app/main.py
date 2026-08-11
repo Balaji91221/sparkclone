@@ -12,9 +12,9 @@ import uuid
 from fastapi import FastAPI, Request
 
 from . import scheduler
-from .api import approvals, mcp, runs, skills, tasks, tools
+from .api import approvals, chats, mcp, runs, skills, tasks, tools
 from .auth.google_oauth import router as google_router
-from .db import Run, RunStatus, db_session, init_db, utcnow
+from .db import Approval, Chat, Run, RunStatus, db_session, init_db, utcnow
 
 log = logging.getLogger("spark")
 logging.basicConfig(level=logging.INFO,
@@ -31,12 +31,21 @@ def _reap_orphaned_runs() -> None:
             r.status = RunStatus.failed
             r.error = "Server restarted while this run was in progress. Run the task again."
             r.finished_at = utcnow()
+        # Chats whose worker died mid-turn: unstick them and clear their
+        # pending approvals so the queue doesn't hold ghosts.
+        for chat in db.query(Chat).filter(Chat.status != "idle").all():
+            chat.status = "idle"
+        for a in (db.query(Approval)
+                  .filter(Approval.status == "pending", Approval.chat_id != "")
+                  .all()):
+            a.status = "denied"
+            a.resolved_at = utcnow()
         db.commit()
 
 
 app = FastAPI(title="SparkClone", version="2.0.0")
 for router in (tasks.router, skills.router, runs.router, approvals.router,
-               tools.router, mcp.router, google_router):
+               tools.router, mcp.router, chats.router, google_router):
     app.include_router(router)
 
 

@@ -12,9 +12,9 @@ router = APIRouter(prefix="/api/approvals", dependencies=[Depends(auth)])
 def list_approvals():
     with db_session() as db:
         pending = db.query(Approval).filter(Approval.status == "pending").all()
-        return [{"id": a.id, "run_id": a.run_id, "tool_name": a.tool_name,
-                 "tool_input": a.tool_input, "created_at": str(a.created_at)}
-                for a in pending]
+        return [{"id": a.id, "run_id": a.run_id, "chat_id": a.chat_id or "",
+                 "tool_name": a.tool_name, "tool_input": a.tool_input,
+                 "created_at": str(a.created_at)} for a in pending]
 
 
 @router.post("/{approval_id}/{decision}")

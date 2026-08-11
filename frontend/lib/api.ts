@@ -241,3 +241,46 @@ function parseAgentTool(v: unknown): AgentTool | null {
 export async function listAgentTools(signal?: AbortSignal): Promise<AgentTool[]> {
   return parseList(await request("/api/tools", { signal }), parseAgentTool);
 }
+
+export type ChatSummary = { id: string; title: string; status: string; updated_at: string };
+
+function parseChatSummary(v: unknown): ChatSummary | null {
+  if (typeof v !== "object" || v === null) return null;
+  const r = v as Record<string, unknown>;
+  if (typeof r.id !== "string") return null;
+  return {
+    id: r.id,
+    title: typeof r.title === "string" ? r.title : "Chat",
+    status: typeof r.status === "string" ? r.status : "idle",
+    updated_at: typeof r.updated_at === "string" ? r.updated_at : "",
+  };
+}
+
+export type ChatDetail = ChatSummary & { messages: unknown[] };
+
+export async function createChat(): Promise<string> {
+  const res = await request("/api/chats", { method: "POST" });
+  const id = (res as Record<string, unknown> | null)?.id;
+  if (typeof id !== "string") throw new ApiError(500, "unexpected create-chat response");
+  return id;
+}
+
+export async function listChats(signal?: AbortSignal): Promise<ChatSummary[]> {
+  return parseList(await request("/api/chats", { signal }), parseChatSummary);
+}
+
+export async function getChat(id: string, signal?: AbortSignal): Promise<ChatDetail | null> {
+  const res = await request(`/api/chats/${id}`, { signal });
+  const base = parseChatSummary(res);
+  if (!base) return null;
+  const messages = (res as Record<string, unknown>).messages;
+  return { ...base, updated_at: base.updated_at, messages: Array.isArray(messages) ? messages : [] };
+}
+
+export async function sendChatMessage(id: string, content: string): Promise<void> {
+  await request(`/api/chats/${id}/messages`, { method: "POST", body: { content } });
+}
+
+export async function deleteChat(id: string): Promise<void> {
+  await request(`/api/chats/${id}`, { method: "DELETE" });
+}
