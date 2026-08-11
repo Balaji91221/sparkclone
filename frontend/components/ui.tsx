@@ -160,7 +160,7 @@ export function StatCard({ label, value, hint, tone = "default" }: StatCardProps
   const valueClass =
     tone === "ok" ? "text-ok" : tone === "warn" ? "text-warn" : "text-foreground";
   return (
-    <div className="hover-lift rounded-xl border border-line bg-surface px-4 py-3.5 shadow-sm">
+    <div className="rounded-xl border border-line bg-surface px-4 py-3.5 shadow-sm">
       <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">{label}</p>
       <p className={`font-display mt-1 text-xl font-semibold tabular-nums ${valueClass}`}>
         {value}

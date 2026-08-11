@@ -6,7 +6,6 @@ import { useCallback, useState } from "react";
 import { Card, Skeleton, StatCard, StatusChip } from "@/components/ui";
 import { listApprovals, listRuns, listTasks } from "@/lib/api";
 import { ago } from "@/lib/format";
-import { useReveal } from "@/lib/use-reveal";
 import type { Approval, RunSummary, Task } from "@/lib/types";
 import { usePoll } from "@/lib/use-poll";
 
@@ -40,7 +39,6 @@ type HomeData = {
 export default function HomePage() {
   const router = useRouter();
   const [quick, setQuick] = useState("");
-  const revealRoot = useReveal<HTMLDivElement>();
 
   const fetchAll = useCallback(async (signal: AbortSignal): Promise<HomeData> => {
     const [tasks, runs, approvals] = await Promise.all([
@@ -68,7 +66,7 @@ export default function HomePage() {
       : null;
 
   return (
-    <div ref={revealRoot} className="relative pt-6">
+    <div className="relative pt-6">
       <div className="hero-glow" aria-hidden />
 
       <h1
@@ -129,7 +127,10 @@ export default function HomePage() {
         />
       </div>
 
-      <div className="reveal mb-2 flex items-baseline justify-between">
+      <div
+        className="anim-rise mb-2 flex items-baseline justify-between"
+        style={{ "--d": "300ms" } as React.CSSProperties}
+      >
         <h2 className="text-[15px] font-semibold">Recent activity</h2>
         <Link href="/runs" className="text-xs font-medium text-accent hover:underline">
           All runs →
@@ -137,7 +138,7 @@ export default function HomePage() {
       </div>
       {!data ? <Skeleton rows={3} /> : null}
       {data && data.runs.length > 0 ? (
-        <div className="reveal">
+        <div className="anim-rise">
           <Card>
             {data.runs.slice(0, 5).map((r) => (
               <Link
@@ -166,16 +167,21 @@ export default function HomePage() {
         </p>
       ) : null}
 
-      <h2 className="reveal mb-3 mt-9 text-[15px] font-semibold">Suggested</h2>
+      <h2
+        className="anim-rise mb-3 mt-9 text-[15px] font-semibold"
+        style={{ "--d": "380ms" } as React.CSSProperties}
+      >
+        Suggested
+      </h2>
       <div className="grid gap-3 sm:grid-cols-3">
         {SUGGESTIONS.map((s, i) => (
           <button
             key={s.title}
             type="button"
             onClick={() => openEditor(s.prompt)}
-            className="reveal hover-lift rounded-xl border border-line bg-surface p-4
+            className="anim-rise hover-lift rounded-xl border border-line bg-surface p-4
               text-left hover:border-accent/50"
-            style={{ "--d": `${i * 90}ms` } as React.CSSProperties}
+            style={{ "--d": `${440 + i * 70}ms` } as React.CSSProperties}
           >
             <p className="text-sm font-medium">{s.title}</p>
             <p className="mt-1 text-[13px] text-muted">{s.desc}</p>

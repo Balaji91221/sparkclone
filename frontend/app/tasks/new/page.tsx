@@ -22,7 +22,10 @@ function NewTaskInner() {
 
   return (
     <TaskEditor
-      prefill={{ name: params.get("name") ?? "", prompt: params.get("prompt") ?? "" }}
+      mode={{
+        kind: "create",
+        prefill: { name: params.get("name") ?? "", prompt: params.get("prompt") ?? "" },
+      }}
       skills={state.kind === "ready" ? state.data : []}
     />
   );

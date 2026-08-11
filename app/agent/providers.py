@@ -30,15 +30,26 @@ _limiter = RateLimiter(max_requests=max(1, int(settings.llm_max_rps)), per_secon
 def _post(url: str, headers: dict, payload: dict) -> dict:
     backoff = 2.0
     resp = None
+    last_exc: Exception | None = None
     for _ in range(5):
-        with _limiter:  # queue-and-wait; retries count against the cap too
-            resp = httpx.post(url, timeout=180, headers=headers, json=payload)
+        try:
+            with _limiter:  # queue-and-wait; retries count against the cap too
+                resp = httpx.post(url, timeout=180, headers=headers, json=payload)
+        except httpx.HTTPError as e:
+            # Transient network faults (DNS blips, resets, read timeouts) kill
+            # long runs without this — retry them like 5xx responses.
+            last_exc = e
+            time.sleep(backoff)
+            backoff = min(backoff * 2, 60)
+            continue
         if resp.status_code == 429 or resp.status_code >= 500:
             time.sleep(float(resp.headers.get("retry-after", backoff)))
             backoff = min(backoff * 2, 60)
             continue
         resp.raise_for_status()
         return resp.json()
+    if resp is None:
+        raise last_exc if last_exc else RuntimeError("LLM request failed with no response")
     resp.raise_for_status()
     return resp.json()
 

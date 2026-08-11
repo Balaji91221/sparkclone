@@ -41,7 +41,7 @@ export default function RunsPage() {
               href={`/runs/${r.id}`}
               className="anim-rise flex items-center justify-between gap-4 border-b
                 border-line px-5 py-3.5 transition-colors last:border-0 hover:bg-surface-2"
-              style={{ "--d": `${Math.min(i, 8) * 55}ms` } as React.CSSProperties}
+              style={{ "--d": `${Math.min(i, 8) * 70}ms` } as React.CSSProperties}
             >
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium">

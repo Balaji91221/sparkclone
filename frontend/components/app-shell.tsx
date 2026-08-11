@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
 import { clearToken, getToken, googleStatus, listApprovals, subscribeToken } from "@/lib/api";
 import { usePoll } from "@/lib/use-poll";
@@ -12,6 +12,19 @@ const serverSnapshot = () => "";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const token = useSyncExternalStore(subscribeToken, getToken, serverSnapshot);
+
+  // Once an entrance animation finishes, drop the fill-mode pin so hover
+  // transforms (.hover-lift) on the same element work again.
+  useEffect(() => {
+    const onEnd = (e: AnimationEvent) => {
+      const el = e.target;
+      if (el instanceof HTMLElement && (e.animationName === "rise" || e.animationName === "fade")) {
+        el.classList.add("anim-done");
+      }
+    };
+    document.addEventListener("animationend", onEnd);
+    return () => document.removeEventListener("animationend", onEnd);
+  }, []);
 
   if (!token) return <Login />;
   return <ConnectedShell>{children}</ConnectedShell>;

@@ -93,7 +93,7 @@ export default function TasksPage() {
                 key={t.id}
                 className="anim-rise border-b border-line px-5 py-4 transition-colors
                   last:border-0 hover:bg-surface-2/50"
-                style={{ "--d": `${i * 70}ms` } as React.CSSProperties}
+                style={{ "--d": `${Math.min(i, 8) * 70}ms` } as React.CSSProperties}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">

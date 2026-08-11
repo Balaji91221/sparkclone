@@ -11,36 +11,44 @@ import { Button, inputClass } from "./ui";
 
 type SaveState = { kind: "idle" } | { kind: "saving" } | { kind: "saved" } | { kind: "error"; message: string };
 
-type TaskEditorProps = {
-  task?: Task;
-  prefill?: { name: string; prompt: string };
-  skills: SkillDef[];
-};
+export type EditorMode =
+  | { kind: "create"; prefill?: { name: string; prompt: string } }
+  | { kind: "edit"; task: Task };
 
-function initialForm(task?: Task, prefill?: TaskEditorProps["prefill"]): TaskInput {
-  if (task) {
-    return {
-      name: task.name,
-      prompt: task.prompt,
-      skill_ids: task.skill_ids,
-      allowed_tools: task.allowed_tools,
-      cron: task.cron,
-      enabled: task.enabled,
-    };
+type TaskEditorProps = { mode: EditorMode; skills: SkillDef[] };
+
+function initialForm(mode: EditorMode): TaskInput {
+  switch (mode.kind) {
+    case "edit": {
+      const { task } = mode;
+      return {
+        name: task.name,
+        prompt: task.prompt,
+        skill_ids: task.skill_ids,
+        allowed_tools: task.allowed_tools,
+        cron: task.cron,
+        enabled: task.enabled,
+      };
+    }
+    case "create":
+      return {
+        name: mode.prefill?.name ?? "",
+        prompt: mode.prefill?.prompt ?? "",
+        skill_ids: [],
+        allowed_tools: [],
+        cron: "",
+        enabled: true,
+      };
+    default: {
+      const _exhaustive: never = mode;
+      throw new Error(`unhandled editor mode: ${JSON.stringify(_exhaustive)}`);
+    }
   }
-  return {
-    name: prefill?.name ?? "",
-    prompt: prefill?.prompt ?? "",
-    skill_ids: [],
-    allowed_tools: [],
-    cron: "",
-    enabled: true,
-  };
 }
 
-export function TaskEditor({ task, prefill, skills }: TaskEditorProps) {
+export function TaskEditor({ mode, skills }: TaskEditorProps) {
   const router = useRouter();
-  const [form, setForm] = useState<TaskInput>(() => initialForm(task, prefill));
+  const [form, setForm] = useState<TaskInput>(() => initialForm(mode));
   const [save, setSave] = useState<SaveState>({ kind: "idle" });
 
   const toggleSkill = (id: string) => {
@@ -60,7 +68,7 @@ export function TaskEditor({ task, prefill, skills }: TaskEditorProps) {
     setSave({ kind: "saving" });
     try {
       const body = { ...form, name: form.name.trim() || "Untitled task" };
-      if (task) await updateTask(task.id, body);
+      if (mode.kind === "edit") await updateTask(mode.task.id, body);
       else await createTask(body);
       setSave({ kind: "saved" });
       window.setTimeout(() => router.push("/tasks"), 500);
@@ -77,11 +85,15 @@ export function TaskEditor({ task, prefill, skills }: TaskEditorProps) {
         </Link>
         <div className="flex items-center gap-3">
           {save.kind === "saved" ? (
-            <span className="text-sm font-medium text-ok">Saved ✓</span>
+            <span role="status" className="text-sm font-medium text-ok">Saved ✓</span>
           ) : null}
           <Button onClick={() => router.push("/tasks")}>Cancel</Button>
           <Button variant="primary" onClick={() => void submit()} disabled={save.kind === "saving"}>
-            {save.kind === "saving" ? "Saving…" : task ? "Save changes" : "Create task"}
+            {save.kind === "saving"
+              ? "Saving…"
+              : mode.kind === "edit"
+                ? "Save changes"
+                : "Create task"}
           </Button>
         </div>
       </div>
@@ -91,6 +103,7 @@ export function TaskEditor({ task, prefill, skills }: TaskEditorProps) {
           value={form.name}
           onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
           placeholder="Task name"
+          aria-label="Task name"
           className="font-display w-full rounded-xl border border-line bg-surface px-5 py-4
             text-xl font-semibold outline-none placeholder:font-normal
             placeholder:text-muted/60 focus:border-accent focus:ring-2 focus:ring-accent/20"
@@ -113,6 +126,7 @@ export function TaskEditor({ task, prefill, skills }: TaskEditorProps) {
           value={form.prompt}
           onChange={(e) => setForm((f) => ({ ...f, prompt: e.target.value }))}
           placeholder="Describe, in as much detail as you like, what the agent should do on every run…"
+          aria-label="Task instructions"
           className={`${inputClass} min-h-[380px] resize-y rounded-xl px-5 py-4 font-mono
             text-[13px] leading-relaxed`}
         />
@@ -133,13 +147,14 @@ export function TaskEditor({ task, prefill, skills }: TaskEditorProps) {
                     key={s.id}
                     type="button"
                     onClick={() => toggleSkill(s.id)}
+                    aria-pressed={on}
                     className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
                       on
                         ? "border-accent bg-accent-soft text-accent"
                         : "border-line bg-surface text-muted hover:text-foreground"
                     }`}
                   >
-                    {s.name}
+                    {on ? "✓ " : ""}{s.name}
                   </button>
                 );
               })}
@@ -156,7 +171,7 @@ export function TaskEditor({ task, prefill, skills }: TaskEditorProps) {
           Enabled (scheduled runs fire only when enabled)
         </label>
         {save.kind === "error" ? (
-          <p className="mt-3 rounded-lg bg-danger-soft px-3 py-2 text-sm text-danger">
+          <p role="alert" className="mt-3 rounded-lg bg-danger-soft px-3 py-2 text-sm text-danger">
             {save.message}
           </p>
         ) : null}

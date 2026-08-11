@@ -92,10 +92,10 @@ function StepView({ step, live }: { step: Step; live: boolean }) {
       return (
         <Row icon={<ClockIcon />}>
           <details>
-            <summary className="cursor-pointer text-sm italic leading-relaxed text-muted/90">
+            <summary className="cursor-pointer text-sm italic leading-relaxed text-muted">
               {firstSentence(step.text)}
             </summary>
-            <p className="mt-1 whitespace-pre-wrap text-sm italic leading-relaxed text-muted/90">
+            <p className="mt-1 whitespace-pre-wrap text-sm italic leading-relaxed text-muted">
               {step.text}
             </p>
           </details>

@@ -24,5 +24,5 @@ export default function EditTaskPage() {
   if (state.kind === "loading") return <Skeleton rows={4} />;
   if (state.kind === "error") return <ErrorBanner message={state.message} />;
   if (!state.data.task) return <p className="text-sm text-muted">Task not found.</p>;
-  return <TaskEditor task={state.data.task} skills={state.data.skills} />;
+  return <TaskEditor mode={{ kind: "edit", task: state.data.task }} skills={state.data.skills} />;
 }

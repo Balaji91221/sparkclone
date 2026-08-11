@@ -158,7 +158,7 @@ export default function SkillsPage() {
             onClick={() => open(r.input)}
             className="anim-rise hover-lift rounded-xl border border-line bg-surface p-4
               text-left hover:border-accent/50"
-            style={{ "--d": `${i * 80}ms` } as React.CSSProperties}
+            style={{ "--d": `${i * 70}ms` } as React.CSSProperties}
           >
             <p className="text-sm font-medium">{r.title}</p>
             <p className="mt-1 text-[13px] text-muted">{r.desc}</p>

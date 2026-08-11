@@ -42,9 +42,8 @@ export default function ApprovalsPage() {
         {approvals.map((a, i) => (
           <div
             key={a.id}
-            className="anim-rise hover-lift rounded-xl border border-warn/40 bg-surface p-5
-              shadow-sm"
-            style={{ "--d": `${i * 80}ms` } as React.CSSProperties}
+            className="anim-rise rounded-xl border border-warn/40 bg-surface p-5 shadow-sm"
+            style={{ "--d": `${Math.min(i, 8) * 70}ms` } as React.CSSProperties}
           >
             <div className="flex items-center justify-between gap-3">
               <p className="text-[15px] font-medium">
