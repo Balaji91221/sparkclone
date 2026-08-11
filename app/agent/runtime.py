@@ -68,6 +68,7 @@ def execute_run(run_id: str) -> None:
     messages: list[dict] = [{"role": "user", "content": task.prompt}]
     final_text = ""
 
+    completed = False
     try:
         for _ in range(settings.max_agent_iterations):
             result = providers.complete(system, messages, tools)
@@ -77,6 +78,7 @@ def execute_run(run_id: str) -> None:
                 final_text = result["text"]
 
             if not result["tool_calls"]:
+                completed = True
                 break
 
             tool_results = []
@@ -115,8 +117,17 @@ def execute_run(run_id: str) -> None:
 
         with db_session() as db:
             r = db.get(Run, run_id)
-            r.status = RunStatus.succeeded
-            r.output = final_text
+            if completed:
+                r.status = RunStatus.succeeded
+                r.output = final_text
+            else:
+                r.status = RunStatus.failed
+                r.output = final_text
+                r.error = (f"Stopped after the maximum of "
+                           f"{settings.max_agent_iterations} agent steps without "
+                           "finishing. The task is likely too broad or the agent "
+                           "got stuck — check the activity log and tighten the "
+                           "task instructions.")
             r.transcript = _redact(messages)
             r.finished_at = utcnow()
             db.commit()

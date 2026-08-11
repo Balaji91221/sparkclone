@@ -1,0 +1,856 @@
+# TASK: Daily Day Trader Telugu — Market Intelligence Report
+RUN: Weekdays, 9:00 PM IST
+
+Reference implementation: EMBEDDED BELOW in PART E (v2 — corrected build).
+ALWAYS generate the PDF with that exact implementation pattern. Ignore any
+older pdf_reference_implementation.py attached to this task.
+
+╔══════════════════════════════════════════════════════╗
+║  PART A — DESIGN SYSTEM                              ║
+╚══════════════════════════════════════════════════════╝
+
+────────────────────────────────────────────────────────
+A1. DESIGN PRINCIPLES
+────────────────────────────────────────────────────────
+1. SCANNABILITY OVER COMPLETENESS
+2. COLOUR CARRIES MEANING, NEVER DECORATION
+3. NEVER RELY ON COLOUR ALONE (+/- signs required)
+4. WHITE SPACE IS STRUCTURE
+5. FACT AND OPINION MUST LOOK DIFFERENT
+6. ONE ACCENT COLOUR
+7. EVERY NUMBER NEEDS A REFERENCE POINT
+
+────────────────────────────────────────────────────────
+A2. COLOUR TOKENS
+────────────────────────────────────────────────────────
+  STRUCTURE:
+    Navy (masthead, table headers, headings)   #12263F
+    Accent blue (rules, links, captions)       #1F6FEB
+    Body ink                                   #1A202C
+    Muted grey (labels, secondary text)        #4A5568
+    Masthead subtitle grey                     #A8B3C2
+
+  SURFACES:
+    Panel / zebra row                          #F4F6F9
+    Border / hairline rule                     #D9DEE6
+    Pill background                            #EDF1F7
+    Pill border                                #C7D2E0
+
+  MEANING:
+    Gain / positive                            #0B7A45
+    Gain fill (bars, light)                    #D1FAE5
+    Loss / negative                            #B42318
+    Loss fill (bars, light)                    #FEE2E2
+    Neutral fill                               #E5E7EB
+    Opinion background                         #FFF8E6
+    Opinion border                             #D97706
+    Opinion label text                         #B45309
+    Opinion body text                          #7C4A03
+
+  IMPACT RATING:
+    High impact                                #B42318
+    Medium impact                              #D97706
+    Low impact                                 #4A5568
+
+────────────────────────────────────────────────────────
+A3. TYPE SCALE (PDF, points)
+────────────────────────────────────────────────────────
+    Masthead title      15   bold    white
+    Masthead subtitle    9   regular #A8B3C2
+    Masthead meta        8   regular #A8B3C2
+    Section heading   10.5   bold    navy
+    Sub-heading        8.5   bold    accent, uppercase
+    Video title        9.5   bold    navy
+    Body text          8.6   regular ink, leading 12.6
+    Table header         8   bold    white
+    Table cell           8   regular ink, leading 10.5
+    Caption              8   bold    accent, uppercase
+    KPI value           13   bold    green/red, centred
+    KPI label          6.2   regular grey, uppercase
+    KPI context        5.8   regular grey, centred
+    Tag pill           5.6   bold    grey, uppercase
+    Impact pill        5.6   bold    white, uppercase
+    Callout text       8.3   regular ink, leading 12
+    Opinion body       8.3   regular #7C4A03, leading 12
+    Opinion label      7.4   bold    #B45309, uppercase
+    Footnote           6.8   regular grey
+
+  FONT (MANDATORY): Register and use DejaVu Sans / DejaVu Sans Bold
+  (TTF) for ALL text. NEVER use built-in Helvetica — it lacks the
+  rupee glyph (₹) and renders it as a solid black box. If DejaVu is
+  unavailable, use Noto Sans; verify ₹ renders before proceeding.
+
+────────────────────────────────────────────────────────
+A4. SPACING SCALE
+────────────────────────────────────────────────────────
+  PDF (points): 3 inside pill, 6 between related bullets, 7/9 table cell padding, 16 before section heading, 8 after section heading, 12 between bullet & table, 10 after table, 20 between major sections, 18 before callout, 14 after callout, 12 below KPI strip, 10 below video panel.
+  EMAIL (pixels): 16 cell padding inside panels, 12 between bullets, 28 between sections, 20 above/below KPI strip, 14 between stacked buttons, 24 above footer.
+  RULE: Gap BETWEEN sections must be at least DOUBLE gap WITHIN section.
+
+────────────────────────────────────────────────────────
+A5. COMPONENT LIBRARY — WITH MANDATORY IMPLEMENTATION RULES
+────────────────────────────────────────────────────────
+  These implementation rules exist because earlier builds broke.
+  Follow the reference implementation pattern EXACTLY.
+
+  • MASTHEAD BAND:
+      30mm navy band canvas-drawn on EVERY page via the page-template
+      onPage callback (never as a flowable). 1.2mm accent rule beneath.
+      The content frame's TOP must start at least 8mm BELOW the band —
+      body content must NEVER collide with or start inside the masthead.
+
+  • LAYOUT FLOW (CRITICAL):
+      SINGLE-COLUMN linear flow only. NEVER split body text or bullets
+      across two columns — a sentence must never continue in another
+      column or a different part of the page. One Frame per page.
+
+  • TAG PILL / IMPACT PILL (CRITICAL — was the worst breakage):
+      Pills MUST be custom fixed-width Flowables: width computed from
+      stringWidth(text) + horizontal padding, drawn as a rounded rect
+      with centred single-line text. Pills must NEVER be implemented as
+      wrapping table cells or Paragraphs — that causes vertical
+      character wrapping like "INFORM ATIONA L" / "HIG H".
+      TAG NAMES: short single words only — STOCKS, MACRO, POLICY,
+      EARNINGS, INVESTING, SECTOR, GLOBAL. Never long phrases like
+      "INFORMATIONAL" inside a pill.
+      Tag pill: #EDF1F7 bg, 0.4pt #C7D2E0 border, grey bold 5.6pt.
+      Impact pill: solid #B42318 / #D97706 / #4A5568 for HIGH/MED/LOW,
+      white bold 5.6pt.
+
+  • TAGGED BULLET (CRITICAL):
+      Each bullet = ONE single-row two-cell table:
+        [ pill-row cell (fixed width = pills + 8pt) | text Paragraph ]
+      VALIGN TOP, zero cell padding. Pills sit on ONE horizontal line
+      with a 4pt gap. Because pills and text share one table row, they
+      can NEVER detach, drift, or land on different parts of the page.
+      Bullet text opens with a bold lead phrase, then regular prose.
+      Inline +/− change figures coloured green/red with signs.
+
+  • SECTION HEADING:
+      Two-cell table: 2.4pt accent bar + #F4F6F9 band, 16pt row height.
+      Navy bold 10.5pt, numbered SEQUENTIALLY 1..N with no gaps
+      (never skip a number).
+
+  • SUB-HEADING: 8.5pt bold accent uppercase.
+
+  • KPI TILE STRIP:
+      One 3-row × 4-column table on #F4F6F9 with hairline column
+      separators. Row 1 value (13pt bold green/red, signed), row 2
+      label (6.2pt grey uppercase), row 3 context (5.8pt grey).
+      EXACTLY 4 tiles. Losses/negatives show a − sign and red.
+
+  • WHY-IT-MATTERS CALLOUT:
+      Full-width two-cell table: 2.4pt accent-blue bar cell + #F4F6F9
+      body cell, 9pt inner padding. Opens bold "WHY IT MATTERS —".
+      ONCE per section.
+
+  • DATA TABLE:
+      Navy header row with white bold 8pt Paragraphs (header must NEVER
+      be empty), zebra #F4F6F9 on even rows, 0.4pt row rules, 0.5pt box.
+      Numeric columns right-aligned; PROSE columns left-aligned (never
+      right-align sentences). Gains bold green, losses/alerts bold red,
+      always with +/− signs. repeatRows=1 so headers repeat on page
+      breaks. Caption (8pt bold accent uppercase) + table wrapped in the
+      SAME KeepTogether.
+
+  • OPINION PANEL:
+      Two-cell table: 2.6pt #D97706 bar + #FFF8E6 body, 9pt padding.
+      Label line "OPINION — NOT FACT, NOT A RECOMMENDATION" (7.4pt bold
+      #B45309), then bold-led opinion items in #7C4A03. Wrapped in
+      KeepTogether so it never splits across pages.
+
+  • WATCH-LIST STRIP:
+      Two-column data table: Date/Event | What it means for the reader.
+      BOTH columns left-aligned prose. Max 5 rows.
+
+  • FOOTER:
+      Canvas-drawn on every page in onPage: 0.5pt hairline at 14mm,
+      6.5pt grey disclaimer left, "Page N" right at 10mm.
+
+  • DIRECTION BAR: Horizontal proportional bar for comparing magnitudes
+      within a table column (optional; only when 3+ comparable values).
+
+────────────────────────────────────────────────────────
+A6. EMAIL RENDERING RULES (MANDATORY)
+────────────────────────────────────────────────────────
+  The email MUST render correctly in Gmail (web + Android/iOS app),
+  Outlook, and Apple Mail:
+  • TABLE-BASED LAYOUT ONLY — no divs/flexbox/grid/float. Every panel,
+    button, KPI strip, spacer is a role="presentation" table.
+  • Single outer wrapper table, max-width 600px, centred.
+  • ALL CSS INLINE. A <style> block only for mobile media queries; the
+    email must still look correct if it is stripped.
+  • font-family: Arial, Helvetica, sans-serif. No webfonts.
+  • Bulletproof buttons: <td bgcolor="#1F6FEB" style="border-radius:4px">
+    wrapping an <a> with inline padding 12px 24px, white, no-underline.
+  • KPI strip: 4-column table, td width 25%; 2×2 via media query on
+    ≤480px, still legible 4-across if queries are stripped.
+  • Total HTML < 90KB (Gmail clips ~102KB). Hidden preheader with
+    display:none + max-height:0 + &nbsp;&zwnj; padding.
+  • Dark mode: rely on bgcolor attributes, never pure #000/#FFF text
+    on coloured panels.
+  • Always multipart/alternative with a clean plain-text part.
+  • SELF-CHECK: screenshot the HTML at 600px and 380px; verify no
+    overlap, no horizontal scroll, buttons and KPI tiles intact.
+    Never send an email that failed the check.
+
+────────────────────────────────────────────────────────
+A7. PDF RENDERING SELF-CHECK (MANDATORY)
+────────────────────────────────────────────────────────
+  After building, rasterize EVERY page (e.g. pypdfium2) and verify:
+  □ Masthead on every page; content starts below it, no collision.
+  □ Rupee symbol ₹ renders correctly (no black boxes) — font check.
+  □ NO pill text wraps; every pill is a single-line rounded shape.
+  □ Every pill sits on the same row as its bullet text.
+  □ Single-column flow; no sentence continues elsewhere on the page.
+  □ Every data table has a filled navy header row; headers repeat
+    across page breaks; prose columns left-aligned.
+  □ No orphaned section headings at page bottom; sections numbered
+    1..N with no gaps.
+  □ Opinion panel and each caption+table stay unsplit (KeepTogether).
+  □ Footer rule + page number on every page.
+  □ ≤ 4 pages; if over, trim LOW-impact bullets first — never shrink
+    fonts to fit.
+  If any check fails: fix and rebuild. Max 3 attempts, then send the
+  best passing version and log remaining issues.
+
+────────────────────────────────────────────────────────
+A9. DIVISION OF LABOUR — EMAIL vs PDF
+────────────────────────────────────────────────────────
+  EMAIL IS A DOORWAY, NOT THE REPORT (under 250 words):
+    1. Hidden preheader
+    2. Navy header bar
+    3. Video panel with TWO buttons (YouTube + PDF)
+    4. KPI strip (4 tiles with context)
+    5. TODAY IN THREE LINES — exactly 3 bullets, ONE LINE EACH
+    6. Opinion panel — max 2 short views
+    7. "IN THE FULL REPORT" — 4-6 word section list
+    8. Download PDF button (repeated at bottom)
+    9. Footer
+
+  EMAIL MUST NOT CONTAIN:
+    - Data tables, callouts, sub-headings, order-win lists, or more than 3 bullets.
+
+  PDF CONTAINS:
+    - Everything: all sections, tables, sub-headings, callouts, direction bars, watch list, full opinion panel.
+
+╔══════════════════════════════════════════════════════╗
+║  PART B — MARKET INSIGHT FRAMEWORK                   ║
+╚══════════════════════════════════════════════════════╝
+  B1. THREE LAYERS: LAYER 1 (WHAT), LAYER 2 (WHY), LAYER 3 (SO WHAT).
+  B2. REFERENCE POINTS: Period comparison, historical extreme, expectation, streak, magnitude anchor.
+  B3. CROSS-ASSET LINKAGES: Trace causal chain where supported.
+  B4. IMPACT RATING: HIGH / MED / LOW on every bullet.
+  B5. WHY-IT-MATTERS CALLOUTS: Exactly ONE per section.
+  B6. SIGNAL VS NOISE: Keep policy, hard data, mechanics, material events.
+  B7. FACT vs OPINION: Separate hard facts from targets/predictions.
+  B8. WHAT TO WATCH: Forward-looking event list, each row with a plain
+      "what it means for you" explanation a beginner can follow.
+  B9. DATA VERIFICATION: Cross-check key numbers quoted in the video
+      (Nifty/Bank Nifty close, FII/DII flows, major stock moves) against a
+      reliable live source. Unverifiable numbers are labelled "(per video)".
+      If verified and different, show the verified figure and footnote the
+      video's figure.
+  B10. LENGTH GUARDRAILS: Max 5 bullets per section; PDF ≤ 4 pages;
+      trim LOW-impact items first.
+  B11. LANGUAGE RULE: Tickers, index names, price levels and dates stay in
+      original form; translate only the commentary/meaning from Telugu.
+      Never "translate" a number.
+  B12. BEGINNER CLARITY: Write for a first-time reader — expand jargon on
+      first use (e.g. "MDR (Merchant Discount Rate — the fee merchants pay
+      on digital payments)"), and every technical point ends with the plain
+      consequence for an ordinary investor.
+
+╔══════════════════════════════════════════════════════╗
+║  PART C — WORKFLOW                                   ║
+╚══════════════════════════════════════════════════════╝
+  STEP 0 — HOLIDAY GUARD:
+    If today is an NSE market holiday, expect no video; if none is found,
+    send the "no new video" notice mentioning the holiday and stop.
+
+  STEP 1 — VIDEO SELECTION (WITH FALLBACK):
+    1a. Open https://www.youtube.com/@daytradertelugu/videos and select the
+        LATEST upload (most recent video), regardless of its upload date.
+        If the latest item is a LIVE or still-processing stream, wait 15 min
+        and retry once; if still live, fall back to the most recent
+        COMPLETED video.
+    1b. If the latest video was uploaded TODAY → proceed normally with
+        today's date.
+    1c. If the latest video is OLDER than today (no new upload yet):
+        - Check index.json in /Market Reports/Day Trader Telugu/ (see STEP 5)
+          for an existing report matching that video's ID.
+        - If NO report exists → process this latest video. Label the PDF
+          filename, masthead date, and email subject with the VIDEO'S upload
+          date (not today's), and add one line near the top: "Latest
+          available video — uploaded <video date>. No new video today."
+        - If a report ALREADY exists → do NOT generate or send a duplicate.
+          Send a short plain notice email to kbalaji15j@gmail.com, subject
+          "Day Trader Telugu — No new video today (<today's date>)",
+          one-line body. No PDF on such days.
+    1d. IDEMPOTENCY: If a report email for this video was already sent today
+        (per index.json), exit without sending anything again.
+    1e. NEVER fail silently. Every run ends in exactly one of:
+        (i) full report email, (ii) "no new video" notice,
+        (iii) "run failed: <reason>" notice (see STEP 2 retries).
+
+  STEP 2 — TRANSCRIPT (WITH FALLBACK CHAIN):
+    2a. Try in order: official captions → auto-generated Telugu captions →
+        audio transcription of the video.
+    2b. On fetch failure, retry up to 3 times with a 2-minute gap. If all
+        fail, send a "run failed: <reason>" email and stop.
+    2c. Record in the PDF footnote: transcript source used and a confidence
+        note (e.g. "Auto-captions; numbers verified against market data").
+    2d. Translate meaning per B11.
+
+  STEP 3: Synthesize using Part B framework (including B9 verification,
+    B10 guardrails and B12 beginner clarity).
+
+  STEP 4: Build the PDF (DayTraderTelugu_Summary_YYYY-MM-DD.pdf — YYYY-MM-DD
+    is the VIDEO'S upload date) following the EMBEDDED CODE IN PART E
+    EXACTLY: DejaVu fonts, custom pill Flowables, single-row bullet tables,
+    canvas masthead/footer, single-column flow. Then run the FULL A7
+    rasterization self-check and fix until it passes.
+
+  STEP 5: Upload PDF to /Market Reports/Day Trader Telugu/ and update
+    index.json in the same folder with: { video_id, video_url, video_date,
+    pdf_name, sent_at }. This file is the source of truth for STEP 1c/1d
+    duplicate checks.
+
+  STEP 6: Build the email per A6 (table-based, inline styles, <90KB),
+    run the A6 visual self-check at 600px and 380px, then send
+    multipart/alternative to kbalaji15j@gmail.com.
+
+╔══════════════════════════════════════════════════════╗
+║  PART D — PRE-SEND CHECKLIST                         ║
+╚══════════════════════════════════════════════════════╝
+CONTENT:
+  □ Every bullet has [tag pill][impact pill] + bold lead; every number has
+    a reference point and, where technical, a beginner explanation (B12).
+  □ Key figures verified per B9; unverified ones marked "(per video)".
+  □ Opinion strictly inside the opinion panel; no advice language elsewhere.
+  □ Sections numbered 1..N with no gaps.
+
+PDF (A7 must pass in full):
+  □ Rasterized every page and completed ALL A7 checks — pills single-line,
+    ₹ renders, no masthead collision, headers filled, single-column flow.
+  □ ≤ 4 pages; masthead + footer on every page.
+
+EMAIL (A6 must pass in full):
+  □ Table-based, all styles inline, total HTML < 90KB.
+  □ Screenshot check at 600px and 380px passed.
+  □ Plain-text part present; under 250 words; exactly 3 bullets;
+    both buttons work (YouTube + PDF link).
+
+FALLBACK DAYS:
+  □ Report date matches the VIDEO'S upload date everywhere
+    (filename, masthead, subject).
+  □ index.json updated; no duplicate report or duplicate send.
+  □ If no new video and already summarised → only the short notice email
+    was sent, no PDF.
+
+
+╔══════════════════════════════════════════════════════╗
+║  PART E — EMBEDDED PDF REFERENCE IMPLEMENTATION      ║
+╚══════════════════════════════════════════════════════╝
+# ══════════════════════════════════════════════════════════════════
+# EMBEDDED REFERENCE IMPLEMENTATION (v2 — CORRECTED)
+# The scheduler MUST generate the PDF using EXACTLY this code pattern,
+# replacing only the CONTENT (titles, bullets, tables, dates) each day.
+# NEVER change the layout mechanics: Pill/PillRow flowables, single-row
+# bullet tables, canvas masthead/footer, DejaVu fonts, single column.
+# The content below is the 2026-08-10 sample — treat it as a template.
+# ══════════════════════════════════════════════════════════════════
+
+```python
+#!/usr/bin/env python3
+"""
+Day Trader Telugu — Market Intelligence Report
+Corrected reference implementation (fixes broken pill wrapping, masthead,
+bullet layout, tables, spacing).
+
+Key fixes vs the broken build:
+1. Pills are custom Flowables with width computed from text -> NEVER wrap.
+2. Each tagged bullet is ONE single-row table: [pill stack | text] so pills
+   can never detach from their text.
+3. Masthead is canvas-drawn navy band on every page; frame top margin
+   clears it, so content never collides.
+4. Single-column linear flow (no fake two-column text splitting).
+5. Data tables always carry a visible header row.
+"""
+
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import mm
+from reportlab.lib.colors import HexColor, white
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.enums import TA_CENTER, TA_RIGHT
+from reportlab.platypus import (
+    BaseDocTemplate, PageTemplate, Frame, Paragraph, Spacer, Table,
+    TableStyle, KeepTogether, Flowable, HRFlowable
+)
+from reportlab.pdfbase.pdfmetrics import stringWidth
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+pdfmetrics.registerFont(TTFont("DVS", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"))
+pdfmetrics.registerFont(TTFont("DVS-Bold", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"))
+pdfmetrics.registerFontFamily("DVS", normal="DVS", bold="DVS-Bold", italic="DVS", boldItalic="DVS-Bold")
+
+
+# ---------------------------------------------------------------- tokens
+NAVY      = HexColor("#12263F")
+ACCENT    = HexColor("#1F6FEB")
+INK       = HexColor("#1A202C")
+GREY      = HexColor("#4A5568")
+SUBGREY   = HexColor("#A8B3C2")
+PANEL     = HexColor("#F4F6F9")
+BORDER    = HexColor("#D9DEE6")
+PILL_BG   = HexColor("#EDF1F7")
+PILL_BR   = HexColor("#C7D2E0")
+GREEN     = HexColor("#0B7A45")
+RED       = HexColor("#B42318")
+AMBER     = HexColor("#D97706")
+OP_BG     = HexColor("#FFF8E6")
+OP_TEXT   = HexColor("#7C4A03")
+OP_LABEL  = HexColor("#B45309")
+
+PAGE_W, PAGE_H = A4
+MARGIN = 16 * mm
+MAST_H = 30 * mm
+CONTENT_W = PAGE_W - 2 * MARGIN
+
+TITLE     = "DAY TRADER TELUGU"
+SUBTITLE  = "Daily Market Intelligence Report"
+META      = "August 10, 2026   \u2022   Video duration: 33m 17s"
+FALLBACK  = "Latest available video \u2014 uploaded August 10, 2026. No new video today."
+
+# ---------------------------------------------------------------- styles
+def st(name, **kw):
+    base = dict(fontName="DVS", fontSize=8.6, leading=12.6, textColor=INK)
+    base.update(kw)
+    return ParagraphStyle(name, **base)
+
+S = {
+    "video_title": st("video_title", fontName="DVS-Bold", fontSize=9.5,
+                      leading=13, textColor=NAVY),
+    "body":        st("body"),
+    "section":     st("section", fontName="DVS-Bold", fontSize=10.5,
+                      leading=13.5, textColor=NAVY),
+    "subhead":     st("subhead", fontName="DVS-Bold", fontSize=8.5,
+                      leading=11, textColor=ACCENT),
+    "caption":     st("caption", fontName="DVS-Bold", fontSize=8,
+                      leading=10, textColor=ACCENT),
+    "kpi_val_g":   st("kpi_val_g", fontName="DVS-Bold", fontSize=13,
+                      leading=15, textColor=GREEN, alignment=TA_CENTER),
+    "kpi_val_r":   st("kpi_val_r", fontName="DVS-Bold", fontSize=13,
+                      leading=15, textColor=RED, alignment=TA_CENTER),
+    "kpi_label":   st("kpi_label", fontSize=6.2, leading=8, textColor=GREY,
+                      alignment=TA_CENTER),
+    "kpi_ctx":     st("kpi_ctx", fontSize=5.8, leading=7.5, textColor=GREY,
+                      alignment=TA_CENTER),
+    "callout":     st("callout", fontSize=8.3, leading=12),
+    "op_label":    st("op_label", fontName="DVS-Bold", fontSize=7.4,
+                      leading=9.5, textColor=OP_LABEL),
+    "op_body":     st("op_body", fontSize=8.3, leading=12, textColor=OP_TEXT),
+    "cell":        st("cell", fontSize=8, leading=10.5),
+    "cell_r":      st("cell_r", fontSize=8, leading=10.5, alignment=TA_RIGHT),
+    "cell_r_g":    st("cell_r_g", fontName="DVS-Bold", fontSize=8,
+                      leading=10.5, textColor=GREEN, alignment=TA_RIGHT),
+    "cell_r_r":    st("cell_r_r", fontName="DVS-Bold", fontSize=8,
+                      leading=10.5, textColor=RED, alignment=TA_RIGHT),
+    "th":          st("th", fontName="DVS-Bold", fontSize=8,
+                      leading=10.5, textColor=white),
+    "source":      st("source", fontSize=8, leading=11, textColor=GREY),
+    "fallback":    st("fallback", fontName="DVS-Bold", fontSize=8,
+                      leading=11, textColor=AMBER),
+}
+
+# ---------------------------------------------------------------- pills
+class Pill(Flowable):
+    """Fixed-width rounded pill. Width computed from text => never wraps."""
+    FONT = "DVS-Bold"
+    SIZE = 5.6
+    PAD_X = 4
+    PAD_Y = 2.2
+
+    def __init__(self, text, bg, fg, border=None):
+        super().__init__()
+        self.text = text.upper()
+        self.bg, self.fg, self.border = bg, fg, border
+        tw = stringWidth(self.text, self.FONT, self.SIZE)
+        self.width = tw + 2 * self.PAD_X
+        self.height = self.SIZE + 2 * self.PAD_Y
+
+    def draw(self):
+        c = self.canv
+        r = self.height / 2
+        c.setFillColor(self.bg)
+        if self.border:
+            c.setStrokeColor(self.border)
+            c.setLineWidth(0.4)
+            c.roundRect(0, 0, self.width, self.height, r, stroke=1, fill=1)
+        else:
+            c.roundRect(0, 0, self.width, self.height, r, stroke=0, fill=1)
+        c.setFillColor(self.fg)
+        c.setFont(self.FONT, self.SIZE)
+        c.drawCentredString(self.width / 2, self.PAD_Y + 0.8, self.text)
+
+def tag_pill(text):
+    return Pill(text, PILL_BG, GREY, border=PILL_BR)
+
+def impact_pill(level):
+    color = {"HIGH": RED, "MED": AMBER, "LOW": GREY}[level]
+    return Pill(level, color, white)
+
+class PillRow(Flowable):
+    """Pills laid out left-to-right on ONE line with fixed gaps."""
+    GAP = 4
+    def __init__(self, pills):
+        super().__init__()
+        self.pills = pills
+        self.width = sum(p.width for p in pills) + self.GAP * (len(pills) - 1)
+        self.height = max(p.height for p in pills)
+
+    def draw(self):
+        x = 0
+        for p in self.pills:
+            p.canv = self.canv
+            self.canv.saveState()
+            self.canv.translate(x, 0)
+            p.draw()
+            self.canv.restoreState()
+            x += p.width + self.GAP
+
+# ---------------------------------------------------------------- bullets
+def tagged_bullet(tag, impact, bold_lead, rest):
+    """One row: [pill row over nothing | text]. Single table => never splits."""
+    pills = PillRow([tag_pill(tag), impact_pill(impact)])
+    text = Paragraph(f"<b>{bold_lead}</b> {rest}", S["body"])
+    pill_col = pills.width + 8
+    t = Table([[pills, text]], colWidths=[pill_col, CONTENT_W - pill_col])
+    t.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (0, 0), 0),
+        ("TOPPADDING", (0, 0), (-1, -1), 0),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+    ]))
+    return t
+
+# ---------------------------------------------------------------- sections
+def section_heading(num, text):
+    bar = Table([["", Paragraph(f"{num}. {text}", S["section"])]],
+                colWidths=[2.4, CONTENT_W - 2.4], rowHeights=[16])
+    bar.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (0, 0), ACCENT),
+        ("BACKGROUND", (1, 0), (1, 0), PANEL),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (1, 0), (1, 0), 8),
+        ("TOPPADDING", (0, 0), (-1, -1), 0),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+    ]))
+    return bar
+
+def callout(text):
+    p = Paragraph(f"<b>WHY IT MATTERS \u2014</b> {text}", S["callout"])
+    t = Table([["", p]], colWidths=[2.4, CONTENT_W - 2.4])
+    t.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (0, 0), ACCENT),
+        ("BACKGROUND", (1, 0), (1, 0), PANEL),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (1, 0), (1, 0), 9),
+        ("RIGHTPADDING", (1, 0), (1, 0), 9),
+        ("TOPPADDING", (0, 0), (-1, -1), 7),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
+    ]))
+    return t
+
+def data_table(caption, header, rows, col_fracs, num_styles=None, text_cols=()):
+    widths = [CONTENT_W * f for f in col_fracs]
+    head = [Paragraph(h, S["th"]) for h in header]
+    body = []
+    for r_i, row in enumerate(rows):
+        cells = []
+        for c_i, cell in enumerate(row):
+            style = S["cell"]
+            if num_styles and (r_i, c_i) in num_styles:
+                style = S[num_styles[(r_i, c_i)]]
+            elif c_i > 0 and c_i not in text_cols:
+                style = S["cell_r"]
+            cells.append(Paragraph(cell, style))
+        body.append(cells)
+    t = Table([head] + body, colWidths=widths, repeatRows=1)
+    ts = [
+        ("BACKGROUND", (0, 0), (-1, 0), NAVY),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 7),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+        ("TOPPADDING", (0, 0), (-1, -1), 5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+        ("LINEBELOW", (0, 0), (-1, -1), 0.4, BORDER),
+        ("BOX", (0, 0), (-1, -1), 0.5, BORDER),
+    ]
+    for i in range(1, len(body) + 1):
+        if i % 2 == 0:
+            ts.append(("BACKGROUND", (0, i), (-1, i), PANEL))
+    t.setStyle(TableStyle(ts))
+    return KeepTogether([Paragraph(caption, S["caption"]), Spacer(1, 4), t])
+
+# ---------------------------------------------------------------- page furniture
+def on_page(canvas, doc):
+    canvas.saveState()
+    # masthead band
+    canvas.setFillColor(NAVY)
+    canvas.rect(0, PAGE_H - MAST_H, PAGE_W, MAST_H, stroke=0, fill=1)
+    canvas.setFillColor(ACCENT)
+    canvas.rect(0, PAGE_H - MAST_H - 1.2 * mm, PAGE_W, 1.2 * mm, stroke=0, fill=1)
+    canvas.setFillColor(white)
+    canvas.setFont("DVS-Bold", 15)
+    canvas.drawString(MARGIN, PAGE_H - 13 * mm, TITLE)
+    canvas.setFillColor(SUBGREY)
+    canvas.setFont("DVS", 9)
+    canvas.drawString(MARGIN, PAGE_H - 18.5 * mm, SUBTITLE)
+    canvas.setFont("DVS", 8)
+    canvas.drawString(MARGIN, PAGE_H - 24 * mm, META)
+    # footer
+    canvas.setStrokeColor(BORDER)
+    canvas.setLineWidth(0.5)
+    canvas.line(MARGIN, 14 * mm, PAGE_W - MARGIN, 14 * mm)
+    canvas.setFillColor(GREY)
+    canvas.setFont("DVS", 6.5)
+    canvas.drawString(MARGIN, 10 * mm,
+        "Summary of third-party YouTube content. For informational purposes only. "
+        "Not investment advice.")
+    canvas.drawRightString(PAGE_W - MARGIN, 10 * mm, f"Page {doc.page}")
+    canvas.restoreState()
+
+# ---------------------------------------------------------------- build
+def build():
+    doc = BaseDocTemplate(
+        "/home/claude/DayTraderTelugu_Summary_2026-08-10.pdf",
+        pagesize=A4,
+        leftMargin=MARGIN, rightMargin=MARGIN,
+        topMargin=MAST_H + 8 * mm, bottomMargin=18 * mm,
+        title="Day Trader Telugu — Daily Market Intelligence Report",
+    )
+    frame = Frame(MARGIN, 18 * mm, CONTENT_W,
+                  PAGE_H - MAST_H - 8 * mm - 18 * mm, id="main",
+                  leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
+    doc.addPageTemplates([PageTemplate(id="all", frames=[frame], onPage=on_page)])
+
+    story = []
+
+    # fallback notice + video panel
+    story.append(Paragraph(FALLBACK, S["fallback"]))
+    story.append(Spacer(1, 8))
+    video_inner = [
+        Paragraph("IRAN Big Shock to USA, Buying Gold? Gold ETF Vs Mutual fund",
+                  S["video_title"]),
+        Spacer(1, 3),
+        Paragraph('Source: YouTube auto-captions \u2014 figures marked '
+                  '"(per video)" are unverified.  \u2022  '
+                  '<link href="https://www.youtube.com/@daytradertelugu/videos">'
+                  '<font color="#1F6FEB">Watch on YouTube</font></link>',
+                  S["source"]),
+    ]
+    vp = Table([[video_inner]], colWidths=[CONTENT_W])
+    vp.setStyle(TableStyle([
+        ("BOX", (0, 0), (-1, -1), 0.7, NAVY),
+        ("LEFTPADDING", (0, 0), (-1, -1), 10),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 10),
+        ("TOPPADDING", (0, 0), (-1, -1), 8),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+    ]))
+    story.append(vp)
+    story.append(Spacer(1, 12))
+
+    # KPI strip — exactly 4 tiles, 3 rows each
+    kpis = [
+        ("+10.0%",  "kpi_val_g", "PAYTM SURGE",     "MDR policy boost"),
+        ("+108.0%", "kpi_val_g", "CONCORD Q1 PAT",  "YoY profit growth"),
+        ("\u2212\u20b950 Lakh", "kpi_val_r", "SBI LOCKER LOSS", "Gold theft incident"),
+        ("+3.5%",   "kpi_val_r", "CRUDE SPIKE",     "Strait of Hormuz tension"),
+    ]
+    row_v = [Paragraph(v, S[sv]) for v, sv, _, _ in kpis]
+    row_l = [Paragraph(l, S["kpi_label"]) for _, _, l, _ in kpis]
+    row_c = [Paragraph(c, S["kpi_ctx"]) for _, _, _, c in kpis]
+    kpi = Table([row_v, row_l, row_c], colWidths=[CONTENT_W / 4] * 4)
+    kpi.setStyle(TableStyle([
+        ("BOX", (0, 0), (-1, -1), 0.5, BORDER),
+        ("LINEAFTER", (0, 0), (-2, -1), 0.5, BORDER),
+        ("BACKGROUND", (0, 0), (-1, -1), PANEL),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("TOPPADDING", (0, 0), (-1, 0), 8),
+        ("TOPPADDING", (0, 1), (-1, 1), 2),
+        ("TOPPADDING", (0, 2), (-1, 2), 1),
+        ("BOTTOMPADDING", (0, 2), (-1, 2), 7),
+        ("LEFTPADDING", (0, 0), (-1, -1), 4),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+    ]))
+    story.append(kpi)
+    story.append(Spacer(1, 12))
+
+    # ---- 1. KEY TAKEAWAYS
+    story.append(section_heading(1, "KEY TAKEAWAYS (TL;DR)"))
+    story.append(Spacer(1, 8))
+    story.append(tagged_bullet("Stocks", "HIGH",
+        "Digital payment policy boost:",
+        "Paytm stock surged <font color='#0B7A45'><b>+10.0%</b></font> after "
+        "government policy clarity on Merchant Discount Rate (MDR) structures "
+        "for high-value digital transactions \u2014 its largest single-day "
+        "gain since listing-era volatility \u2014 restoring revenue visibility "
+        "for payment aggregators."))
+    story.append(Spacer(1, 6))
+    story.append(tagged_bullet("Investing", "MED",
+        "Gold ETF vs physical gold:",
+        "After a \u20b950 Lakh gold theft from an SBI bank locker (per video), "
+        "the presenter argues Gold ETFs and mutual funds remove storage risk "
+        "entirely while tracking market price exactly \u2014 unlike lockers, "
+        "where bank liability is capped."))
+    story.append(Spacer(1, 6))
+    story.append(tagged_bullet("Earnings", "MED",
+        "Bharat Forge Q1 margins:",
+        "Net profit was dented by overseas plant operating losses in Europe "
+        "and the US, including a one-off \u20b9120 Crore German restructuring "
+        "charge; management guides margin recovery from Q2 FY27."))
+    story.append(Spacer(1, 18))
+    story.append(callout(
+        "Formalising MDR rules on merchant digital transactions restores core "
+        "fee income for listed payment aggregators (Paytm, PB Fintech) and "
+        "unlisted players (PhonePe, Razorpay). For retail investors, the SBI "
+        "locker incident is a reminder that Gold ETFs carry "
+        "institutional-grade custody that physical lockers do not guarantee."))
+    story.append(Spacer(1, 20))
+
+    # ---- 2. MARKET & ECONOMIC HIGHLIGHTS
+    story.append(section_heading(2, "MARKET & ECONOMIC HIGHLIGHTS"))
+    story.append(Spacer(1, 8))
+    story.append(tagged_bullet("Macro", "HIGH",
+        "Middle East geopolitics \u2192 crude spike:",
+        "Brent crude jumped <font color='#B42318'><b>+3.5%</b></font> to "
+        "$78.50/bbl as friction escalated around the Strait of Hormuz "
+        "\u2014 the chokepoint for ~20% of global oil flows \u2014 raising "
+        "imported-inflation risk for India, which imports ~85% of its crude."))
+    story.append(Spacer(1, 6))
+    story.append(tagged_bullet("Policy", "MED",
+        "Digital merchant MDR framework:",
+        "Proposed 0.3%\u20130.5% MDR on transactions above \u20b92,000 for "
+        "large merchants (turnover above ~$1.5M) is estimated to add "
+        "<b>+\u20b913,000 Crore annually</b> to the banking and payments "
+        "ecosystem (per video)."))
+    story.append(Spacer(1, 12))
+    story.append(data_table(
+        "FINANCIAL & MACRO INDICATORS",
+        ["Metric / Event", "Value", "Change / Impact"],
+        [
+            ["Paytm stock close", "\u20b9540.50", "+10.0%"],
+            ["Concord Biotech Q1 PAT", "\u20b9118 Crore", "+108.0% YoY"],
+            ["SBI locker gold incident", "\u20b950 Lakh loss", "Safety alert"],
+            ["Brent crude spot", "$78.50 / bbl", "+3.5%"],
+        ],
+        [0.46, 0.27, 0.27],
+        num_styles={(0, 2): "cell_r_g", (1, 2): "cell_r_g",
+                    (2, 2): "cell_r_r", (3, 2): "cell_r_r"},
+    ))
+    story.append(Spacer(1, 20))
+
+    # ---- 3. STOCKS & SECTOR NEWS
+    story.append(section_heading(3, "STOCKS & SECTOR NEWS"))
+    story.append(Spacer(1, 8))
+    story.append(Paragraph("FINTECH & DIGITAL PAYMENTS", S["subhead"]))
+    story.append(Spacer(1, 5))
+    story.append(tagged_bullet("Stocks", "HIGH",
+        "Paytm & payment aggregators:",
+        "Digital payment platforms rallied (+10.0%) as MDR clarity directly "
+        "lifts core transaction margins \u2014 a structural, not one-day, "
+        "re-rating driver across listed names and upcoming fintech IPOs."))
+    story.append(Spacer(1, 10))
+    story.append(Paragraph("CORPORATE Q1 EARNINGS", S["subhead"]))
+    story.append(Spacer(1, 5))
+    story.append(tagged_bullet("Earnings", "MED",
+        "Concord Biotech Q1:",
+        "Net profit jumped <font color='#0B7A45'><b>+108.0% YoY</b></font> to "
+        "\u20b9118 Crore, driven by EBITDA margin expansion to 58.0% on API "
+        "export strength."))
+    story.append(Spacer(1, 6))
+    story.append(tagged_bullet("Earnings", "MED",
+        "Bharat Forge Q1:",
+        "Reported a one-off \u20b9120 Crore German subsidiary restructuring "
+        "loss; underlying domestic business steady, with margin recovery "
+        "guided from Q2 FY27."))
+    story.append(Spacer(1, 18))
+    story.append(callout(
+        "Q1 prints show a split tape: export-led pharma (Concord) is "
+        "compounding, while capital-goods names with European exposure "
+        "(Bharat Forge) are absorbing one-off restructuring costs before an "
+        "expected H2 recovery."))
+    story.append(Spacer(1, 20))
+
+    # ---- 4. PRESENTER'S VIEWS (OPINION)
+    story.append(section_heading(4, "PRESENTER'S VIEWS & OUTLOOK"))
+    story.append(Spacer(1, 8))
+    op_inner = [
+        Paragraph("OPINION \u2014 NOT FACT, NOT A RECOMMENDATION", S["op_label"]),
+        Spacer(1, 4),
+        Paragraph("<b>Gold ETF strategy:</b> The presenter prefers Gold ETFs "
+                  "over physical gold or bank lockers, citing zero storage "
+                  "risk, high liquidity and exact market pricing.", S["op_body"]),
+        Spacer(1, 4),
+        Paragraph("<b>Fintech outlook:</b> He views digital payment companies "
+                  "(Paytm, Policybazaar) as structural growth plays as "
+                  "transaction monetisation stabilises.", S["op_body"]),
+    ]
+    op = Table([["", op_inner]], colWidths=[2.6, CONTENT_W - 2.6])
+    op.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (0, 0), AMBER),
+        ("BACKGROUND", (1, 0), (1, 0), OP_BG),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (1, 0), (1, 0), 9),
+        ("RIGHTPADDING", (1, 0), (1, 0), 9),
+        ("TOPPADDING", (0, 0), (-1, -1), 8),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+    ]))
+    story.append(KeepTogether([op]))
+    story.append(Spacer(1, 20))
+
+    # ---- 5. WHAT TO WATCH
+    story.append(section_heading(5, "WHAT TO WATCH"))
+    story.append(Spacer(1, 8))
+    story.append(data_table(
+        "UPCOMING EVENTS",
+        ["Date / Event", "What it means for you"],
+        [
+            ["Aug 12 \u2014 India CPI & IIP print",
+             "Sets the RBI rate-cut debate; a soft CPI supports rate-sensitive "
+             "sectors (banks, autos, realty)."],
+            ["Aug 13 \u2014 US CPI data",
+             "Signals the Federal Reserve's next move; hot print = pressure on "
+             "FII flows into Indian equities."],
+            ["Strait of Hormuz headlines",
+             "Any escalation lifts crude further \u2014 negative for OMCs, "
+             "paints, aviation; positive for upstream oil producers."],
+        ],
+        [0.42, 0.58], text_cols=(1,),
+    ))
+    story.append(Spacer(1, 10))
+    story.append(Paragraph(
+        "Transcript source: YouTube auto-generated Telugu captions, translated. "
+        "Figures marked \u201c(per video)\u201d could not be independently "
+        "verified against market data.", st("fn", fontSize=6.8, leading=9,
+                                            textColor=GREY)))
+
+    doc.build(story)
+    print("built")
+
+if __name__ == "__main__":
+    build()
+
+```
+
+USAGE EACH RUN:
+  1. Copy this code verbatim into the working directory.
+  2. Replace ONLY: TITLE date/META, FALLBACK line (or remove on normal
+     days), video title/link, KPI tuples, bullet texts, table rows,
+     opinion items, watch-list rows, footnote.
+  3. Do NOT modify: Pill, PillRow, tagged_bullet, section_heading,
+     callout, data_table, on_page, fonts, margins, colours, type sizes.
+  4. Run, rasterize every page, and complete the A7 checklist before
+     sending.
