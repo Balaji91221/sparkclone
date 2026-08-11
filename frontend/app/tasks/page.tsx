@@ -10,6 +10,7 @@ import {
   EmptyState,
   ErrorBanner,
   PageHeader,
+  Skeleton,
   StatusChip,
 } from "@/components/ui";
 import { deleteTask, listRuns, listSkills, listTasks, runTask, updateTask } from "@/lib/api";
@@ -75,6 +76,7 @@ export default function TasksPage() {
       />
       {actionError ? <ErrorBanner message={actionError} /> : null}
       {state.kind === "error" ? <ErrorBanner message={state.message} /> : null}
+      {state.kind === "loading" ? <Skeleton rows={3} /> : null}
 
       {data && data.tasks.length === 0 ? (
         <EmptyState

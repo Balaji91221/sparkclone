@@ -9,6 +9,7 @@ import {
   Field,
   Modal,
   PageHeader,
+  Skeleton,
   inputClass,
 } from "@/components/ui";
 import { createSkill, deleteSkill, listSkills } from "@/lib/api";
@@ -119,6 +120,7 @@ export default function SkillsPage() {
       />
       {state.kind === "error" ? <ErrorBanner message={state.message} /> : null}
       {error && dialog.kind === "closed" ? <ErrorBanner message={error} /> : null}
+      {state.kind === "loading" ? <Skeleton rows={2} /> : null}
 
       {state.kind === "ready" && skills.length === 0 ? (
         <EmptyState

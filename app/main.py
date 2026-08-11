@@ -164,7 +164,11 @@ def get_run(run_id: str):
         r = db.get(Run, run_id)
         if not r:
             raise HTTPException(404)
+        task = db.get(Task, r.task_id)
         return {"id": r.id, "task_id": r.task_id, "status": r.status.value,
+                "task_name": task.name if task else "",
+                "trigger": r.trigger, "created_at": str(r.created_at),
+                "finished_at": str(r.finished_at) if r.finished_at else None,
                 "output": r.output, "error": r.error, "transcript": r.transcript}
 
 

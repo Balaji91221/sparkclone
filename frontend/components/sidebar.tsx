@@ -22,30 +22,37 @@ const NAV: NavItem[] = [
   },
 ];
 
-type SidebarProps = { pendingApprovals: number; onSignOut: () => void };
+type SidebarProps = {
+  pendingApprovals: number;
+  googleEmail: string;
+  onSignOut: () => void;
+};
 
-export function Sidebar({ pendingApprovals, onSignOut }: SidebarProps) {
+export function Sidebar({ pendingApprovals, googleEmail, onSignOut }: SidebarProps) {
   const pathname = usePathname();
 
   return (
     <aside
-      className="fixed inset-y-0 left-0 z-10 flex w-[220px] flex-col border-r border-line
+      className="fixed inset-y-0 left-0 z-10 flex w-[232px] flex-col border-r border-line
         bg-surface px-3 py-5"
     >
-      <div className="mb-7 flex items-center gap-2.5 px-2">
+      <div className="mb-6 flex items-center gap-2.5 px-2">
         <span
           className="grid h-8 w-8 place-items-center rounded-lg bg-accent text-[15px]
-            font-bold text-accent-fg"
+            font-bold text-accent-fg shadow-sm"
         >
           ⚡
         </span>
         <div>
-          <p className="text-[15px] font-semibold leading-tight">SparkClone</p>
+          <p className="text-[15px] font-semibold leading-tight tracking-tight">SparkClone</p>
           <p className="text-[11px] text-muted">Personal agent</p>
         </div>
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1">
+      <p className="mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted">
+        Workspace
+      </p>
+      <nav className="flex flex-1 flex-col gap-0.5">
         {NAV.map((item) => {
           const active =
             item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
@@ -53,13 +60,16 @@ export function Sidebar({ pendingApprovals, onSignOut }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium
-                transition ${
+              className={`relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm
+                font-medium transition ${
                   active
                     ? "bg-accent-soft text-accent"
                     : "text-muted hover:bg-surface-2 hover:text-foreground"
                 }`}
             >
+              {active ? (
+                <span className="absolute -left-3 h-5 w-[3px] rounded-r-full bg-accent" />
+              ) : null}
               <svg
                 viewBox="0 0 24 24"
                 className="h-[18px] w-[18px] shrink-0"
@@ -85,25 +95,52 @@ export function Sidebar({ pendingApprovals, onSignOut }: SidebarProps) {
         })}
       </nav>
 
-      <button
-        type="button"
-        onClick={onSignOut}
-        className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted
-          transition hover:bg-surface-2 hover:text-foreground"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          className="h-[18px] w-[18px]"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.7"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+      <div className="mt-4 border-t border-line pt-3">
+        {googleEmail ? (
+          <div className="mb-2 flex items-center gap-2.5 rounded-lg px-3 py-1.5">
+            <span
+              className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-ok-soft
+                text-xs font-semibold uppercase text-ok"
+            >
+              {googleEmail[0]}
+            </span>
+            <div className="min-w-0">
+              <p className="truncate text-xs font-medium">{googleEmail}</p>
+              <p className="flex items-center gap-1 text-[11px] text-ok">
+                <span className="h-1.5 w-1.5 rounded-full bg-ok" /> Google connected
+              </p>
+            </div>
+          </div>
+        ) : (
+          <Link
+            href="/settings"
+            className="mb-2 flex items-center gap-2.5 rounded-lg px-3 py-1.5 text-xs
+              text-muted transition hover:bg-surface-2 hover:text-foreground"
+          >
+            <span className="grid h-7 w-7 place-items-center rounded-full bg-surface-2">○</span>
+            Connect Google →
+          </Link>
+        )}
+        <button
+          type="button"
+          onClick={onSignOut}
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium
+            text-muted transition hover:bg-surface-2 hover:text-foreground"
         >
-          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" />
-        </svg>
-        Sign out
-      </button>
+          <svg
+            viewBox="0 0 24 24"
+            className="h-[18px] w-[18px]"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" />
+          </svg>
+          Sign out
+        </button>
+      </div>
     </aside>
   );
 }

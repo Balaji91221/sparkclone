@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useCallback, useState } from "react";
 import { TaskDialog } from "@/components/task-dialog";
 import type { TaskDialogRequest } from "@/components/task-dialog";
-import { Card, StatusChip } from "@/components/ui";
-import { listRuns, listSkills, listTasks } from "@/lib/api";
+import { Card, Skeleton, StatCard, StatusChip } from "@/components/ui";
+import { listApprovals, listRuns, listSkills, listTasks } from "@/lib/api";
 import { ago } from "@/lib/format";
-import type { RunSummary, SkillDef, Task } from "@/lib/types";
+import type { Approval, RunSummary, SkillDef, Task } from "@/lib/types";
 import { usePoll } from "@/lib/use-poll";
 
 const SUGGESTIONS = [
@@ -31,19 +31,25 @@ const SUGGESTIONS = [
   },
 ];
 
-type HomeData = { tasks: Task[]; runs: RunSummary[]; skills: SkillDef[] };
+type HomeData = {
+  tasks: Task[];
+  runs: RunSummary[];
+  skills: SkillDef[];
+  approvals: Approval[];
+};
 
 export default function HomePage() {
   const [quick, setQuick] = useState("");
   const [dialog, setDialog] = useState<TaskDialogRequest>({ kind: "closed" });
 
   const fetchAll = useCallback(async (signal: AbortSignal): Promise<HomeData> => {
-    const [tasks, runs, skills] = await Promise.all([
+    const [tasks, runs, skills, approvals] = await Promise.all([
       listTasks(signal),
       listRuns(signal),
       listSkills(signal),
+      listApprovals(signal),
     ]);
-    return { tasks, runs, skills };
+    return { tasks, runs, skills, approvals };
   }, []);
   const { state, reload } = usePoll(fetchAll, 4000);
 
@@ -55,14 +61,18 @@ export default function HomePage() {
   };
 
   const data = state.kind === "ready" ? state.data : null;
-  const lastRunByTask = new Map<string, RunSummary>();
-  data?.runs.forEach((r) => {
-    if (!lastRunByTask.has(r.task_id)) lastRunByTask.set(r.task_id, r);
-  });
+  const taskName = new Map(data?.tasks.map((t) => [t.id, t.name]) ?? []);
+  const finished = data?.runs.filter((r) => r.status === "succeeded" || r.status === "failed");
+  const successRate =
+    finished && finished.length > 0
+      ? Math.round(
+          (finished.filter((r) => r.status === "succeeded").length / finished.length) * 100,
+        )
+      : null;
 
   return (
-    <div className="pt-10">
-      <h1 className="mb-8 text-center text-3xl font-semibold tracking-tight">
+    <div className="pt-6">
+      <h1 className="mb-7 text-center text-3xl font-semibold tracking-tight">
         Put SparkClone to work for you
       </h1>
 
@@ -72,8 +82,9 @@ export default function HomePage() {
           openCreate(quick.trim() || "Untitled task");
           setQuick("");
         }}
-        className="mx-auto mb-10 flex max-w-2xl items-center gap-3 rounded-full border
-          border-line bg-surface py-2 pl-6 pr-2 shadow-sm"
+        className="mx-auto mb-8 flex max-w-2xl items-center gap-3 rounded-full border
+          border-line bg-surface py-2 pl-6 pr-2 shadow-sm transition
+          focus-within:border-accent/60 focus-within:ring-2 focus-within:ring-accent/15"
       >
         <input
           value={quick}
@@ -90,42 +101,62 @@ export default function HomePage() {
         </button>
       </form>
 
-      <h2 className="mb-3 text-[15px] font-semibold">Recent tasks</h2>
-      {data && data.tasks.length > 0 ? (
-        <Card>
-          {data.tasks.slice(0, 4).map((t) => {
-            const lr = lastRunByTask.get(t.id);
-            return (
-              <Link
-                key={t.id}
-                href="/tasks"
-                className="flex items-center justify-between gap-4 border-b border-line px-5
-                  py-4 last:border-0 hover:bg-surface-2"
-              >
-                <div className="min-w-0">
-                  <p className="truncate text-[15px] font-medium">{t.name}</p>
-                  <p className="truncate text-sm text-muted">{t.prompt}</p>
-                </div>
-                {lr ? (
-                  <span className="flex shrink-0 items-center gap-2 text-xs text-muted">
-                    {ago(lr.created_at)} <StatusChip status={lr.status} />
-                  </span>
-                ) : (
-                  <span className="shrink-0 text-xs text-muted">never ran</span>
-                )}
-              </Link>
-            );
-          })}
-        </Card>
-      ) : (
-        <p className="rounded-xl border border-dashed border-line bg-surface px-5 py-6 text-sm text-muted">
-          {state.kind === "error"
-            ? `Could not load tasks: ${state.message}`
-            : "No tasks yet — describe one above to get started."}
-        </p>
-      )}
+      <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <StatCard
+          label="Active tasks"
+          value={data ? String(data.tasks.filter((t) => t.enabled).length) : "—"}
+          hint={data ? `${data.tasks.length} total` : undefined}
+        />
+        <StatCard label="Runs recorded" value={data ? String(data.runs.length) : "—"} />
+        <StatCard
+          label="Success rate"
+          value={successRate === null ? "—" : `${successRate}%`}
+          tone={successRate !== null && successRate >= 80 ? "ok" : "default"}
+          hint="of finished runs"
+        />
+        <StatCard
+          label="Pending approvals"
+          value={data ? String(data.approvals.length) : "—"}
+          tone={data && data.approvals.length > 0 ? "warn" : "default"}
+        />
+      </div>
 
-      <h2 className="mb-3 mt-10 text-[15px] font-semibold">Suggested</h2>
+      <div className="mb-2 flex items-baseline justify-between">
+        <h2 className="text-[15px] font-semibold">Recent activity</h2>
+        <Link href="/runs" className="text-xs font-medium text-accent hover:underline">
+          All runs →
+        </Link>
+      </div>
+      {!data ? <Skeleton rows={3} /> : null}
+      {data && data.runs.length > 0 ? (
+        <Card>
+          {data.runs.slice(0, 5).map((r) => (
+            <Link
+              key={r.id}
+              href={`/runs/${r.id}`}
+              className="flex items-center justify-between gap-4 border-b border-line px-5
+                py-3.5 transition last:border-0 hover:bg-surface-2"
+            >
+              <div className="min-w-0">
+                <p className="truncate text-sm font-medium">
+                  {taskName.get(r.task_id) ?? "(deleted task)"}
+                </p>
+                <p className="mt-0.5 truncate text-[13px] text-muted">
+                  {r.trigger} · {ago(r.created_at)}
+                </p>
+              </div>
+              <StatusChip status={r.status} />
+            </Link>
+          ))}
+        </Card>
+      ) : null}
+      {data && data.runs.length === 0 ? (
+        <p className="rounded-xl border border-dashed border-line bg-surface px-5 py-6 text-sm text-muted">
+          No runs yet — create a task above and press Run now.
+        </p>
+      ) : null}
+
+      <h2 className="mb-3 mt-9 text-[15px] font-semibold">Suggested</h2>
       <div className="grid gap-3 sm:grid-cols-3">
         {SUGGESTIONS.map((s) => (
           <button
@@ -133,7 +164,7 @@ export default function HomePage() {
             type="button"
             onClick={() => openCreate(s.prompt)}
             className="rounded-xl border border-line bg-surface p-4 text-left transition
-              hover:border-accent/50 hover:shadow-sm"
+              hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-md"
           >
             <p className="text-sm font-medium">{s.title}</p>
             <p className="mt-1 text-[13px] text-muted">{s.desc}</p>

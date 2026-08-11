@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback } from "react";
-import { Card, EmptyState, ErrorBanner, PageHeader, StatusChip } from "@/components/ui";
+import { Card, EmptyState, ErrorBanner, PageHeader, Skeleton, StatusChip } from "@/components/ui";
 import { listRuns, listTasks } from "@/lib/api";
 import { ago, formatTimestamp } from "@/lib/format";
 import type { RunSummary, Task } from "@/lib/types";
@@ -27,6 +27,7 @@ export default function RunsPage() {
         lede="Every execution of every task, newest first. Open a run for its full transcript."
       />
       {state.kind === "error" ? <ErrorBanner message={state.message} /> : null}
+      {state.kind === "loading" ? <Skeleton rows={5} /> : null}
 
       {data && data.runs.length === 0 ? (
         <EmptyState title="No runs yet" hint="Run a task and its execution will appear here." />

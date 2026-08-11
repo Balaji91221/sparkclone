@@ -43,6 +43,10 @@ export type RunSummary = {
 export type RunDetail = {
   id: string;
   task_id: string;
+  task_name: string;
+  trigger: string;
+  created_at: string;
+  finished_at: string | null;
   status: RunStatus;
   output: string;
   error: string;
@@ -113,6 +117,10 @@ export function parseRunDetail(v: unknown): RunDetail | null {
   return {
     id: v.id,
     task_id: str(v.task_id),
+    task_name: str(v.task_name),
+    trigger: str(v.trigger),
+    created_at: str(v.created_at),
+    finished_at: typeof v.finished_at === "string" ? v.finished_at : null,
     status: runStatus(v.status),
     output: str(v.output),
     error: str(v.error),

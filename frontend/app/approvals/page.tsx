@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useState } from "react";
-import { Button, EmptyState, ErrorBanner, PageHeader } from "@/components/ui";
+import { Button, EmptyState, ErrorBanner, PageHeader, Skeleton } from "@/components/ui";
 import { decideApproval, listApprovals } from "@/lib/api";
 import { ago } from "@/lib/format";
 import { usePoll } from "@/lib/use-poll";
@@ -32,6 +32,7 @@ export default function ApprovalsPage() {
       />
       {state.kind === "error" ? <ErrorBanner message={state.message} /> : null}
       {actionError ? <ErrorBanner message={actionError} /> : null}
+      {state.kind === "loading" ? <Skeleton rows={2} /> : null}
 
       {state.kind === "ready" && approvals.length === 0 ? (
         <EmptyState title="Nothing waiting on you" hint="Runs needing a decision will show up here." />

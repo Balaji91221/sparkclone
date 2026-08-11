@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback } from "react";
 import { ActivityFeed } from "@/components/activity-feed";
-import { ErrorBanner, StatusChip } from "@/components/ui";
+import { ErrorBanner, Skeleton, StatusChip } from "@/components/ui";
 import { getRun } from "@/lib/api";
+import { ago } from "@/lib/format";
 import type { RunDetail } from "@/lib/types";
 import { usePoll } from "@/lib/use-poll";
 
@@ -30,7 +31,11 @@ export default function RunDetailPage() {
           <ErrorBanner message={state.message} />
         </div>
       ) : null}
-      {state.kind === "loading" ? <p className="mt-4 text-sm text-muted">Loading…</p> : null}
+      {state.kind === "loading" ? (
+        <div className="mt-4">
+          <Skeleton rows={4} />
+        </div>
+      ) : null}
 
       {state.kind === "ready" && state.data ? <RunView run={state.data} /> : null}
       {state.kind === "ready" && !state.data ? (
@@ -43,15 +48,32 @@ export default function RunDetailPage() {
 const isLive = (s: RunDetail["status"]) =>
   s === "running" || s === "queued" || s === "waiting_approval";
 
+function duration(run: RunDetail): string {
+  if (!run.finished_at || !run.created_at) return "";
+  const parse = (t: string) => new Date(`${t.replace(" ", "T")}Z`).getTime();
+  const ms = parse(run.finished_at) - parse(run.created_at);
+  if (Number.isNaN(ms) || ms < 0) return "";
+  const s = Math.round(ms / 1000);
+  return s < 60 ? `${s}s` : `${Math.floor(s / 60)}m ${s % 60}s`;
+}
+
 function RunView({ run }: { run: RunDetail }) {
+  const dur = duration(run);
   return (
     <div className="mt-4">
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <div>
-          <h1 className="text-xl font-semibold tracking-tight">Run detail</h1>
-          <p className="mt-0.5 font-mono text-xs text-muted">{run.id}</p>
+      <div className="mb-6 rounded-xl border border-line bg-surface px-5 py-4 shadow-sm">
+        <div className="flex items-center justify-between gap-4">
+          <h1 className="truncate text-lg font-semibold tracking-tight">
+            {run.task_name || "Run detail"}
+          </h1>
+          <StatusChip status={run.status} />
         </div>
-        <StatusChip status={run.status} />
+        <p className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+          <span>Trigger: {run.trigger || "manual"}</span>
+          <span>Started {ago(run.created_at)}</span>
+          {dur ? <span>Took {dur}</span> : null}
+          <span className="font-mono">{run.id.slice(0, 12)}…</span>
+        </p>
       </div>
 
       {run.status === "waiting_approval" ? (
