@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { Card, Skeleton, StatCard, StatusChip } from "@/components/ui";
-import { listApprovals, listRuns, listTasks } from "@/lib/api";
+import { createChat, listApprovals, listRuns, listTasks, sendChatMessage } from "@/lib/api";
 import { ago } from "@/lib/format";
 import type { Approval, RunSummary, Task } from "@/lib/types";
 import { usePoll } from "@/lib/use-poll";
@@ -50,9 +50,22 @@ export default function HomePage() {
   }, []);
   const { state } = usePoll(fetchAll, 4000);
 
-  const openEditor = (prompt: string) => {
-    const name = prompt.split(":")[0].slice(0, 48);
-    router.push(`/tasks/new?name=${encodeURIComponent(name)}&prompt=${encodeURIComponent(prompt)}`);
+  // Gemini-style: describing a task here starts a chat with Spark, who
+  // drafts and creates the automation conversationally.
+  const [starting, setStarting] = useState(false);
+  const [startError, setStartError] = useState("");
+  const startChat = async (message: string) => {
+    if (starting) return;
+    setStarting(true);
+    setStartError("");
+    try {
+      const id = await createChat();
+      await sendChatMessage(id, message);
+      router.push(`/chat?id=${id}`);
+    } catch (e: unknown) {
+      setStartError(e instanceof Error ? e.message : String(e));
+      setStarting(false);
+    }
   };
 
   const data = state.kind === "ready" ? state.data : null;
@@ -79,8 +92,8 @@ export default function HomePage() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          openEditor(quick.trim() || "Untitled task");
-          setQuick("");
+          if (!quick.trim()) return;
+          void startChat(quick.trim());
         }}
         className="anim-rise mx-auto mb-8 flex max-w-2xl items-center gap-3 rounded-full
           border border-line bg-surface py-2 pl-6 pr-2 shadow-sm transition
@@ -96,13 +109,20 @@ export default function HomePage() {
         />
         <button
           type="submit"
+          disabled={starting}
           className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-accent-fg
             transition duration-200 hover:-translate-y-0.5 hover:opacity-90
-            active:translate-y-0"
+            active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Create
+          {starting ? "Starting…" : "Ask Spark"}
         </button>
       </form>
+      {startError ? (
+        <p role="alert" className="mx-auto -mt-5 mb-6 max-w-2xl rounded-lg bg-danger-soft
+          px-3 py-2 text-sm text-danger">
+          {startError}
+        </p>
+      ) : null}
 
       <div
         className="anim-rise mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4"
@@ -178,7 +198,7 @@ export default function HomePage() {
           <button
             key={s.title}
             type="button"
-            onClick={() => openEditor(s.prompt)}
+            onClick={() => void startChat(s.prompt)}
             className="anim-rise hover-lift rounded-xl border border-line bg-surface p-4
               text-left hover:border-accent/50"
             style={{ "--d": `${440 + i * 70}ms` } as React.CSSProperties}

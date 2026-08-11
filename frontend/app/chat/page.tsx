@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useCallback, useState } from "react";
 import { ActivityFeed } from "@/components/activity-feed";
 import { Button, ErrorBanner, Skeleton } from "@/components/ui";
 import {
@@ -15,7 +16,17 @@ import { ago } from "@/lib/format";
 import { usePoll } from "@/lib/use-poll";
 
 export default function ChatPage() {
-  const [chatId, setChatId] = useState<string | null>(null);
+  return (
+    <Suspense fallback={<Skeleton rows={3} />}>
+      <ChatPageInner />
+    </Suspense>
+  );
+}
+
+function ChatPageInner() {
+  // Deep link support: /chat?id=<chat> (used by the Overview quick bar).
+  const params = useSearchParams();
+  const [chatId, setChatId] = useState<string | null>(params.get("id"));
   const [error, setError] = useState("");
 
   const fetchChats = useCallback((signal: AbortSignal) => listChats(signal), []);
