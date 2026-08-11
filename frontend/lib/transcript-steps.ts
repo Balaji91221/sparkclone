@@ -115,6 +115,19 @@ export function toSteps(transcript: unknown): Step[] {
   return steps;
 }
 
+// Tool results wrap external data in <untrusted_content> for the model's
+// benefit; for display we show the inner content with an "external" badge.
+export function displayResult(raw: string): { text: string; external: boolean } {
+  const open = "<untrusted_content>";
+  const close = "</untrusted_content>";
+  const start = raw.indexOf(open);
+  const end = raw.lastIndexOf(close);
+  if (start === -1 || end === -1 || end <= start) {
+    return { text: raw, external: false };
+  }
+  return { text: raw.slice(start + open.length, end).trim(), external: true };
+}
+
 // One-line summary of a tool call's most informative argument.
 export function toolSummary(input: unknown): string {
   if (!isRecord(input)) return "";

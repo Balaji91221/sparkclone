@@ -5,3 +5,4 @@ spark.db
 node_modules/
 frontend/.next/
 frontend/out/
+.venv

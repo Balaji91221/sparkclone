@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { Button, Card, PageHeader } from "@/components/ui";
-import { googleDisconnect, googleStatus } from "@/lib/api";
+import { MCPSettings } from "@/components/mcp-settings";
+import { Button, Card, PageHeader, Skeleton } from "@/components/ui";
+import { googleDisconnect, googleStatus, listAgentTools } from "@/lib/api";
 import { usePoll } from "@/lib/use-poll";
 
 type Health = { kind: "ok" } | { kind: "down"; message: string };
@@ -16,13 +17,6 @@ async function checkHealth(signal: AbortSignal): Promise<Health> {
   }
 }
 
-const TOOLS: Array<{ name: string; desc: string; gated: boolean }> = [
-  { name: "read_inbox", desc: "Fetch and summarize recent mail (IMAP fallback)", gated: false },
-  { name: "send_email", desc: "Outbound mail — always asks you first", gated: true },
-  { name: "web_fetch", desc: "Fetch page content as untrusted data", gated: false },
-  { name: "run_python", desc: "Sandboxed code execution with timeout", gated: false },
-  { name: "notify", desc: "Deliver results to you", gated: false },
-];
 
 export default function SettingsPage() {
   const fetchHealth = useCallback((signal: AbortSignal) => checkHealth(signal), []);
@@ -54,6 +48,8 @@ export default function SettingsPage() {
 
       <h2 className="mb-3 mt-8 text-[15px] font-semibold">Google account</h2>
       <GoogleCard />
+
+      <MCPSettings />
 
       <AgentToolsSection />
     </div>
@@ -115,32 +111,47 @@ function GoogleCard() {
 }
 
 function AgentToolsSection() {
+  const fetchTools = useCallback((signal: AbortSignal) => listAgentTools(signal), []);
+  const { state } = usePoll(fetchTools, 30000);
+
   return (
     <div>
       <h2 className="mb-3 mt-8 text-[15px] font-semibold">Agent tools</h2>
-      <Card>
-        {TOOLS.map((t) => (
-          <div
-            key={t.name}
-            className="flex items-center justify-between gap-4 border-b border-line px-5
-              py-3.5 last:border-0"
-          >
-            <div>
-              <p className="font-mono text-sm font-medium">{t.name}</p>
-              <p className="text-[13px] text-muted">{t.desc}</p>
+      {state.kind === "loading" ? <Skeleton rows={4} /> : null}
+      {state.kind === "error" ? (
+        <p className="rounded-lg bg-danger-soft px-3 py-2 text-sm text-danger">{state.message}</p>
+      ) : null}
+      {state.kind === "ready" ? (
+        <Card>
+          {state.data.map((t) => (
+            <div
+              key={t.name}
+              className="flex items-center justify-between gap-4 border-b border-line px-5
+                py-3.5 last:border-0"
+            >
+              <div className="min-w-0">
+                <p className="truncate font-mono text-sm font-medium">
+                  {t.source !== "builtin" ? <span aria-hidden>🔌 </span> : null}
+                  {t.name}
+                </p>
+                <p className="line-clamp-1 text-[13px] text-muted">
+                  {t.source !== "builtin" ? `via ${t.source} · ` : ""}
+                  {t.description}
+                </p>
+              </div>
+              {t.requires_approval ? (
+                <span className="shrink-0 rounded-full bg-warn-soft px-2.5 py-0.5 text-xs font-medium text-warn">
+                  approval required
+                </span>
+              ) : (
+                <span className="shrink-0 rounded-full bg-surface-2 px-2.5 py-0.5 text-xs text-muted">
+                  auto
+                </span>
+              )}
             </div>
-            {t.gated ? (
-              <span className="rounded-full bg-warn-soft px-2.5 py-0.5 text-xs font-medium text-warn">
-                approval required
-              </span>
-            ) : (
-              <span className="rounded-full bg-surface-2 px-2.5 py-0.5 text-xs text-muted">
-                auto
-              </span>
-            )}
-          </div>
-        ))}
-      </Card>
+          ))}
+        </Card>
+      ) : null}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback } from "react";
 import { ActivityFeed } from "@/components/activity-feed";
+import { Markdown } from "@/components/markdown";
 import { ErrorBanner, Skeleton, StatusChip } from "@/components/ui";
 import { getRun } from "@/lib/api";
 import { ago } from "@/lib/format";
@@ -94,11 +95,8 @@ function RunView({ run }: { run: RunDetail }) {
       {run.output ? (
         <section className="mb-6">
           <h2 className="mb-2 text-[15px] font-semibold">Result</h2>
-          <div
-            className="whitespace-pre-wrap rounded-xl border border-line bg-surface p-4
-              text-sm leading-relaxed"
-          >
-            {run.output}
+          <div className="rounded-xl border border-line bg-surface px-5 py-4 shadow-sm">
+            <Markdown>{run.output}</Markdown>
           </div>
         </section>
       ) : null}
@@ -117,7 +115,11 @@ function RunView({ run }: { run: RunDetail }) {
 
       <section>
         <h2 className="mb-3 text-[15px] font-semibold">Activity</h2>
-        <ActivityFeed transcript={run.transcript} live={isLive(run.status)} />
+        <ActivityFeed
+          transcript={run.transcript}
+          live={isLive(run.status)}
+          finishedOk={run.status === "succeeded"}
+        />
       </section>
     </div>
   );

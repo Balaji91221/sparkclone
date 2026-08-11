@@ -159,3 +159,85 @@ export async function googleStatus(signal?: AbortSignal): Promise<GoogleStatus> 
 export async function googleDisconnect(): Promise<void> {
   await request("/auth/google/disconnect", { method: "POST" });
 }
+
+export type MCPServerInfo = {
+  id: string;
+  name: string;
+  transport: "stdio" | "http";
+  command: string;
+  args: string[];
+  url: string;
+  enabled: boolean;
+  requires_approval: boolean;
+  has_env: boolean;
+};
+
+function parseMcpServer(v: unknown): MCPServerInfo | null {
+  if (typeof v !== "object" || v === null) return null;
+  const r = v as Record<string, unknown>;
+  if (typeof r.id !== "string") return null;
+  return {
+    id: r.id,
+    name: typeof r.name === "string" ? r.name : "",
+    transport: r.transport === "http" ? "http" : "stdio",
+    command: typeof r.command === "string" ? r.command : "",
+    args: Array.isArray(r.args) ? r.args.filter((a): a is string => typeof a === "string") : [],
+    url: typeof r.url === "string" ? r.url : "",
+    enabled: r.enabled === true,
+    requires_approval: r.requires_approval === true,
+    has_env: r.has_env === true,
+  };
+}
+
+export type MCPServerInput = {
+  name: string;
+  transport: "stdio" | "http";
+  command: string;
+  args: string[];
+  env: Record<string, string>;
+  url: string;
+  requires_approval: boolean;
+};
+
+export async function listMcpServers(signal?: AbortSignal): Promise<MCPServerInfo[]> {
+  return parseList(await request("/api/mcp", { signal }), parseMcpServer);
+}
+
+export async function addMcpServer(body: MCPServerInput): Promise<void> {
+  await request("/api/mcp", { method: "POST", body });
+}
+
+export async function deleteMcpServer(id: string): Promise<void> {
+  await request(`/api/mcp/${id}`, { method: "DELETE" });
+}
+
+export async function toggleMcpServer(id: string): Promise<void> {
+  await request(`/api/mcp/${id}/toggle`, { method: "POST" });
+}
+
+export async function toggleMcpApproval(id: string): Promise<void> {
+  await request(`/api/mcp/${id}/approval`, { method: "POST" });
+}
+
+export type AgentTool = {
+  name: string;
+  description: string;
+  requires_approval: boolean;
+  source: string;
+};
+
+function parseAgentTool(v: unknown): AgentTool | null {
+  if (typeof v !== "object" || v === null) return null;
+  const r = v as Record<string, unknown>;
+  if (typeof r.name !== "string") return null;
+  return {
+    name: r.name,
+    description: typeof r.description === "string" ? r.description : "",
+    requires_approval: r.requires_approval === true,
+    source: typeof r.source === "string" ? r.source : "builtin",
+  };
+}
+
+export async function listAgentTools(signal?: AbortSignal): Promise<AgentTool[]> {
+  return parseList(await request("/api/tools", { signal }), parseAgentTool);
+}

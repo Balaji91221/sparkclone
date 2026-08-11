@@ -14,6 +14,19 @@ engine = create_engine(
     settings.database_url,
     connect_args={"check_same_thread": False} if settings.database_url.startswith("sqlite") else {},
 )
+
+if settings.database_url.startswith("sqlite"):
+    from sqlalchemy import event
+
+    @event.listens_for(engine, "connect")
+    def _sqlite_pragmas(dbapi_conn, _record):
+        # WAL lets the worker threads write while the API reads; busy_timeout
+        # turns "database is locked" crashes into short waits.
+        cur = dbapi_conn.cursor()
+        cur.execute("PRAGMA journal_mode=WAL")
+        cur.execute("PRAGMA busy_timeout=5000")
+        cur.close()
+
 SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
 
 
@@ -86,6 +99,21 @@ class Approval(Base):
     created_at = Column(DateTime(timezone=True), default=utcnow)
     resolved_at = Column(DateTime(timezone=True))
     run = relationship("Run", back_populates="approvals")
+
+
+class MCPServer(Base):
+    """A user-registered MCP server whose tools the agent may call."""
+    __tablename__ = "mcp_servers"
+    id = Column(String, primary_key=True, default=new_id)
+    name = Column(String, nullable=False, unique=True)
+    transport = Column(String, nullable=False)  # "stdio" | "http"
+    command = Column(String, default="")        # stdio: executable
+    args = Column(JSON, default=list)           # stdio: argv list
+    env_enc = Column(Text, default="")          # stdio: Fernet-encrypted env JSON
+    url = Column(String, default="")            # http: endpoint URL
+    enabled = Column(String, default="true")
+    requires_approval = Column(String, default="true")  # gate every tool call
+    created_at = Column(DateTime(timezone=True), default=utcnow)
 
 
 class GoogleCredential(Base):
