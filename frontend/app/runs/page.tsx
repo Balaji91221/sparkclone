@@ -35,12 +35,13 @@ export default function RunsPage() {
 
       {data && data.runs.length > 0 ? (
         <Card>
-          {data.runs.map((r) => (
+          {data.runs.map((r, i) => (
             <Link
               key={r.id}
               href={`/runs/${r.id}`}
-              className="flex items-center justify-between gap-4 border-b border-line px-5
-                py-3.5 last:border-0 hover:bg-surface-2"
+              className="anim-rise flex items-center justify-between gap-4 border-b
+                border-line px-5 py-3.5 transition-colors last:border-0 hover:bg-surface-2"
+              style={{ "--d": `${Math.min(i, 8) * 55}ms` } as React.CSSProperties}
             >
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium">

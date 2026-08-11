@@ -36,18 +36,21 @@ export function Login() {
   };
 
   return (
-    <main className="grid min-h-screen place-items-center bg-background px-4">
+    <main className="relative grid min-h-screen place-items-center overflow-hidden
+      bg-background px-4">
+      <div className="hero-glow" aria-hidden />
       <form
         onSubmit={(e) => {
           e.preventDefault();
           void submit();
         }}
-        className="w-full max-w-sm rounded-2xl border border-line bg-surface p-8 shadow-sm"
+        className="anim-rise w-full max-w-sm rounded-2xl border border-line bg-surface p-8
+          shadow-lg"
       >
         <div className="mb-6 flex items-center gap-3">
           <span
-            className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-lg
-              font-bold text-accent-fg"
+            className="spark-pulse grid h-10 w-10 place-items-center rounded-xl bg-accent
+              text-lg font-bold text-accent-fg"
           >
             ⚡
           </span>

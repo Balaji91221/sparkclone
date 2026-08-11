@@ -38,13 +38,15 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut }: SidebarPro
     >
       <div className="mb-6 flex items-center gap-2.5 px-2">
         <span
-          className="grid h-8 w-8 place-items-center rounded-lg bg-accent text-[15px]
-            font-bold text-accent-fg shadow-sm"
+          className="spark-pulse grid h-8 w-8 place-items-center rounded-lg bg-accent
+            text-[15px] font-bold text-accent-fg shadow-sm"
         >
           ⚡
         </span>
         <div>
-          <p className="text-[15px] font-semibold leading-tight tracking-tight">SparkClone</p>
+          <p className="font-display text-[15px] font-semibold leading-tight tracking-tight">
+            SparkClone
+          </p>
           <p className="text-[11px] text-muted">Personal agent</p>
         </div>
       </div>
@@ -61,10 +63,10 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut }: SidebarPro
               key={item.href}
               href={item.href}
               className={`relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm
-                font-medium transition ${
+                font-medium transition duration-200 ${
                   active
                     ? "bg-accent-soft text-accent"
-                    : "text-muted hover:bg-surface-2 hover:text-foreground"
+                    : "text-muted hover:translate-x-0.5 hover:bg-surface-2 hover:text-foreground"
                 }`}
             >
               {active ? (

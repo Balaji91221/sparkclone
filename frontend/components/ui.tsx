@@ -91,7 +91,9 @@ export function Button({ variant = "ghost", onClick, type = "button", disabled, 
       onClick={onClick}
       disabled={disabled}
       className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition
-        disabled:cursor-not-allowed disabled:opacity-50 ${BUTTON_STYLES[variant]}`}
+        duration-200 will-change-transform hover:-translate-y-0.5 active:translate-y-0
+        active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50
+        disabled:hover:translate-y-0 ${BUTTON_STYLES[variant]}`}
     >
       {children}
     </button>
@@ -143,9 +145,9 @@ export function Skeleton({ rows = 3 }: { rows?: number }) {
   return (
     <div className="overflow-hidden rounded-xl border border-line bg-surface shadow-sm">
       {Array.from({ length: rows }, (_, i) => (
-        <div key={i} className="animate-pulse border-b border-line px-5 py-4 last:border-0">
-          <div className="h-3.5 w-1/3 rounded bg-surface-2" />
-          <div className="mt-2 h-3 w-2/3 rounded bg-surface-2" />
+        <div key={i} className="border-b border-line px-5 py-4 last:border-0">
+          <div className="skeleton-shimmer h-3.5 w-1/3 rounded" />
+          <div className="skeleton-shimmer mt-2 h-3 w-2/3 rounded" />
         </div>
       ))}
     </div>
@@ -158,9 +160,11 @@ export function StatCard({ label, value, hint, tone = "default" }: StatCardProps
   const valueClass =
     tone === "ok" ? "text-ok" : tone === "warn" ? "text-warn" : "text-foreground";
   return (
-    <div className="rounded-xl border border-line bg-surface px-4 py-3.5 shadow-sm">
+    <div className="hover-lift rounded-xl border border-line bg-surface px-4 py-3.5 shadow-sm">
       <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">{label}</p>
-      <p className={`mt-1 text-xl font-semibold tabular-nums ${valueClass}`}>{value}</p>
+      <p className={`font-display mt-1 text-xl font-semibold tabular-nums ${valueClass}`}>
+        {value}
+      </p>
       {hint ? <p className="mt-0.5 text-xs text-muted">{hint}</p> : null}
     </div>
   );

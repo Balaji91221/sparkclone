@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useCallback, useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
 import { clearToken, getToken, googleStatus, listApprovals, subscribeToken } from "@/lib/api";
@@ -31,6 +32,7 @@ function ConnectedShell({ children }: { children: ReactNode }) {
   }, []);
   const { state } = usePoll(fetchShellData, 5000);
   const data = state.kind === "ready" ? state.data : null;
+  const pathname = usePathname();
 
   return (
     <div className="min-h-screen bg-background">
@@ -40,7 +42,10 @@ function ConnectedShell({ children }: { children: ReactNode }) {
         onSignOut={clearToken}
       />
       <main className="ml-[232px] px-8 py-8">
-        <div className="mx-auto max-w-4xl">{children}</div>
+        {/* Keyed by route so page changes get a soft cross-fade. */}
+        <div key={pathname} className="anim-fade mx-auto max-w-4xl">
+          {children}
+        </div>
       </main>
     </div>
   );

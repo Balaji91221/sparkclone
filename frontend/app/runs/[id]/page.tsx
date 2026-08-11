@@ -61,7 +61,10 @@ function RunView({ run }: { run: RunDetail }) {
   const dur = duration(run);
   return (
     <div className="mt-4">
-      <div className="mb-6 rounded-xl border border-line bg-surface px-5 py-4 shadow-sm">
+      <div
+        className="glass sticky top-3 z-10 mb-6 rounded-xl border border-line px-5 py-4
+          shadow-sm"
+      >
         <div className="flex items-center justify-between gap-4">
           <h1 className="truncate text-lg font-semibold tracking-tight">
             {run.task_name || "Run detail"}

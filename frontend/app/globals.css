@@ -1,44 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f6f7f9;
+  --background: #f6f7fb;
   --surface: #ffffff;
-  --surface-2: #f0f2f5;
-  --line: #e4e7ec;
-  --foreground: #171a21;
-  --muted: #667085;
-  --accent: #4f46e5;
-  --accent-soft: #eef0fd;
+  --surface-2: #eef0f6;
+  --line: #e3e6ef;
+  --foreground: #15171e;
+  --muted: #646b7a;
+  --accent: #5457e5;
+  --accent-soft: #ecedfd;
   --accent-fg: #ffffff;
-  --ok: #157f3d;
-  --ok-soft: #e5f5ea;
+  --spark: #f5a524;
+  --ok: #158a46;
+  --ok-soft: #e3f6eb;
   --warn: #9a6700;
-  --warn-soft: #fcf1d6;
-  --danger: #c02626;
-  --danger-soft: #fdeaea;
-  --info: #1d4fb8;
-  --info-soft: #e7eefc;
+  --warn-soft: #fbf1d5;
+  --danger: #c22f2f;
+  --danger-soft: #fce9e9;
+  --info: #1d5fd6;
+  --info-soft: #e7effc;
+  --glow: 84 87 229;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0e1116;
-    --surface: #161a22;
-    --surface-2: #1d222d;
-    --line: #262c38;
-    --foreground: #e7e9ef;
-    --muted: #94a0b4;
-    --accent: #7a82f2;
-    --accent-soft: #23263e;
-    --accent-fg: #0e1116;
-    --ok: #4ec27d;
-    --ok-soft: #16281d;
-    --warn: #e2b93b;
-    --warn-soft: #2c2513;
-    --danger: #ef7070;
-    --danger-soft: #321a1a;
-    --info: #7aa5f5;
-    --info-soft: #1a2334;
+    --background: #0c0d13;
+    --surface: #14161f;
+    --surface-2: #1b1e2b;
+    --line: #272b3b;
+    --foreground: #e9eaf2;
+    --muted: #98a0b3;
+    --accent: #8285f4;
+    --accent-soft: #23264a;
+    --accent-fg: #0c0d13;
+    --spark: #ffb84d;
+    --ok: #4ac77e;
+    --ok-soft: #132a1d;
+    --warn: #e5bc4a;
+    --warn-soft: #2b2412;
+    --danger: #f07a7a;
+    --danger-soft: #331b1b;
+    --info: #7fa8f8;
+    --info-soft: #182339;
+    --glow: 130 133 244;
   }
 }
 
@@ -52,6 +56,7 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-accent-fg: var(--accent-fg);
+  --color-spark: var(--spark);
   --color-ok: var(--ok);
   --color-ok-soft: var(--ok-soft);
   --color-warn: var(--warn);
@@ -60,11 +65,133 @@
   --color-danger-soft: var(--danger-soft);
   --color-info: var(--info);
   --color-info-soft: var(--info-soft);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+}
+
+/* ---------------------------------------------------------------- motion */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes rail-grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes spark-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.85; }
+}
+
+@keyframes glow-drift {
+  0%, 100% { transform: translate(-50%, 0) scale(1); opacity: 0.55; }
+  50% { transform: translate(-46%, 4%) scale(1.06); opacity: 0.75; }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* Staggered entrance: set --d per element (ms). */
+.anim-rise {
+  opacity: 0;
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+.anim-fade {
+  opacity: 0;
+  animation: fade 0.5s ease forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Scroll reveals (useReveal hook toggles .revealed). */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -12px rgb(var(--glow) / 0.28);
+}
+
+.spark-pulse {
+  animation: spark-pulse 2.6s ease-in-out infinite;
+}
+
+.hero-glow {
+  position: absolute;
+  left: 50%;
+  top: -40px;
+  width: 640px;
+  height: 320px;
+  transform: translate(-50%, 0);
+  background: radial-gradient(ellipse at center,
+    rgb(var(--glow) / 0.16) 0%, rgb(var(--glow) / 0.07) 45%, transparent 72%);
+  filter: blur(8px);
+  pointer-events: none;
+  animation: glow-drift 9s ease-in-out infinite;
+}
+
+.glass {
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg,
+    var(--surface-2) 25%, var(--line) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+/* Activity timeline rail draws in with the step. */
+.rail-line {
+  transform-origin: top;
+  animation: rail-grow 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .anim-rise, .anim-fade, .reveal { opacity: 1; transform: none; }
 }

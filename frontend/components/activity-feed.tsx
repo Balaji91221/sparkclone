@@ -31,17 +31,29 @@ const pre =
   "mt-2 max-h-64 overflow-auto whitespace-pre-wrap rounded-lg bg-surface-2 p-3 " +
   "font-mono text-xs leading-relaxed text-muted";
 
-function Row({ icon, iconClass, children }: {
+type RowState = "active" | "done" | "plain";
+
+function Row({ icon, iconClass, state = "plain", children }: {
   icon: ReactNode;
   iconClass?: string;
+  state?: RowState;
   children: ReactNode;
 }) {
   return (
-    <div className="relative flex gap-3 pb-5 last:pb-0">
-      <div className="absolute bottom-0 left-[13px] top-8 w-px bg-line" />
+    <div className="anim-rise relative flex gap-3 pb-5 last:pb-0">
+      <div
+        className="rail-line absolute bottom-0 left-[13px] top-8 w-px
+          bg-gradient-to-b from-[color-mix(in_srgb,var(--accent)_45%,var(--line))] to-line"
+      />
       <span
         className={`z-[1] grid h-7 w-7 shrink-0 place-items-center rounded-full text-[13px]
-          ${iconClass ?? "bg-surface-2"}`}
+          transition-shadow duration-500 ${iconClass ?? "bg-surface-2"} ${
+            state === "active"
+              ? "spark-pulse ring-2 ring-accent/50"
+              : state === "done"
+                ? "ring-1 ring-ok/40"
+                : ""
+          }`}
       >
         {icon}
       </span>
@@ -80,10 +92,10 @@ function StepView({ step, live }: { step: Step; live: boolean }) {
       return (
         <Row icon={<ClockIcon />}>
           <details>
-            <summary className="cursor-pointer text-sm leading-relaxed text-muted">
+            <summary className="cursor-pointer text-sm italic leading-relaxed text-muted/90">
               {firstSentence(step.text)}
             </summary>
-            <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-muted">
+            <p className="mt-1 whitespace-pre-wrap text-sm italic leading-relaxed text-muted/90">
               {step.text}
             </p>
           </details>
@@ -98,8 +110,9 @@ function StepView({ step, live }: { step: Step; live: boolean }) {
     case "tool": {
       const look = toolLook(step.name);
       const summary = toolSummary(step.input);
+      const rowState = step.result === null ? (live ? "active" : "plain") : "done";
       return (
-        <Row icon={look.icon} iconClass={look.className}>
+        <Row icon={look.icon} iconClass={look.className} state={rowState}>
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-sm font-semibold">{look.label}</span>
             <code className="rounded-full bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-muted">

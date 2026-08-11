@@ -39,8 +39,13 @@ export default function ApprovalsPage() {
       ) : null}
 
       <div className="space-y-4">
-        {approvals.map((a) => (
-          <div key={a.id} className="rounded-xl border border-warn/40 bg-surface p-5 shadow-sm">
+        {approvals.map((a, i) => (
+          <div
+            key={a.id}
+            className="anim-rise hover-lift rounded-xl border border-warn/40 bg-surface p-5
+              shadow-sm"
+            style={{ "--d": `${i * 80}ms` } as React.CSSProperties}
+          >
             <div className="flex items-center justify-between gap-3">
               <p className="text-[15px] font-medium">
                 Agent wants to call{" "}

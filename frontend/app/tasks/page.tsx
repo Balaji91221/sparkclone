@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
-import { TaskDialog } from "@/components/task-dialog";
-import type { TaskDialogRequest } from "@/components/task-dialog";
 import {
   Button,
   Card,
@@ -21,7 +20,7 @@ import { usePoll } from "@/lib/use-poll";
 type TasksData = { tasks: Task[]; runs: RunSummary[]; skills: SkillDef[] };
 
 export default function TasksPage() {
-  const [dialog, setDialog] = useState<TaskDialogRequest>({ kind: "closed" });
+  const router = useRouter();
   const [actionError, setActionError] = useState("");
 
   const fetchAll = useCallback(async (signal: AbortSignal): Promise<TasksData> => {
@@ -69,7 +68,7 @@ export default function TasksPage() {
         title="Tasks"
         lede="Standing instructions for your agent — scheduled with cron or run on demand."
         action={
-          <Button variant="primary" onClick={() => setDialog({ kind: "create" })}>
+          <Button variant="primary" onClick={() => router.push("/tasks/new")}>
             New task
           </Button>
         }
@@ -87,10 +86,15 @@ export default function TasksPage() {
 
       {data && data.tasks.length > 0 ? (
         <Card>
-          {data.tasks.map((t) => {
+          {data.tasks.map((t, i) => {
             const lr = lastRunByTask.get(t.id);
             return (
-              <div key={t.id} className="border-b border-line px-5 py-4 last:border-0">
+              <div
+                key={t.id}
+                className="anim-rise border-b border-line px-5 py-4 transition-colors
+                  last:border-0 hover:bg-surface-2/50"
+                style={{ "--d": `${i * 70}ms` } as React.CSSProperties}
+              >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <p className="flex items-center gap-2 text-[15px] font-medium">
@@ -122,7 +126,7 @@ export default function TasksPage() {
                     <Button variant="primary" onClick={() => void act(() => runTask(t.id))}>
                       Run now
                     </Button>
-                    <Button onClick={() => setDialog({ kind: "edit", task: t })}>Edit</Button>
+                    <Button onClick={() => router.push(`/tasks/${t.id}/edit`)}>Edit</Button>
                     <Button onClick={() => void toggleEnabled(t)}>
                       {t.enabled ? "Pause" : "Resume"}
                     </Button>
@@ -143,13 +147,6 @@ export default function TasksPage() {
           })}
         </Card>
       ) : null}
-
-      <TaskDialog
-        request={dialog}
-        skills={data?.skills ?? []}
-        onClose={() => setDialog({ kind: "closed" })}
-        onSaved={reload}
-      />
     </div>
   );
 }

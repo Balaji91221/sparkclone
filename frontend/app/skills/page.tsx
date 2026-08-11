@@ -151,13 +151,14 @@ export default function SkillsPage() {
 
       <h2 className="mb-3 mt-10 text-[15px] font-semibold">Recommended</h2>
       <div className="grid gap-3 sm:grid-cols-2">
-        {RECOMMENDED.map((r) => (
+        {RECOMMENDED.map((r, i) => (
           <button
             key={r.input.name}
             type="button"
             onClick={() => open(r.input)}
-            className="rounded-xl border border-line bg-surface p-4 text-left transition
-              hover:border-accent/50 hover:shadow-sm"
+            className="anim-rise hover-lift rounded-xl border border-line bg-surface p-4
+              text-left hover:border-accent/50"
+            style={{ "--d": `${i * 80}ms` } as React.CSSProperties}
           >
             <p className="text-sm font-medium">{r.title}</p>
             <p className="mt-1 text-[13px] text-muted">{r.desc}</p>
