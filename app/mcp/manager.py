@@ -87,6 +87,12 @@ async def _with_session(server: ServerConfig, fn):
             async with ClientSession(read, write) as session:
                 await session.initialize()
                 return await fn(session)
+    if server.transport == "sse":
+        from mcp.client.sse import sse_client
+        async with sse_client(server.url) as (read, write):
+            async with ClientSession(read, write) as session:
+                await session.initialize()
+                return await fn(session)
     from mcp.client.streamable_http import streamable_http_client
     async with streamable_http_client(server.url) as (read, write):
         async with ClientSession(read, write) as session:

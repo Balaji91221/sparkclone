@@ -160,10 +160,12 @@ export async function googleDisconnect(): Promise<void> {
   await request("/auth/google/disconnect", { method: "POST" });
 }
 
+export type MCPTransport = "stdio" | "http" | "sse";
+
 export type MCPServerInfo = {
   id: string;
   name: string;
-  transport: "stdio" | "http";
+  transport: MCPTransport;
   command: string;
   args: string[];
   url: string;
@@ -172,6 +174,10 @@ export type MCPServerInfo = {
   has_env: boolean;
 };
 
+function parseTransport(v: unknown): MCPTransport {
+  return v === "http" || v === "sse" ? v : "stdio";
+}
+
 function parseMcpServer(v: unknown): MCPServerInfo | null {
   if (typeof v !== "object" || v === null) return null;
   const r = v as Record<string, unknown>;
@@ -179,7 +185,7 @@ function parseMcpServer(v: unknown): MCPServerInfo | null {
   return {
     id: r.id,
     name: typeof r.name === "string" ? r.name : "",
-    transport: r.transport === "http" ? "http" : "stdio",
+    transport: parseTransport(r.transport),
     command: typeof r.command === "string" ? r.command : "",
     args: Array.isArray(r.args) ? r.args.filter((a): a is string => typeof a === "string") : [],
     url: typeof r.url === "string" ? r.url : "",
@@ -191,7 +197,7 @@ function parseMcpServer(v: unknown): MCPServerInfo | null {
 
 export type MCPServerInput = {
   name: string;
-  transport: "stdio" | "http";
+  transport: MCPTransport;
   command: string;
   args: string[];
   env: Record<string, string>;

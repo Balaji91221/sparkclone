@@ -12,7 +12,7 @@ router = APIRouter(prefix="/api/mcp", dependencies=[Depends(auth)])
 
 class MCPServerIn(BaseModel):
     name: str
-    transport: str  # "stdio" | "http"
+    transport: str  # "stdio" | "http" (streamable) | "sse" (legacy)
     command: str = ""
     args: list[str] = []
     env: dict[str, str] = {}
@@ -40,12 +40,12 @@ def list_servers():
 
 @router.post("")
 def add_server(body: MCPServerIn):
-    if body.transport not in ("stdio", "http"):
-        raise HTTPException(400, "transport must be stdio or http")
+    if body.transport not in ("stdio", "http", "sse"):
+        raise HTTPException(400, "transport must be stdio, http (streamable) or sse")
     if body.transport == "stdio" and not body.command.strip():
         raise HTTPException(400, "stdio transport needs a command")
-    if body.transport == "http" and not body.url.strip():
-        raise HTTPException(400, "http transport needs a url")
+    if body.transport in ("http", "sse") and not body.url.strip():
+        raise HTTPException(400, f"{body.transport} transport needs a url")
     row = MCPServer(
         name=body.name.strip(), transport=body.transport,
         command=body.command.strip(), args=body.args,

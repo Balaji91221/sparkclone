@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Tiny stdio MCP server used to test SparkClone's MCP integration.
+"""Tiny MCP server used to test SparkClone's MCP integration.
 
-Run manually:  python3 scripts/demo_mcp_server.py
-Register in SparkClone as transport=stdio with this venv's python + this path.
+Usage:
+  python3 scripts/demo_mcp_server.py                       # stdio (default)
+  python3 scripts/demo_mcp_server.py streamable-http 8765  # http://127.0.0.1:8765/mcp
+  python3 scripts/demo_mcp_server.py sse 8766              # http://127.0.0.1:8766/sse
 """
+import sys
+
 from mcp.server import MCPServer
 
 server = MCPServer(name="spark-demo")
@@ -20,4 +24,9 @@ def add(a: float, b: float) -> str:
 
 
 if __name__ == "__main__":
-    server.run("stdio")
+    transport = sys.argv[1] if len(sys.argv) > 1 else "stdio"
+    if transport == "stdio":
+        server.run("stdio")
+    else:
+        port = int(sys.argv[2]) if len(sys.argv) > 2 else 8765
+        server.run(transport, port=port)

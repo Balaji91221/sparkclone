@@ -165,15 +165,21 @@ export function MCPSettings() {
                 placeholder="my-server"
               />
             </Field>
-            <Field label="Transport">
+            <Field
+              label="Transport"
+              hint="Most hosted MCP apps use Streamable HTTP (a URL ending in /mcp); SSE is the older HTTP style; stdio runs a local command."
+            >
               <select
                 value={dialog.form.transport}
-                onChange={(e) =>
-                  setForm({ transport: e.target.value === "http" ? "http" : "stdio" })}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  setForm({ transport: v === "http" || v === "sse" ? v : "stdio" });
+                }}
                 className={inputClass}
               >
                 <option value="stdio">stdio — local command</option>
-                <option value="http">http — streamable HTTP URL</option>
+                <option value="http">Streamable HTTP — custom URL (…/mcp)</option>
+                <option value="sse">SSE — legacy HTTP URL (…/sse)</option>
               </select>
             </Field>
             {dialog.form.transport === "stdio" ? (
@@ -196,12 +202,14 @@ export function MCPSettings() {
                 </Field>
               </>
             ) : (
-              <Field label="URL">
+              <Field label="Custom app URL">
                 <input
                   className={`${inputClass} font-mono`}
                   value={dialog.form.url}
                   onChange={(e) => setForm({ url: e.target.value })}
-                  placeholder="https://example.com/mcp"
+                  placeholder={dialog.form.transport === "sse"
+                    ? "https://your-app-link.com/sse"
+                    : "https://your-app-link.com/mcp"}
                 />
               </Field>
             )}
