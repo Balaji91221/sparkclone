@@ -50,7 +50,7 @@ export default function HomePage() {
   }, []);
   const { state } = usePoll(fetchAll, 4000);
 
-  // Gemini-style: describing a task here starts a chat with Spark, who
+  // Gemini-style: describing a task here starts a chat with Arc, who
   // drafts and creates the automation conversationally.
   const [starting, setStarting] = useState(false);
   const [startError, setStartError] = useState("");

@@ -1,4 +1,4 @@
-"""SparkAgent: executes one Run to completion.
+"""ArclightAgent: executes one Run to completion.
 
 Builds the prompt (task + skills), loops the configured LLM provider with
 tool use, executes built-in and MCP tools, pauses for approval on sensitive
@@ -23,7 +23,7 @@ NUDGE = ("If the task is fully complete, reply with the final summary and "
          "step — call the tool for it now.")
 
 
-class SparkAgent:
+class ArclightAgent:
     def __init__(self, run_id: str) -> None:
         self.run_id = run_id
         self.messages: list[dict] = []
@@ -182,7 +182,7 @@ class SparkAgent:
 
 
 def execute_run(run_id: str) -> None:
-    SparkAgent(run_id).execute()
+    ArclightAgent(run_id).execute()
 
 
 def redact(messages: list[dict]) -> list[dict]:

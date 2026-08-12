@@ -1,4 +1,4 @@
-"""SparkClone API — app factory, startup, and middleware.
+"""Arclight API — app factory, startup, and middleware.
 
 Route handlers live in app/api/* routers; the agent loop in app/agent/agent.py.
 The dashboard is the Next.js app in frontend/ (it proxies /api and /auth here).

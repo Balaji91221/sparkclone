@@ -1,4 +1,4 @@
-"""System prompts for the Spark agent — one source of truth.
+"""System prompts for Arc, the Arclight agent — one source of truth.
 
 Both execution modes (scheduled task runs and interactive chat) share CORE;
 each adds its own mode block. Keep rules here, not scattered in agent code.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tiny MCP server used to test SparkClone's MCP integration.
+"""Tiny MCP server used to test Arclight's MCP integration.
 
 Usage:
   python3 scripts/demo_mcp_server.py                       # stdio (default)
