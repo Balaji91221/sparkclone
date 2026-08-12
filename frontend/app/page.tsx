@@ -50,7 +50,7 @@ export default function HomePage() {
   }, []);
   const { state } = usePoll(fetchAll, 4000);
 
-  // Gemini-style: describing a task here starts a chat with Arc, who
+  // Gemini-style: describing a task here starts a chat with Astra, who
   // drafts and creates the automation conversationally.
   const [starting, setStarting] = useState(false);
   const [startError, setStartError] = useState("");
@@ -85,7 +85,7 @@ export default function HomePage() {
           tracking-[-0.02em] md:text-[3.25rem]"
         style={{ "--d": "0ms" } as React.CSSProperties}
       >
-        Put <span className="grad-text">Arclight</span> to work for you
+        Put <span className="grad-text">Astra</span> to work for you
       </h1>
 
       <form
@@ -112,7 +112,7 @@ export default function HomePage() {
           className="btn-primary rounded-full px-5 py-2 text-sm font-medium
             disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {starting ? "Starting…" : "Ask Arc"}
+          {starting ? "Starting…" : "Ask Astra"}
         </button>
       </form>
       {startError ? (

@@ -112,7 +112,7 @@ function ConnectedShell({ children }: { children: ReactNode }) {
           </svg>
         </button>
         <LogoMark className="h-7 w-7" />
-        <p className="text-[15px] font-semibold tracking-tight">Arclight</p>
+        <p className="text-[15px] font-semibold tracking-tight">Astra</p>
       </header>
 
       <main

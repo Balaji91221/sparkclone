@@ -20,24 +20,17 @@ function Stroke({ d, className, strokeWidth = 1.6 }: IconProps & { d: string }) 
   );
 }
 
-/* Brand mark: an arc with a single ray of light. */
+/* Brand mark: a four-point star spark on the gradient tile. */
 export function LogoMark({ className }: { className?: string }) {
   return (
     <span
-      className={`grid shrink-0 place-items-center brand-tile rounded-xl
+      className={`brand-tile grid shrink-0 place-items-center rounded-xl
         ${className ?? "h-8 w-8"}`}
     >
-      <svg
-        viewBox="0 0 24 24"
-        className="h-[60%] w-[60%]"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        aria-hidden
-      >
-        <path d="M4.5 17.5a7.5 7.5 0 0 1 15 0" />
-        <path d="M12 4.5V8" />
+      <svg viewBox="0 0 24 24" className="h-[62%] w-[62%]" fill="currentColor" aria-hidden>
+        <path d="M12 2.5c.9 4.9 2.3 6.6 7.5 7.7v3.6c-5.2 1.1-6.6 2.8-7.5 7.7h-.1
+          c-.9-4.9-2.3-6.6-7.4-7.7v-3.6c5.1-1.1 6.5-2.8 7.4-7.7z" />
+        <circle cx="19.5" cy="4.5" r="1.6" />
       </svg>
     </span>
   );

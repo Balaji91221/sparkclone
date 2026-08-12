@@ -1,8 +1,8 @@
-# Arclight
+# Astra
 
 A self-hosted, Gemini-Spark-style 24/7 personal agent. Describe what you want in
 plain language — "check my inbox every weekday at 9am and send me a summary" —
-and Arc (the agent) drafts the automation, schedules it with cron, runs it in the
+and Astra (the agent) drafts the automation, schedules it with cron, runs it in the
 background, and pauses for your approval before anything sensitive.
 
 Backend: FastAPI + SQLAlchemy + APScheduler, LLM via NVIDIA NIM (OpenAI-format).
@@ -13,7 +13,7 @@ Dashboard: Next.js App Router + Tailwind. Storage: Postgres (Docker) or SQLite.
 - **Agent runtime** — tool-use loop with step budgets, streaming transcript
   persistence, auto-continue nudges, and honest failure states (a capped run is
   `failed`, never silently "succeeded").
-- **Chat with Arc** — conversational task management: create, update, pause, and
+- **Chat with Astra** — conversational task management: create, update, pause, and
   delete schedules from chat; the agent drafts task prompts for you and
   guardrails are appended server-side.
 - **Google integration** — OAuth sign-in with Gmail (read + approval-gated send
@@ -73,7 +73,7 @@ npm run dev        # http://localhost:3000 — sign in with SPARK_API_TOKEN
 ## Example: weekday inbox digest
 
 Open **Chat** and say: *"Every weekday at 9am, read my inbox, summarize what
-matters, and email me a prioritized to-do list."* Arc drafts the task prompt,
+matters, and email me a prioritized to-do list."* Astra drafts the task prompt,
 creates the schedule (`0 9 * * MON-FRI`), and confirms. Refine it the same way:
 *"make it 8pm instead"* updates the task in place.
 

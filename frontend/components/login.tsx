@@ -43,10 +43,10 @@ export function Login() {
           style={{ "--d": "0ms" } as React.CSSProperties}>
           <LogoMark className="h-14 w-14" />
           <h1 className="mt-5 text-[1.75rem] font-semibold tracking-[-0.02em]">
-            Welcome to Arclight
+            Welcome to Astra
           </h1>
           <p className="mt-2 max-w-xs text-[15px] leading-relaxed text-muted">
-            Your always-on agent. Describe a task once — Arclight runs it on
+            Your always-on agent. Describe a task once — Astra runs it on
             schedule, and asks before anything sensitive.
           </p>
         </div>

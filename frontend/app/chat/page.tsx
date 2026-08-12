@@ -130,10 +130,10 @@ function EmptyChat({ onStart }: { onStart: () => void }) {
     <div className="relative grid flex-1 place-items-center">
       <div className="anim-rise text-center">
         <p className="text-2xl font-semibold tracking-[-0.02em]">
-          Chat with Arc
+          Chat with Astra
         </p>
         <p className="mx-auto mt-2 max-w-sm text-sm text-muted">
-          Ask anything, or describe an automation — Arc can create tasks,
+          Ask anything, or describe an automation — Astra can create tasks,
           schedules and skills for you right from the conversation.
         </p>
         <div className="mt-5">
@@ -199,7 +199,7 @@ function Conversation({ chatId }: { chatId: string }) {
       ) : null}
       {chat?.status === "waiting_approval" ? (
         <p className="mb-2 rounded-lg border border-warn/40 bg-warn-soft px-3 py-2 text-sm text-warn">
-          Arc is waiting for your decision on a sensitive action —{" "}
+          Astra is waiting for your decision on a sensitive action —{" "}
           <Link href="/approvals" className="font-medium underline">review it</Link>.
         </p>
       ) : null}
@@ -217,8 +217,8 @@ function Conversation({ chatId }: { chatId: string }) {
         <input
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
-          placeholder={busy ? "Arc is working…" : "Message Arc…"}
-          aria-label="Message Arc"
+          placeholder={busy ? "Astra is working…" : "Message Astra…"}
+          aria-label="Message Astra"
           className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted/70"
         />
         <button

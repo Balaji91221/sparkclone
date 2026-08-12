@@ -9,8 +9,8 @@ const body = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Arclight",
-  description: "Arclight — your always-on autonomous agent",
+  title: "Astra",
+  description: "Astra — your always-on autonomous agent",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -1,4 +1,4 @@
-"""Arclight API — app factory, startup, and middleware.
+"""Astra API — app factory, startup, and middleware.
 
 Route handlers live in app/api/* routers; the agent loop in app/agent/agent.py.
 The dashboard is the Next.js app in frontend/ (it proxies /api and /auth here).
@@ -43,7 +43,7 @@ def _reap_orphaned_runs() -> None:
         db.commit()
 
 
-app = FastAPI(title="Arclight", version="2.0.0")
+app = FastAPI(title="Astra", version="2.0.0")
 for router in (tasks.router, skills.router, runs.router, approvals.router,
                tools.router, mcp.router, chats.router, google_router):
     app.include_router(router)
@@ -72,7 +72,7 @@ async def request_logging(request: Request, call_next):
 
 @app.get("/")
 def root():
-    return {"app": "Arclight", "api": "ok",
+    return {"app": "Astra", "api": "ok",
             "dashboard": "run `npm run dev` in frontend/ (http://localhost:3000)"}
 
 

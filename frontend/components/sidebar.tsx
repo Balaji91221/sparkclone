@@ -47,7 +47,7 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut, onClose }: S
         <LogoMark className="h-8 w-8" />
         <div className="min-w-0 flex-1">
           <p className="text-[15px] font-semibold leading-tight tracking-tight">
-            Arclight
+            Astra
           </p>
           <p className="text-[11px] text-muted">Autonomous agent</p>
         </div>
