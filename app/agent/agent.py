@@ -88,8 +88,14 @@ class AstraAgent:
 
         tools = anthropic_tool_specs(task.allowed_tools or None)
         # MCP tools are merged per run (never into the global registry) so a
-        # dead or edited server config takes effect on the next run.
-        self.mcp_tools = {t.public_name: t for t in mcp_manager.enabled_tools()}
+        # dead or edited server config takes effect on the next run. A task
+        # with allowed_tools set only gets MCP tools it names — either exactly
+        # or via a server-wide "mcp_<server>_*" entry.
+        allowed = set(task.allowed_tools or [])
+        self.mcp_tools = {
+            t.public_name: t for t in mcp_manager.enabled_tools()
+            if not allowed or t.public_name in allowed
+            or f"mcp_{t.server.name}_*" in allowed}
         # Descriptions are server-controlled: truncate and label them so
         # poisoned metadata has less room and less authority.
         tools += [{

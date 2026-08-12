@@ -13,6 +13,11 @@ const NAV: NavItem[] = [
     label: "Chat",
     icon: "M21 12a8 8 0 01-8 8H5l-2 2V12a8 8 0 018-8h2a8 8 0 018 8zM8 12h.01M12 12h.01M16 12h.01",
   },
+  {
+    href: "/apps",
+    label: "Apps",
+    icon: "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
+  },
   { href: "/tasks", label: "Tasks", icon: "M12 3a9 9 0 110 18 9 9 0 010-18zM12 7v5l3 2" },
   { href: "/skills", label: "Skills", icon: "M6 4h9a3 3 0 013 3v13H8a2 2 0 01-2-2V4zM9 8h6M9 12h6" },
   { href: "/runs", label: "Runs", icon: "M4 17l5-5-5-5M11 19h9" },
