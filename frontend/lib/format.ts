@@ -22,18 +22,28 @@ const WEEKDAYS: Record<string, string> = {
   THU: "Thursday", FRI: "Friday", SAT: "Saturday",
 };
 
+function time12(hour: string, min: string): string {
+  const h = Number(hour);
+  const period = h >= 12 ? "PM" : "AM";
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return `${h12}:${min.padStart(2, "0")} ${period}`;
+}
+
 export function cronHuman(cron: string): string {
   if (!cron.trim()) return "Manual — run on demand";
   const p = cron.trim().split(/\s+/);
   if (p.length < 5) return cron;
   const [min, hour, dom, , dow] = p;
   if (!/^\d+$/.test(min) || !/^\d+$/.test(hour)) return cron;
-  const time = `${hour.padStart(2, "0")}:${min.padStart(2, "0")}`;
+  const time = time12(hour, min);
   if (dow !== "*") {
-    const days = dow.split(",").map((d) => WEEKDAYS[d.toUpperCase()]);
-    if (days.every(Boolean)) return `Weekly on ${days.join(", ")} at ${time}`;
+    const key = dow.toUpperCase().replace(/\s/g, "");
+    if (key === "MON-FRI" || key === "1-5") return `Weekdays around ${time}`;
+    if (key === "SAT,SUN" || key === "6,0") return `Weekends around ${time}`;
+    const days = key.split(",").map((d) => WEEKDAYS[d]);
+    if (days.every(Boolean)) return `Weekly on ${days.join(", ")} around ${time}`;
     return cron;
   }
-  if (dom !== "*") return `Monthly on day ${dom} at ${time}`;
-  return `Daily at ${time}`;
+  if (dom !== "*") return `Monthly on day ${dom} around ${time}`;
+  return `Daily around ${time}`;
 }

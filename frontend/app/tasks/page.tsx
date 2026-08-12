@@ -1,35 +1,35 @@
 "use client";
 
+// Gemini-style Schedules list: calm rows (name, human schedule, last run),
+// grouped Ongoing / Paused, with actions tucked into a per-row menu.
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
-import {
-  Button,
-  Card,
-  EmptyState,
-  ErrorBanner,
-  PageHeader,
-  Skeleton,
-  StatusChip,
-} from "@/components/ui";
-import { deleteTask, listRuns, listSkills, listTasks, runTask, updateTask } from "@/lib/api";
+import { useCallback, useEffect, useState } from "react";
+import { Icon } from "@/components/icons";
+import { EmptyState, ErrorBanner, PageHeader, Skeleton } from "@/components/ui";
+import { deleteTask, listRuns, listTasks, runTask, updateTask } from "@/lib/api";
 import { ago, cronHuman } from "@/lib/format";
-import type { RunSummary, SkillDef, Task } from "@/lib/types";
+import type { RunSummary, Task } from "@/lib/types";
 import { usePoll } from "@/lib/use-poll";
 
-type TasksData = { tasks: Task[]; runs: RunSummary[]; skills: SkillDef[] };
+type TasksData = { tasks: Task[]; runs: RunSummary[] };
 
 export default function TasksPage() {
   const router = useRouter();
   const [actionError, setActionError] = useState("");
+  const [menuFor, setMenuFor] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (menuFor === null) return;
+    const close = () => setMenuFor(null);
+    window.addEventListener("click", close);
+    return () => window.removeEventListener("click", close);
+  }, [menuFor]);
 
   const fetchAll = useCallback(async (signal: AbortSignal): Promise<TasksData> => {
-    const [tasks, runs, skills] = await Promise.all([
-      listTasks(signal),
-      listRuns(signal),
-      listSkills(signal),
-    ]);
-    return { tasks, runs, skills };
+    const [tasks, runs] = await Promise.all([listTasks(signal), listRuns(signal)]);
+    return { tasks, runs };
   }, []);
   const { state, reload } = usePoll(fetchAll, 4000);
 
@@ -60,94 +60,170 @@ export default function TasksPage() {
   data?.runs.forEach((r) => {
     if (!lastRunByTask.has(r.task_id)) lastRunByTask.set(r.task_id, r);
   });
-  const skillName = new Map(data?.skills.map((s) => [s.id, s.name]) ?? []);
+
+  const ongoing = data?.tasks.filter((t) => t.enabled) ?? [];
+  const paused = data?.tasks.filter((t) => !t.enabled) ?? [];
+
+  const row = (t: Task) => {
+    const lr = lastRunByTask.get(t.id);
+    const open = menuFor === t.id;
+    return (
+      <div
+        key={t.id}
+        role="button"
+        tabIndex={0}
+        onClick={() => router.push(`/tasks/${t.id}/edit`)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") router.push(`/tasks/${t.id}/edit`);
+        }}
+        className="group relative flex cursor-pointer items-center gap-4 border-b
+          border-line px-5 py-4 transition-colors duration-150 last:border-0
+          hover:bg-surface-2/60"
+      >
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-[15px] font-medium">{t.name}</p>
+          <p className="mt-0.5 text-[13px] text-muted">{cronHuman(t.cron)}</p>
+          {lr ? (
+            <p className="mt-0.5 text-[13px] text-muted">
+              Last run {ago(lr.created_at)}
+              {lr.status === "failed" ? (
+                <span className="text-danger"> · failed</span>
+              ) : null}
+              {lr.status === "running" ? (
+                <span className="text-accent"> · running…</span>
+              ) : null}
+            </p>
+          ) : (
+            <p className="mt-0.5 text-[13px] text-muted">Not run yet</p>
+          )}
+        </div>
+
+        <button
+          type="button"
+          aria-label={`Actions for ${t.name}`}
+          aria-expanded={open}
+          onClick={(e) => {
+            e.stopPropagation();
+            setMenuFor(open ? null : t.id);
+          }}
+          className="rounded-full p-2 text-muted opacity-0 transition duration-150
+            hover:bg-surface-2 hover:text-foreground focus:opacity-100
+            group-hover:opacity-100 aria-expanded:opacity-100"
+        >
+          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+            <circle cx="12" cy="5" r="1.6" />
+            <circle cx="12" cy="12" r="1.6" />
+            <circle cx="12" cy="19" r="1.6" />
+          </svg>
+        </button>
+
+        {open ? (
+          <div
+            className="absolute right-4 top-12 z-10 w-44 overflow-hidden rounded-xl
+              border border-line bg-surface py-1 shadow-[var(--shadow-pop)]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <MenuItem icon="play" label="Run now"
+              onClick={() => { setMenuFor(null); void act(() => runTask(t.id)); }} />
+            <MenuItem icon="calendar" label="Edit"
+              onClick={() => router.push(`/tasks/${t.id}/edit`)} />
+            <MenuItem icon="clock" label={t.enabled ? "Pause" : "Resume"}
+              onClick={() => { setMenuFor(null); void toggleEnabled(t); }} />
+            <MenuItem icon="trash" label="Delete" danger
+              onClick={() => {
+                setMenuFor(null);
+                if (window.confirm(`Delete schedule "${t.name}"?`)) {
+                  void act(() => deleteTask(t.id));
+                }
+              }} />
+          </div>
+        ) : null}
+      </div>
+    );
+  };
 
   return (
     <div>
       <PageHeader
-        title="Tasks"
-        lede="Standing instructions for your agent — scheduled with cron or run on demand."
-        action={
-          <Button variant="primary" onClick={() => router.push("/tasks/new")}>
-            New task
-          </Button>
-        }
+        title="Schedules"
+        lede="Get proactive help with tasks that run on repeat, respond to events, or
+          monitor and react — Astra handles them in the background."
       />
+
+      <div className="anim-rise mb-8 flex flex-wrap gap-3">
+        <Link
+          href="/chat"
+          className="inline-flex items-center gap-2 rounded-full bg-accent-soft px-5
+            py-2.5 text-sm font-medium text-accent transition duration-150
+            hover:brightness-95"
+        >
+          <Icon name="sparkle" className="h-4 w-4" />
+          Create with Astra
+        </Link>
+        <Link
+          href="/tasks/new"
+          className="inline-flex items-center gap-2 rounded-full bg-surface-2 px-5
+            py-2.5 text-sm font-medium text-foreground transition duration-150
+            hover:bg-line"
+        >
+          <Icon name="calendar" className="h-4 w-4" />
+          Create manually
+        </Link>
+      </div>
+
       {actionError ? <ErrorBanner message={actionError} /> : null}
       {state.kind === "error" ? <ErrorBanner message={state.message} /> : null}
       {state.kind === "loading" ? <Skeleton rows={3} /> : null}
 
       {data && data.tasks.length === 0 ? (
         <EmptyState
-          title="No tasks yet"
-          hint="Create one and the agent will handle it on schedule or on demand."
+          title="No schedules yet"
+          hint="Create one with Astra in chat, or set one up manually."
         />
       ) : null}
 
-      {data && data.tasks.length > 0 ? (
-        <Card>
-          {data.tasks.map((t, i) => {
-            const lr = lastRunByTask.get(t.id);
-            return (
-              <div
-                key={t.id}
-                className="anim-rise border-b border-line px-5 py-4 transition-colors
-                  last:border-0 hover:bg-surface-2/50"
-                style={{ "--d": `${Math.min(i, 8) * 70}ms` } as React.CSSProperties}
-              >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start
-                  sm:justify-between sm:gap-4">
-                  <div className="min-w-0">
-                    <p className="flex items-center gap-2 text-[15px] font-medium">
-                      {t.name}
-                      {!t.enabled ? (
-                        <span className="rounded-full bg-surface-2 px-2 py-0.5 text-[11px] text-muted">
-                          paused
-                        </span>
-                      ) : null}
-                    </p>
-                    <p className="mt-0.5 line-clamp-2 text-sm text-muted">{t.prompt}</p>
-                    <p className="mt-1.5 text-[13px] text-muted">
-                      {cronHuman(t.cron)}
-                      {t.skill_ids.length > 0 ? (
-                        <> · skills: {t.skill_ids.map((id) => skillName.get(id) ?? "?").join(", ")}</>
-                      ) : null}
-                      {lr ? (
-                        <>
-                          {" "}
-                          · last run {ago(lr.created_at)}{" "}
-                          <Link href={`/runs/${lr.id}`} className="align-middle">
-                            <StatusChip status={lr.status} />
-                          </Link>
-                        </>
-                      ) : null}
-                    </p>
-                  </div>
-                  <div className="flex shrink-0 flex-wrap gap-2">
-                    <Button variant="primary" onClick={() => void act(() => runTask(t.id))}>
-                      Run now
-                    </Button>
-                    <Button onClick={() => router.push(`/tasks/${t.id}/edit`)}>Edit</Button>
-                    <Button onClick={() => void toggleEnabled(t)}>
-                      {t.enabled ? "Pause" : "Resume"}
-                    </Button>
-                    <Button
-                      variant="danger"
-                      onClick={() => {
-                        if (window.confirm(`Delete task "${t.name}"?`)) {
-                          void act(() => deleteTask(t.id));
-                        }
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </Card>
+      {ongoing.length > 0 ? (
+        <section className="anim-rise mb-8">
+          <h2 className="mb-2 text-[15px] font-semibold tracking-tight">Ongoing</h2>
+          <div className="overflow-visible rounded-2xl border border-line bg-surface
+            shadow-[var(--shadow-card)]">
+            {ongoing.map(row)}
+          </div>
+        </section>
+      ) : null}
+
+      {paused.length > 0 ? (
+        <section className="anim-rise">
+          <h2 className="mb-2 text-[15px] font-semibold tracking-tight">Paused</h2>
+          <div className="overflow-visible rounded-2xl border border-line bg-surface
+            shadow-[var(--shadow-card)] opacity-80">
+            {paused.map(row)}
+          </div>
+        </section>
       ) : null}
     </div>
+  );
+}
+
+type MenuItemProps = {
+  icon: string;
+  label: string;
+  danger?: boolean;
+  onClick: () => void;
+};
+
+function MenuItem({ icon, label, danger, onClick }: MenuItemProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex w-full items-center gap-2.5 px-4 py-2 text-left text-[13px]
+        font-medium transition duration-150 hover:bg-surface-2 ${
+          danger ? "text-danger" : "text-foreground"
+        }`}
+    >
+      <Icon name={icon} className="h-4 w-4" />
+      {label}
+    </button>
   );
 }
