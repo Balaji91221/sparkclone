@@ -31,9 +31,10 @@ type SidebarProps = {
   pendingApprovals: number;
   googleEmail: string;
   onSignOut: () => void;
+  onClose: () => void;
 };
 
-export function Sidebar({ pendingApprovals, googleEmail, onSignOut }: SidebarProps) {
+export function Sidebar({ pendingApprovals, googleEmail, onSignOut, onClose }: SidebarProps) {
   const pathname = usePathname();
 
   return (
@@ -48,12 +49,25 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut }: SidebarPro
         >
           ⚡
         </span>
-        <div>
+        <div className="min-w-0 flex-1">
           <p className="font-display text-[15px] font-semibold leading-tight tracking-tight">
-            SparkClone
+            Arclight
           </p>
-          <p className="text-[11px] text-muted">Personal agent</p>
+          <p className="text-[11px] text-muted">Autonomous agent</p>
         </div>
+        <button
+          type="button"
+          aria-label="Close navigation"
+          onClick={onClose}
+          className="rounded-lg p-1.5 text-muted transition hover:bg-surface-2
+            hover:text-foreground"
+        >
+          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor"
+            strokeWidth="1.8" strokeLinecap="round">
+            <path d="M15 6l-6 6 6 6" />
+            <path d="M4 5v14" />
+          </svg>
+        </button>
       </div>
 
       <p className="mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted">

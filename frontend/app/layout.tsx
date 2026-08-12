@@ -21,8 +21,8 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SparkClone",
-  description: "Mission control for your self-hosted personal agent",
+  title: "Arclight",
+  description: "Arclight — your always-on autonomous agent",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -55,8 +55,8 @@ export function Login() {
             ⚡
           </span>
           <div>
-            <h1 className="text-lg font-semibold">SparkClone</h1>
-            <p className="text-xs text-muted">Mission control for your personal agent</p>
+            <h1 className="text-lg font-semibold">Arclight</h1>
+            <p className="text-xs text-muted">Your always-on autonomous agent</p>
           </div>
         </div>
 

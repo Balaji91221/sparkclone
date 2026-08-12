@@ -57,8 +57,8 @@ function ChatPageInner() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] gap-6">
-      <aside className="flex w-52 shrink-0 flex-col">
+    <div className="flex h-[calc(100dvh-8.5rem)] gap-6 md:h-[calc(100vh-4rem)]">
+      <aside className="hidden w-52 shrink-0 flex-col md:flex">
         <div className="mb-2 flex items-center justify-between px-2">
           <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted">
             Recent
@@ -131,10 +131,10 @@ function EmptyChat({ onStart }: { onStart: () => void }) {
       <div className="hero-glow" aria-hidden />
       <div className="anim-rise text-center">
         <p className="font-display text-2xl font-semibold tracking-tight">
-          Chat with Spark
+          Chat with Arc
         </p>
         <p className="mx-auto mt-2 max-w-sm text-sm text-muted">
-          Ask anything, or describe an automation — Spark can create tasks,
+          Ask anything, or describe an automation — Arc can create tasks,
           schedules and skills for you right from the conversation.
         </p>
         <div className="mt-5">
@@ -200,7 +200,7 @@ function Conversation({ chatId }: { chatId: string }) {
       ) : null}
       {chat?.status === "waiting_approval" ? (
         <p className="mb-2 rounded-lg border border-warn/40 bg-warn-soft px-3 py-2 text-sm text-warn">
-          Spark is waiting for your decision on a sensitive action —{" "}
+          Arc is waiting for your decision on a sensitive action —{" "}
           <Link href="/approvals" className="font-medium underline">review it</Link>.
         </p>
       ) : null}
@@ -219,8 +219,8 @@ function Conversation({ chatId }: { chatId: string }) {
         <input
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
-          placeholder={busy ? "Spark is working…" : "Message Spark…"}
-          aria-label="Message Spark"
+          placeholder={busy ? "Arc is working…" : "Message Arc…"}
+          aria-label="Message Arc"
           className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted/70"
         />
         <button

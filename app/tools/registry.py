@@ -205,7 +205,7 @@ def web_fetch(url: str) -> str:
         return "Invalid URL: must start with http(s)://"
     try:
         r = httpx.get(url, timeout=30, follow_redirects=True,
-                      headers={"User-Agent": "SparkClone/1.0"})
+                      headers={"User-Agent": "Arclight/1.0"})
         text = r.text[:20000]
     except Exception as e:  # noqa: BLE001
         return f"Fetch failed: {e}"
@@ -235,11 +235,11 @@ def notify(message: str) -> str:
         # Prefer the connected Google account; it sends only to the user's own
         # NOTIFY_EMAIL, so it stays ungated (unlike send_gmail/send_email).
         from ..google import client as g
-        result = g.gmail_send(settings.notify_email, "SparkClone notification", message)
+        result = g.gmail_send(settings.notify_email, "Arclight notification", message)
         if not result.startswith(("Google is not connected", "Gmail send failed")):
             return result
         if settings.smtp_host:
-            return send_email(settings.notify_email, "SparkClone notification", message)
+            return send_email(settings.notify_email, "Arclight notification", message)
     print(f"[notify] {message}")
     return "Notification recorded (no delivery channel configured, logged to stdout)."
 

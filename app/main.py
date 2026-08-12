@@ -43,7 +43,7 @@ def _reap_orphaned_runs() -> None:
         db.commit()
 
 
-app = FastAPI(title="SparkClone", version="2.0.0")
+app = FastAPI(title="Arclight", version="2.0.0")
 for router in (tasks.router, skills.router, runs.router, approvals.router,
                tools.router, mcp.router, chats.router, google_router):
     app.include_router(router)
@@ -72,7 +72,7 @@ async def request_logging(request: Request, call_next):
 
 @app.get("/")
 def root():
-    return {"app": "SparkClone", "api": "ok",
+    return {"app": "Arclight", "api": "ok",
             "dashboard": "run `npm run dev` in frontend/ (http://localhost:3000)"}
 
 

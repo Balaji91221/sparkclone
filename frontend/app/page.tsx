@@ -83,10 +83,11 @@ export default function HomePage() {
       <div className="hero-glow" aria-hidden />
 
       <h1
-        className="anim-rise mb-7 text-center text-[2.4rem] font-semibold tracking-tight"
+        className="anim-rise mb-7 text-center text-3xl font-semibold tracking-tight
+          md:text-[2.4rem]"
         style={{ "--d": "0ms" } as React.CSSProperties}
       >
-        Put <span className="grad-text">SparkClone</span> to work for you
+        Put <span className="grad-text">Arclight</span> to work for you
       </h1>
 
       <form
@@ -115,7 +116,7 @@ export default function HomePage() {
             hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed
             disabled:opacity-60"
         >
-          {starting ? "Starting…" : "Ask Spark"}
+          {starting ? "Starting…" : "Ask Arc"}
         </button>
       </form>
       {startError ? (

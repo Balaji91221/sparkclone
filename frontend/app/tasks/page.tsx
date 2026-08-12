@@ -95,7 +95,8 @@ export default function TasksPage() {
                   last:border-0 hover:bg-surface-2/50"
                 style={{ "--d": `${Math.min(i, 8) * 70}ms` } as React.CSSProperties}
               >
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start
+                  sm:justify-between sm:gap-4">
                   <div className="min-w-0">
                     <p className="flex items-center gap-2 text-[15px] font-medium">
                       {t.name}
@@ -122,7 +123,7 @@ export default function TasksPage() {
                       ) : null}
                     </p>
                   </div>
-                  <div className="flex shrink-0 gap-2">
+                  <div className="flex shrink-0 flex-wrap gap-2">
                     <Button variant="primary" onClick={() => void act(() => runTask(t.id))}>
                       Run now
                     </Button>
