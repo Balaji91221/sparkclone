@@ -3,9 +3,27 @@ services:
     build: .
     ports: ["8000:8000"]
     env_file: .env
-    volumes: ["spark_data:/srv/data"]
     environment:
-      - DATABASE_URL=sqlite:////srv/data/spark.db
+      - DATABASE_URL=postgresql+psycopg://spark:sparkpass@db:5432/sparkclone
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=spark
+      - POSTGRES_PASSWORD=sparkpass
+      - POSTGRES_DB=sparkclone
+    ports: ["5433:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spark -d sparkclone"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
 volumes:
-  spark_data:
+  pgdata:
