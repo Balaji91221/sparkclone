@@ -199,17 +199,22 @@ function AppAutomationDialog({ app, skills, onClose }: DialogProps) {
   return (
     <Modal open title={`New ${app.name} automation`} onClose={onClose}>
       <div className="max-h-[70vh] overflow-y-auto pr-1">
-        <label className="mb-1.5 block text-[13px] font-medium text-muted">Name</label>
+        <label htmlFor="app-name" className="mb-1.5 block text-[13px] font-medium text-muted">
+          Name
+        </label>
         <input
+          id="app-name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           className={inputClass}
         />
 
-        <label className="mb-1.5 mt-4 block text-[13px] font-medium text-muted">
+        <label htmlFor="app-prompt"
+          className="mb-1.5 mt-4 block text-[13px] font-medium text-muted">
           What should Astra do?
         </label>
         <textarea
+          id="app-prompt"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           className={`${inputClass} min-h-[120px] resize-y leading-relaxed`}

@@ -128,6 +128,7 @@ export function ScheduleField({ value, onChange }: ScheduleFieldProps) {
                   type="button"
                   onClick={() => toggleDay(d.cron)}
                   title={d.label}
+                  aria-label={d.label}
                   aria-pressed={on}
                   className={`grid h-8 w-8 place-items-center rounded-full text-xs font-medium
                     transition ${
