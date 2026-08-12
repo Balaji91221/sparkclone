@@ -104,7 +104,7 @@ export function TaskEditor({ mode, skills }: TaskEditorProps) {
           onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
           placeholder="Task name"
           aria-label="Task name"
-          className="font-display w-full rounded-xl border border-line bg-surface px-5 py-4
+          className="w-full rounded-xl border border-line bg-surface px-5 py-4
             text-xl font-semibold outline-none placeholder:font-normal
             placeholder:text-muted/60 focus:border-accent focus:ring-2 focus:ring-accent/20"
         />

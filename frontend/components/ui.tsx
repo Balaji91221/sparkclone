@@ -43,8 +43,8 @@ export function Modal({ open, title, onClose, children }: ModalProps) {
     <dialog
       ref={ref}
       onClose={onClose}
-      className="m-auto w-[min(560px,92vw)] rounded-2xl border border-line bg-surface p-7
-        text-foreground shadow-2xl backdrop:bg-black/40"
+      className="m-auto w-[min(560px,92vw)] rounded-xl border border-line bg-surface p-7
+        text-foreground shadow-[var(--shadow-pop)] backdrop:bg-black/30"
     >
       <h3 className="mb-5 text-lg font-semibold">{title}</h3>
       {open ? children : null}
@@ -66,14 +66,14 @@ export function Field({ label, hint, children }: FieldProps) {
 
 export const inputClass =
   "w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-foreground " +
-  "outline-none placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20";
+  "outline-none transition duration-150 placeholder:text-muted/70 focus:border-accent/50 focus:ring-2 focus:ring-accent/10";
 
 type ButtonVariant = "primary" | "ghost" | "danger";
 
 const BUTTON_STYLES: Record<ButtonVariant, string> = {
-  primary: "grad-primary",
-  ghost: "bg-surface-2 text-foreground hover:bg-line",
-  danger: "bg-danger-soft text-danger hover:opacity-85",
+  primary: "btn-primary",
+  ghost: "border border-line bg-surface text-foreground hover:bg-surface-2",
+  danger: "border border-danger/25 bg-surface text-danger hover:bg-danger-soft",
 };
 
 type ButtonProps = {
@@ -90,10 +90,9 @@ export function Button({ variant = "ghost", onClick, type = "button", disabled, 
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition
-        duration-200 will-change-transform hover:-translate-y-0.5 active:translate-y-0
-        active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50
-        disabled:hover:translate-y-0 ${BUTTON_STYLES[variant]}`}
+      className={`rounded-lg px-3.5 py-1.5 text-[13px] font-medium transition
+        duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50
+        ${BUTTON_STYLES[variant]}`}
     >
       {children}
     </button>
@@ -117,7 +116,7 @@ export function PageHeader({ title, lede, action }: PageHeaderProps) {
 export function Card({ children }: { children: ReactNode }) {
   return (
     <div
-      className="overflow-hidden rounded-2xl border border-line bg-surface
+      className="overflow-hidden rounded-xl border border-line bg-surface
         shadow-[var(--shadow-card)]"
     >
       {children}
@@ -164,11 +163,11 @@ export function StatCard({ label, value, hint, tone = "default" }: StatCardProps
     tone === "ok" ? "text-ok" : tone === "warn" ? "text-warn" : "text-foreground";
   return (
     <div
-      className="rounded-2xl border border-line bg-surface px-4 py-3.5
+      className="rounded-xl border border-line bg-surface px-4 py-3.5
         shadow-[var(--shadow-card)]"
     >
-      <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">{label}</p>
-      <p className={`font-display mt-1 text-xl font-semibold tabular-nums ${valueClass}`}>
+      <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted">{label}</p>
+      <p className={`mt-1 text-xl font-semibold tracking-tight tabular-nums ${valueClass}`}>
         {value}
       </p>
       {hint ? <p className="mt-0.5 text-xs text-muted">{hint}</p> : null}

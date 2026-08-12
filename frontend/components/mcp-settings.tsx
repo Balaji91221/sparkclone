@@ -106,7 +106,7 @@ export function MCPSettings() {
             >
               <div className="min-w-0">
                 <p className="flex items-center gap-2 text-sm font-medium">
-                  <span aria-hidden>🔌</span> {s.name}
+                  {s.name}
                   <code className="rounded-full bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-muted">
                     {s.transport}
                   </code>

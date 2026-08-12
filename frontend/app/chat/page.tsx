@@ -66,8 +66,8 @@ function ChatPageInner() {
           <button
             type="button"
             onClick={() => void startNew()}
-            className="rounded-full px-2.5 py-1 text-xs font-medium text-accent
-              transition hover:bg-accent-soft"
+            className="rounded-md px-2 py-1 text-xs font-medium text-foreground
+              transition duration-150 hover:bg-surface-2"
           >
             + New chat
           </button>
@@ -85,7 +85,7 @@ function ChatPageInner() {
               className={`group flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[13px]
                 transition ${
                   c.id === activeId
-                    ? "bg-accent-soft text-accent"
+                    ? "bg-surface-2 text-foreground"
                     : "text-muted hover:bg-surface-2 hover:text-foreground"
                 }`}
             >
@@ -128,9 +128,8 @@ function ChatPageInner() {
 function EmptyChat({ onStart }: { onStart: () => void }) {
   return (
     <div className="relative grid flex-1 place-items-center">
-      <div className="hero-glow" aria-hidden />
       <div className="anim-rise text-center">
-        <p className="font-display text-2xl font-semibold tracking-tight">
+        <p className="text-2xl font-semibold tracking-[-0.02em]">
           Chat with Arc
         </p>
         <p className="mx-auto mt-2 max-w-sm text-sm text-muted">
@@ -210,11 +209,10 @@ function Conversation({ chatId }: { chatId: string }) {
           e.preventDefault();
           void send();
         }}
-        className="mx-auto mt-3 flex w-full max-w-2xl items-center gap-3 rounded-full
-          border border-line bg-surface py-2 pl-5 pr-2 shadow-[var(--shadow-card)]
-          transition focus-within:border-accent/60
-          focus-within:shadow-[var(--shadow-card-hover)]
-          focus-within:ring-2 focus-within:ring-accent/15"
+        className="mx-auto mt-3 flex w-full max-w-2xl items-center gap-3 rounded-xl
+          border border-line bg-surface py-2 pl-4 pr-2 shadow-[var(--shadow-card)]
+          transition duration-150 focus-within:border-foreground/20
+          focus-within:shadow-[var(--shadow-card-hover)]"
       >
         <input
           value={draft}
@@ -226,9 +224,8 @@ function Conversation({ chatId }: { chatId: string }) {
         <button
           type="submit"
           disabled={busy || !draft.trim()}
-          className="grad-primary rounded-full px-5 py-2 text-sm font-medium
-            hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed
-            disabled:opacity-50 disabled:hover:translate-y-0"
+          className="btn-primary rounded-lg px-4 py-2 text-sm font-medium
+            disabled:cursor-not-allowed disabled:opacity-50"
         >
           Send
         </button>

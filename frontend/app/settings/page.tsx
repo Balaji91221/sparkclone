@@ -131,7 +131,7 @@ function AgentToolsSection() {
             >
               <div className="min-w-0">
                 <p className="truncate font-mono text-sm font-medium">
-                  {t.source !== "builtin" ? <span aria-hidden>🔌 </span> : null}
+                  
                   {t.name}
                 </p>
                 <p className="line-clamp-1 text-[13px] text-muted">

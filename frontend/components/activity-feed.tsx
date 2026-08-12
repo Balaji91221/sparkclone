@@ -8,40 +8,45 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { displayResult, toSteps, toolSummary } from "@/lib/transcript-steps";
 import type { Step } from "@/lib/transcript-steps";
+import { Icon } from "./icons";
 import { Markdown } from "./markdown";
 
 type ToolLook = { label: string; icon: string; className: string };
 
 const TOOL_LOOKS: Record<string, ToolLook> = {
-  read_gmail: { label: "Gmail", icon: "✉️", className: "bg-danger-soft" },
-  send_gmail: { label: "Gmail · send", icon: "✉️", className: "bg-danger-soft" },
-  read_inbox: { label: "Inbox (IMAP)", icon: "✉️", className: "bg-danger-soft" },
-  send_email: { label: "Email · send", icon: "✉️", className: "bg-danger-soft" },
-  notify: { label: "Notify", icon: "🔔", className: "bg-warn-soft" },
-  web_fetch: { label: "Web", icon: "🌐", className: "bg-info-soft" },
-  run_python: { label: "Python", icon: "🐍", className: "bg-accent-soft" },
-  youtube_channel_feed: { label: "YouTube", icon: "▶️", className: "bg-danger-soft" },
-  youtube_transcript: { label: "YouTube · transcript", icon: "▶️", className: "bg-danger-soft" },
-  youtube_video_info: { label: "YouTube · info", icon: "▶️", className: "bg-danger-soft" },
-  list_drive_files: { label: "Drive", icon: "📁", className: "bg-ok-soft" },
-  read_drive_file: { label: "Drive · read", icon: "📁", className: "bg-ok-soft" },
-  create_task: { label: "Create task", icon: "🗓️", className: "bg-accent-soft" },
-  update_task: { label: "Update task", icon: "🗓️", className: "bg-accent-soft" },
-  list_tasks: { label: "List tasks", icon: "🗓️", className: "bg-surface-2" },
-  delete_task: { label: "Delete task", icon: "🗑️", className: "bg-danger-soft" },
-  run_task_now: { label: "Run task", icon: "▶", className: "bg-accent-soft" },
-  list_recent_runs: { label: "Recent runs", icon: "🗓️", className: "bg-surface-2" },
-  create_skill: { label: "Create skill", icon: "📘", className: "bg-accent-soft" },
-  list_skills: { label: "List skills", icon: "📘", className: "bg-surface-2" },
+  read_gmail: { label: "Gmail", icon: "mail", className: "bg-surface-2 text-muted" },
+  send_gmail: { label: "Gmail · send", icon: "mail", className: "bg-surface-2 text-muted" },
+  read_inbox: { label: "Inbox (IMAP)", icon: "mail", className: "bg-surface-2 text-muted" },
+  send_email: { label: "Email · send", icon: "mail", className: "bg-surface-2 text-muted" },
+  notify: { label: "Notify", icon: "bell", className: "bg-surface-2 text-muted" },
+  web_fetch: { label: "Web", icon: "globe", className: "bg-surface-2 text-muted" },
+  run_python: { label: "Python", icon: "code", className: "bg-surface-2 text-muted" },
+  youtube_channel_feed: { label: "YouTube", icon: "play", className: "bg-surface-2 text-muted" },
+  youtube_transcript: {
+    label: "YouTube · transcript", icon: "play", className: "bg-surface-2 text-muted" },
+  youtube_video_info: {
+    label: "YouTube · info", icon: "play", className: "bg-surface-2 text-muted" },
+  list_drive_files: { label: "Drive", icon: "folder", className: "bg-surface-2 text-muted" },
+  read_drive_file: { label: "Drive · read", icon: "folder", className: "bg-surface-2 text-muted" },
+  create_task: { label: "Create task", icon: "calendar", className: "bg-accent-soft text-accent" },
+  update_task: { label: "Update task", icon: "calendar", className: "bg-accent-soft text-accent" },
+  list_tasks: { label: "List tasks", icon: "calendar", className: "bg-surface-2 text-muted" },
+  delete_task: { label: "Delete task", icon: "trash", className: "bg-danger-soft text-danger" },
+  run_task_now: { label: "Run task", icon: "play", className: "bg-accent-soft text-accent" },
+  list_recent_runs: { label: "Recent runs", icon: "clock", className: "bg-surface-2 text-muted" },
+  create_skill: { label: "Create skill", icon: "book", className: "bg-accent-soft text-accent" },
+  list_skills: { label: "List skills", icon: "book", className: "bg-surface-2 text-muted" },
 };
 
 const toolLook = (name: string): ToolLook => {
   const known = TOOL_LOOKS[name];
   if (known) return known;
   if (name.startsWith("mcp_")) {
-    return { label: name.split("_")[1] ?? "MCP", icon: "🔌", className: "bg-accent-soft" };
+    return {
+      label: name.split("_")[1] ?? "MCP", icon: "plug",
+      className: "bg-surface-2 text-muted" };
   }
-  return { label: name, icon: "🛠️", className: "bg-surface-2" };
+  return { label: name, icon: "wrench", className: "bg-surface-2 text-muted" };
 };
 
 const mono =
@@ -74,14 +79,13 @@ function Row({ icon, iconClass, state = "plain", children }: {
   return (
     <div className="anim-rise relative flex gap-3 pb-5 last:pb-0">
       <div
-        className="rail-line absolute bottom-0 left-[13px] top-8 w-px
-          bg-gradient-to-b from-[color-mix(in_srgb,var(--accent)_45%,var(--line))] to-line"
+        className="rail-line absolute bottom-0 left-[13px] top-8 w-px bg-line"
       />
       <span
         className={`z-[1] grid h-7 w-7 shrink-0 place-items-center rounded-full text-[13px]
           transition-shadow duration-500 ${iconClass ?? "bg-surface-2"} ${
             state === "active"
-              ? "spark-pulse ring-2 ring-accent/50"
+              ? "pulse-soft ring-1 ring-accent/40"
               : state === "done"
                 ? "ring-1 ring-ok/40"
                 : ""
@@ -258,14 +262,14 @@ function ChatToolStep({ step, live }: { step: Extract<Step, { kind: "tool" }>; l
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         className="inline-flex max-w-full items-center gap-2 rounded-full border
-          border-line bg-surface py-1 pl-1.5 pr-3 text-[13px] transition
-          hover:border-accent/50"
+          border-line bg-surface py-1 pl-1.5 pr-3 text-[13px] transition duration-150
+          hover:bg-surface-2"
       >
         <span
           className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-[11px]
-            ${look.className} ${running ? "spark-pulse ring-2 ring-accent/50" : ""}`}
+            ${look.className} ${running ? "pulse-soft ring-1 ring-accent/40" : ""}`}
         >
-          {look.icon}
+          <Icon name={look.icon} className="h-3.5 w-3.5" />
         </span>
         <span className="font-medium">{look.label}</span>
         {toolSummary(step.input) ? (
@@ -312,7 +316,7 @@ function ChatItem({ item, live }: { item: FeedItem; live: boolean }) {
             className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full
               bg-accent-soft text-[13px] text-accent"
           >
-            ✦
+            <Icon name="sparkle" className="h-3.5 w-3.5" />
           </span>
           <div className="min-w-0 flex-1">
             <Markdown>{item.text}</Markdown>
@@ -338,7 +342,7 @@ function StepView({ item, live }: { item: FeedItem; live: boolean }) {
   switch (item.kind) {
     case "task":
       return (
-        <Row icon="📋">
+        <Row icon={<Icon name="book" className="h-3.5 w-3.5 text-muted" />}>
           <details>
             <summary className="cursor-pointer text-sm font-medium">
               Task instructions
@@ -356,7 +360,7 @@ function StepView({ item, live }: { item: FeedItem; live: boolean }) {
       return <ReasoningGroup texts={[item.text]} />;
     case "narration":
       return (
-        <Row icon="✦" iconClass="bg-accent-soft text-accent">
+        <Row icon={<Icon name="sparkle" className="h-3.5 w-3.5" />} iconClass="bg-accent-soft text-accent">
           <Markdown>{item.text}</Markdown>
         </Row>
       );
@@ -364,7 +368,7 @@ function StepView({ item, live }: { item: FeedItem; live: boolean }) {
       return <ToolStep step={item} live={live} />;
     case "raw":
       return (
-        <Row icon="?">
+        <Row icon={<Icon name="wrench" className="h-3.5 w-3.5 text-muted" />}>
           <pre className={mono}>{JSON.stringify(item.value, null, 2)}</pre>
         </Row>
       );
@@ -423,10 +427,10 @@ export function ActivityFeed({ transcript, live, finishedOk, variant = "run" }: 
         {live ? (
           <div className="mb-4 flex items-center gap-3">
             <span
-              className="spark-pulse grid h-7 w-7 place-items-center rounded-full
+              className="pulse-soft grid h-7 w-7 place-items-center rounded-full
                 bg-accent-soft text-[13px] text-accent"
             >
-              ✦
+              <Icon name="sparkle" className="h-3.5 w-3.5" />
             </span>
             <p className="flex items-center gap-2 text-sm text-muted">
               <span className="relative flex h-2 w-2">
@@ -449,8 +453,8 @@ export function ActivityFeed({ transcript, live, finishedOk, variant = "run" }: 
         onClick={() => setOpen(!expanded)}
         aria-expanded={expanded}
         className="mb-4 inline-flex items-center gap-2 rounded-full border border-line
-          bg-surface px-4 py-1.5 text-sm font-medium shadow-sm transition
-          hover:border-accent/50 hover:text-accent"
+          bg-surface px-4 py-1.5 text-sm font-medium shadow-[var(--shadow-card)]
+          transition duration-150 hover:bg-surface-2"
       >
         {live ? (
           <span className="relative flex h-2 w-2">
@@ -458,7 +462,7 @@ export function ActivityFeed({ transcript, live, finishedOk, variant = "run" }: 
             <span className="relative h-2 w-2 rounded-full bg-accent" />
           </span>
         ) : (
-          <span aria-hidden>✦</span>
+          <span aria-hidden><Icon name="sparkle" className="h-3.5 w-3.5" /></span>
         )}
         {live ? "Working through the task" : `Worked through ${toolCount} tool ${toolCount === 1 ? "step" : "steps"}`}
         <Chevron open={expanded} />
@@ -470,7 +474,7 @@ export function ActivityFeed({ transcript, live, finishedOk, variant = "run" }: 
             <StepView key={i} item={item} live={live} />
           ))}
           {live ? (
-            <Row icon="✦" iconClass="bg-accent-soft text-accent">
+            <Row icon={<Icon name="sparkle" className="h-3.5 w-3.5" />} iconClass="bg-accent-soft text-accent">
               <p className="flex items-center gap-2 text-sm text-muted">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute h-full w-full animate-ping rounded-full bg-accent opacity-60" />

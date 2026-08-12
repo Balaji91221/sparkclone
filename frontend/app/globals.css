@@ -1,48 +1,49 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ tokens
+   Restrained palette: one neutral base, ink foreground, one muted accent,
+   grayscale in between. Hairline borders, soft large-blur shadows only. */
 :root {
-  --background: #f6f7fb;
+  --background: #f7f7f8;
   --surface: #ffffff;
-  --surface-2: #eef0f6;
-  --line: #e3e6ef;
-  --foreground: #15171e;
-  --muted: #646b7a;
-  --accent: #5457e5;
-  --accent-soft: #ecedfd;
+  --surface-2: #f2f2f3;
+  --line: rgba(17, 17, 19, 0.08);
+  --foreground: #16161a;
+  --muted: #6e6e76;
+  --accent: #5e6ad2;
+  --accent-soft: rgba(94, 106, 210, 0.08);
   --accent-fg: #ffffff;
-  --spark: #f5a524;
-  --ok: #0e6f38;
-  --ok-soft: #e3f6eb;
-  --warn: #9a6700;
-  --warn-soft: #fbf1d5;
-  --danger: #c22f2f;
-  --danger-soft: #fce9e9;
-  --info: #1d5fd6;
-  --info-soft: #e7effc;
-  --glow: 84 87 229;
+  --accent-strong: #4a55c4;
+  --ok: #3e7c4f;
+  --ok-soft: #ecf3ee;
+  --warn: #8a6d1d;
+  --warn-soft: #f6f1e3;
+  --danger: #b3453f;
+  --danger-soft: #f8edec;
+  --info: #3b6bb5;
+  --info-soft: #edf2f8;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0c0d13;
-    --surface: #14161f;
-    --surface-2: #1b1e2b;
-    --line: #272b3b;
-    --foreground: #e9eaf2;
-    --muted: #98a0b3;
-    --accent: #8285f4;
-    --accent-soft: #23264a;
-    --accent-fg: #0c0d13;
-    --spark: #ffb84d;
-    --ok: #4ac77e;
-    --ok-soft: #132a1d;
-    --warn: #e5bc4a;
-    --warn-soft: #2b2412;
-    --danger: #f07a7a;
-    --danger-soft: #331b1b;
-    --info: #7fa8f8;
-    --info-soft: #182339;
-    --glow: 130 133 244;
+    --background: #0a0a0b;
+    --surface: #131315;
+    --surface-2: #1b1b1e;
+    --line: rgba(255, 255, 255, 0.08);
+    --foreground: #ededef;
+    --muted: #8d8d96;
+    --accent: #858fe0;
+    --accent-soft: rgba(133, 143, 224, 0.12);
+    --accent-fg: #0e0e14;
+    --accent-strong: #99a2ea;
+    --ok: #6baf7f;
+    --ok-soft: #16211a;
+    --warn: #c7a24c;
+    --warn-soft: #242012;
+    --danger: #d07b75;
+    --danger-soft: #281615;
+    --info: #7fa3d8;
+    --info-soft: #141e2b;
   }
 }
 
@@ -56,7 +57,6 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-accent-fg: var(--accent-fg);
-  --color-spark: var(--spark);
   --color-ok: var(--ok);
   --color-ok-soft: var(--ok-soft);
   --color-warn: var(--warn);
@@ -66,66 +66,54 @@
   --color-info: var(--info);
   --color-info-soft: var(--info-soft);
   --font-sans: var(--font-body);
-  --font-display: var(--font-display);
-  --font-mono: var(--font-mono);
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
 }
 
 :root {
-  --grad-to: #8b5cf6;
-  --shadow-card: 0 1px 2px rgb(15 18 34 / 0.04), 0 10px 28px -14px rgb(15 18 34 / 0.10);
-  --shadow-card-hover: 0 2px 4px rgb(15 18 34 / 0.05),
-    0 18px 40px -16px rgb(var(--glow) / 0.30);
-  --shadow-primary: 0 8px 22px -8px rgb(var(--glow) / 0.55);
+  /* Soft, large-blur, very low opacity — depth without weight. */
+  --shadow-card: 0 1px 2px rgb(17 17 19 / 0.03);
+  --shadow-card-hover: 0 1px 2px rgb(17 17 19 / 0.03), 0 12px 32px -16px rgb(17 17 19 / 0.12);
+  --shadow-pop: 0 24px 64px -24px rgb(17 17 19 / 0.18);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --grad-to: #a78bfa;
-    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.35), 0 10px 28px -14px rgb(0 0 0 / 0.55);
-    --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.4),
-      0 18px 40px -16px rgb(var(--glow) / 0.35);
-    --shadow-primary: 0 8px 22px -8px rgb(var(--glow) / 0.45);
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3);
+    --shadow-card-hover: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.5);
+    --shadow-pop: 0 24px 64px -24px rgb(0 0 0 / 0.6);
   }
 }
 
 body {
-  /* Ambient halo behind the top of every page — the Gemini-style glow. */
-  background:
-    radial-gradient(1100px 460px at 50% -120px,
-      rgb(var(--glow) / 0.10), transparent 62%),
-    var(--background);
+  background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body), system-ui, sans-serif;
-}
-
-/* Premium primary surface: indigo→violet gradient with a colored shadow. */
-.grad-primary {
-  background-image: linear-gradient(135deg, var(--accent), var(--grad-to));
-  color: var(--accent-fg);
-  box-shadow: var(--shadow-primary);
-  transition: filter 0.2s ease, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.2s ease;
-}
-
-.grad-primary:hover {
-  filter: brightness(1.07);
-}
-
-.grad-text {
-  background-image: linear-gradient(120deg, var(--accent), var(--grad-to));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  font-family: var(--font-body), -apple-system, system-ui, sans-serif;
+  font-feature-settings: "cv11";
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3 {
-  font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
-/* ---------------------------------------------------------------- motion */
+/* Primary action: solid muted accent, no gradient. */
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-fg);
+  box-shadow: 0 1px 2px rgb(17 17 19 / 0.06);
+  transition: background-color 0.15s ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+}
+
+/* ---------------------------------------------------------------- motion
+   Calm and brief: 150–200ms ease for interactions; entrances are a short
+   fade with a few px of drift. No bounce, no scale. */
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -139,14 +127,9 @@ h1, h2, h3 {
   to { transform: scaleY(1); }
 }
 
-@keyframes spark-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.15); opacity: 0.85; }
-}
-
-@keyframes glow-drift {
-  0%, 100% { transform: translate(-50%, 0) scale(1); opacity: 0.55; }
-  50% { transform: translate(-46%, 4%) scale(1.06); opacity: 0.75; }
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
 }
 
 @keyframes shimmer {
@@ -154,19 +137,18 @@ h1, h2, h3 {
   to { background-position: -200% 0; }
 }
 
-/* Staggered entrance: set --d per element (ms). Fires on DOM insertion, so it
-   also works for content that renders after data loads. The app shell adds
-   .anim-done on animationend so the fill-mode stops pinning transform and
-   hover transitions work again. */
+/* Staggered entrance: set --d per element (ms). Fires on DOM insertion; the
+   app shell adds .anim-done on animationend so fill-mode stops pinning
+   transform and hover transitions work again. */
 .anim-rise {
   opacity: 0;
-  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: rise 0.35s ease forwards;
   animation-delay: var(--d, 0ms);
 }
 
 .anim-fade {
   opacity: 0;
-  animation: fade 0.5s ease forwards;
+  animation: fade 0.25s ease forwards;
   animation-delay: var(--d, 0ms);
 }
 
@@ -178,43 +160,27 @@ h1, h2, h3 {
 }
 
 .hover-lift {
-  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.25s ease;
+  transition: border-color 0.15s ease, box-shadow 0.2s ease, background-color 0.15s ease;
 }
 
 .hover-lift:hover {
-  transform: translateY(-3px);
   box-shadow: var(--shadow-card-hover);
 }
 
-.spark-pulse {
-  animation: spark-pulse 2.6s ease-in-out infinite;
-}
-
-.hero-glow {
-  position: absolute;
-  left: 50%;
-  top: -40px;
-  width: min(640px, 100%);
-  height: 320px;
-  transform: translate(-50%, 0);
-  background: radial-gradient(ellipse at center,
-    rgb(var(--glow) / 0.16) 0%, rgb(var(--glow) / 0.07) 45%, transparent 72%);
-  filter: blur(8px);
-  pointer-events: none;
-  animation: glow-drift 9s ease-in-out infinite;
+.pulse-soft {
+  animation: pulse-soft 2.4s ease-in-out infinite;
 }
 
 .glass {
-  background: color-mix(in srgb, var(--surface) 78%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .skeleton-shimmer {
   background: linear-gradient(90deg,
-    var(--surface-2) 25%, var(--line) 50%, var(--surface-2) 75%);
+    var(--surface-2) 25%, color-mix(in srgb, var(--surface-2) 60%, var(--surface)) 50%,
+    var(--surface-2) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.6s linear infinite;
 }
@@ -222,7 +188,7 @@ h1, h2, h3 {
 /* Activity timeline rail draws in with the step. */
 .rail-line {
   transform-origin: top;
-  animation: rail-grow 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: rail-grow 0.4s ease forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

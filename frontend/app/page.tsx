@@ -80,14 +80,12 @@ export default function HomePage() {
 
   return (
     <div className="relative pt-6">
-      <div className="hero-glow" aria-hidden />
-
       <h1
-        className="anim-rise mb-7 text-center text-3xl font-semibold tracking-tight
-          md:text-[2.4rem]"
+        className="anim-rise mb-8 text-center text-[2rem] font-semibold leading-[1.1]
+          tracking-[-0.02em] md:text-[3.25rem]"
         style={{ "--d": "0ms" } as React.CSSProperties}
       >
-        Put <span className="grad-text">Arclight</span> to work for you
+        Put Arclight to work for you
       </h1>
 
       <form
@@ -96,11 +94,10 @@ export default function HomePage() {
           if (!quick.trim()) return;
           void startChat(quick.trim());
         }}
-        className="anim-rise mx-auto mb-8 flex max-w-2xl items-center gap-3 rounded-full
-          border border-line bg-surface py-2 pl-6 pr-2 shadow-[var(--shadow-card)]
-          transition focus-within:border-accent/60
-          focus-within:shadow-[var(--shadow-card-hover)]
-          focus-within:ring-2 focus-within:ring-accent/15"
+        className="anim-rise mx-auto mb-10 flex max-w-2xl items-center gap-3 rounded-xl
+          border border-line bg-surface py-2 pl-5 pr-2 shadow-[var(--shadow-card)]
+          transition duration-150 focus-within:border-foreground/20
+          focus-within:shadow-[var(--shadow-card-hover)]"
         style={{ "--d": "110ms" } as React.CSSProperties}
       >
         <input
@@ -112,9 +109,8 @@ export default function HomePage() {
         <button
           type="submit"
           disabled={starting}
-          className="grad-primary rounded-full px-5 py-2 text-sm font-medium
-            hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed
-            disabled:opacity-60"
+          className="btn-primary rounded-lg px-4 py-2 text-sm font-medium
+            disabled:cursor-not-allowed disabled:opacity-60"
         >
           {starting ? "Starting…" : "Ask Arc"}
         </button>
@@ -153,7 +149,7 @@ export default function HomePage() {
         className="anim-rise mb-2 flex items-baseline justify-between"
         style={{ "--d": "300ms" } as React.CSSProperties}
       >
-        <h2 className="text-[15px] font-semibold">Recent activity</h2>
+        <h2 className="text-[15px] font-semibold tracking-tight">Recent activity</h2>
         <Link href="/runs" className="text-xs font-medium text-accent hover:underline">
           All runs →
         </Link>
@@ -201,8 +197,8 @@ export default function HomePage() {
             key={s.title}
             type="button"
             onClick={() => void startChat(s.prompt)}
-            className="anim-rise hover-lift rounded-2xl border border-line bg-surface p-4
-              text-left shadow-[var(--shadow-card)] hover:border-accent/50"
+            className="anim-rise hover-lift rounded-xl border border-line bg-surface p-4
+              text-left shadow-[var(--shadow-card)] hover:border-foreground/15"
             style={{ "--d": `${440 + i * 70}ms` } as React.CSSProperties}
           >
             <p className="text-sm font-medium">{s.title}</p>

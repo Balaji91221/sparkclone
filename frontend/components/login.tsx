@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { setToken, verifyToken } from "@/lib/api";
 import { Button, inputClass } from "./ui";
+import { LogoMark } from "./icons";
 
 type LoginState =
   | { kind: "idle" }
@@ -38,22 +39,16 @@ export function Login() {
   return (
     <main className="relative grid min-h-screen place-items-center overflow-hidden
       bg-background px-4">
-      <div className="hero-glow" aria-hidden />
       <form
         onSubmit={(e) => {
           e.preventDefault();
           void submit();
         }}
-        className="anim-rise w-full max-w-sm rounded-2xl border border-line bg-surface p-8
-          shadow-lg"
+        className="anim-rise w-full max-w-sm rounded-xl border border-line bg-surface p-8
+          shadow-[var(--shadow-card-hover)]"
       >
         <div className="mb-6 flex items-center gap-3">
-          <span
-            className="grad-primary spark-pulse grid h-10 w-10 place-items-center
-              rounded-xl text-lg font-bold"
-          >
-            ⚡
-          </span>
+          <LogoMark className="h-10 w-10" />
           <div>
             <h1 className="text-lg font-semibold">Arclight</h1>
             <p className="text-xs text-muted">Your always-on autonomous agent</p>

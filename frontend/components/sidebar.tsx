@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LogoMark } from "./icons";
 
 type NavItem = { href: string; label: string; icon: string };
 
@@ -43,14 +44,9 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut, onClose }: S
         bg-surface px-3 py-5"
     >
       <div className="mb-6 flex items-center gap-2.5 px-2">
-        <span
-          className="grad-primary spark-pulse grid h-8 w-8 place-items-center rounded-lg
-            text-[15px] font-bold"
-        >
-          ⚡
-        </span>
+        <LogoMark className="h-8 w-8" />
         <div className="min-w-0 flex-1">
-          <p className="font-display text-[15px] font-semibold leading-tight tracking-tight">
+          <p className="text-[15px] font-semibold leading-tight tracking-tight">
             Arclight
           </p>
           <p className="text-[11px] text-muted">Autonomous agent</p>
@@ -82,14 +78,14 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut, onClose }: S
               key={item.href}
               href={item.href}
               className={`relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm
-                font-medium transition duration-200 ${
+                font-medium transition duration-150 ${
                   active
-                    ? "bg-accent-soft text-accent"
-                    : "text-muted hover:translate-x-0.5 hover:bg-surface-2 hover:text-foreground"
+                    ? "bg-surface-2 text-foreground"
+                    : "text-muted hover:bg-surface-2 hover:text-foreground"
                 }`}
             >
               {active ? (
-                <span className="absolute -left-3 h-5 w-[3px] rounded-r-full bg-accent" />
+                <span className="absolute -left-3 h-4 w-[2px] rounded-r-full bg-foreground/70" />
               ) : null}
               <svg
                 viewBox="0 0 24 24"

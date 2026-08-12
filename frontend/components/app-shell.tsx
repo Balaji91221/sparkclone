@@ -7,6 +7,7 @@ import { clearToken, getToken, googleStatus, listApprovals, subscribeToken } fro
 import { usePoll } from "@/lib/use-poll";
 import { Login } from "./login";
 import { Sidebar } from "./sidebar";
+import { LogoMark } from "./icons";
 
 const serverSnapshot = () => "";
 
@@ -110,10 +111,8 @@ function ConnectedShell({ children }: { children: ReactNode }) {
             <path d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <span className="grad-primary grid h-7 w-7 place-items-center rounded-lg text-[13px] font-bold">
-          ⚡
-        </span>
-        <p className="font-display text-[15px] font-semibold tracking-tight">Arclight</p>
+        <LogoMark className="h-7 w-7" />
+        <p className="text-[15px] font-semibold tracking-tight">Arclight</p>
       </header>
 
       <main
