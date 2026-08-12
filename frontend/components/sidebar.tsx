@@ -77,16 +77,13 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut, onClose }: S
             <Link
               key={item.href}
               href={item.href}
-              className={`relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm
+              className={`relative flex items-center gap-3 rounded-full px-4 py-2 text-sm
                 font-medium transition duration-150 ${
                   active
-                    ? "bg-surface-2 text-foreground"
+                    ? "bg-accent-soft text-accent"
                     : "text-muted hover:bg-surface-2 hover:text-foreground"
                 }`}
             >
-              {active ? (
-                <span className="absolute -left-3 h-4 w-[2px] rounded-r-full bg-foreground/70" />
-              ) : null}
               <svg
                 viewBox="0 0 24 24"
                 className="h-[18px] w-[18px] shrink-0"

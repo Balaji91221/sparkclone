@@ -209,9 +209,9 @@ function Conversation({ chatId }: { chatId: string }) {
           e.preventDefault();
           void send();
         }}
-        className="mx-auto mt-3 flex w-full max-w-2xl items-center gap-3 rounded-xl
-          border border-line bg-surface py-2 pl-4 pr-2 shadow-[var(--shadow-card)]
-          transition duration-150 focus-within:border-foreground/20
+        className="mx-auto mt-3 flex w-full max-w-2xl items-center gap-3 rounded-full
+          border border-line bg-surface py-2 pl-5 pr-2 shadow-[var(--shadow-card)]
+          transition duration-150 focus-within:border-accent/40
           focus-within:shadow-[var(--shadow-card-hover)]"
       >
         <input
@@ -224,7 +224,7 @@ function Conversation({ chatId }: { chatId: string }) {
         <button
           type="submit"
           disabled={busy || !draft.trim()}
-          className="btn-primary rounded-lg px-4 py-2 text-sm font-medium
+          className="btn-primary rounded-full px-5 py-2 text-sm font-medium
             disabled:cursor-not-allowed disabled:opacity-50"
         >
           Send

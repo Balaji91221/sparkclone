@@ -85,7 +85,7 @@ export default function HomePage() {
           tracking-[-0.02em] md:text-[3.25rem]"
         style={{ "--d": "0ms" } as React.CSSProperties}
       >
-        Put Arclight to work for you
+        Put <span className="grad-text">Arclight</span> to work for you
       </h1>
 
       <form
@@ -94,9 +94,9 @@ export default function HomePage() {
           if (!quick.trim()) return;
           void startChat(quick.trim());
         }}
-        className="anim-rise mx-auto mb-10 flex max-w-2xl items-center gap-3 rounded-xl
-          border border-line bg-surface py-2 pl-5 pr-2 shadow-[var(--shadow-card)]
-          transition duration-150 focus-within:border-foreground/20
+        className="anim-rise mx-auto mb-10 flex max-w-2xl items-center gap-3 rounded-full
+          border border-line bg-surface py-2 pl-6 pr-2 shadow-[var(--shadow-card)]
+          transition duration-150 focus-within:border-accent/40
           focus-within:shadow-[var(--shadow-card-hover)]"
         style={{ "--d": "110ms" } as React.CSSProperties}
       >
@@ -109,7 +109,7 @@ export default function HomePage() {
         <button
           type="submit"
           disabled={starting}
-          className="btn-primary rounded-lg px-4 py-2 text-sm font-medium
+          className="btn-primary rounded-full px-5 py-2 text-sm font-medium
             disabled:cursor-not-allowed disabled:opacity-60"
         >
           {starting ? "Starting…" : "Ask Arc"}
@@ -130,18 +130,25 @@ export default function HomePage() {
           label="Active tasks"
           value={data ? String(data.tasks.filter((t) => t.enabled).length) : "—"}
           hint={data ? `${data.tasks.length} total` : undefined}
+          tint="blue"
         />
-        <StatCard label="Runs recorded" value={data ? String(data.runs.length) : "—"} />
+        <StatCard
+          label="Runs recorded"
+          value={data ? String(data.runs.length) : "—"}
+          tint="green"
+        />
         <StatCard
           label="Success rate"
           value={successRate === null ? "—" : `${successRate}%`}
           tone={successRate !== null && successRate >= 80 ? "ok" : "default"}
           hint="of finished runs"
+          tint="violet"
         />
         <StatCard
           label="Pending approvals"
           value={data ? String(data.approvals.length) : "—"}
           tone={data && data.approvals.length > 0 ? "warn" : "default"}
+          tint="amber"
         />
       </div>
 
@@ -197,8 +204,8 @@ export default function HomePage() {
             key={s.title}
             type="button"
             onClick={() => void startChat(s.prompt)}
-            className="anim-rise hover-lift rounded-xl border border-line bg-surface p-4
-              text-left shadow-[var(--shadow-card)] hover:border-foreground/15"
+            className="anim-rise hover-lift rounded-2xl border border-line bg-surface p-4
+              text-left shadow-[var(--shadow-card)] hover:border-accent/40"
             style={{ "--d": `${440 + i * 70}ms` } as React.CSSProperties}
           >
             <p className="text-sm font-medium">{s.title}</p>

@@ -24,7 +24,7 @@ function Stroke({ d, className, strokeWidth = 1.6 }: IconProps & { d: string }) 
 export function LogoMark({ className }: { className?: string }) {
   return (
     <span
-      className={`grid shrink-0 place-items-center rounded-xl bg-accent text-accent-fg
+      className={`grid shrink-0 place-items-center brand-tile rounded-xl
         ${className ?? "h-8 w-8"}`}
     >
       <svg

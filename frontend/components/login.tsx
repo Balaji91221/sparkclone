@@ -81,7 +81,7 @@ export function Login() {
           <button
             type="submit"
             disabled={state.kind === "checking"}
-            className="btn-primary mt-4 w-full rounded-lg py-2.5 text-sm font-medium
+            className="btn-primary mt-4 w-full rounded-full py-2.5 text-sm font-medium
               disabled:cursor-not-allowed disabled:opacity-60"
           >
             {state.kind === "checking" ? "Signing in…" : "Sign in"}

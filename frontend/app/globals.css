@@ -4,46 +4,60 @@
    Restrained palette: one neutral base, ink foreground, one muted accent,
    grayscale in between. Hairline borders, soft large-blur shadows only. */
 :root {
-  --background: #f7f7f8;
+  --background: #f0f4f9;
   --surface: #ffffff;
-  --surface-2: #f2f2f3;
-  --line: rgba(17, 17, 19, 0.08);
-  --foreground: #16161a;
-  --muted: #6e6e76;
-  --accent: #5e6ad2;
-  --accent-soft: rgba(94, 106, 210, 0.08);
+  --surface-2: #e9eef6;
+  --line: #dde3ee;
+  --foreground: #1f1f1f;
+  --muted: #5f6368;
+  --accent: #1a73e8;
+  --accent-soft: #e8f0fe;
   --accent-fg: #ffffff;
-  --accent-strong: #4a55c4;
-  --ok: #3e7c4f;
-  --ok-soft: #ecf3ee;
-  --warn: #8a6d1d;
-  --warn-soft: #f6f1e3;
-  --danger: #b3453f;
-  --danger-soft: #f8edec;
-  --info: #3b6bb5;
-  --info-soft: #edf2f8;
+  --accent-strong: #1765cc;
+  --ok: #188038;
+  --ok-soft: #e6f4ea;
+  --warn: #a56300;
+  --warn-soft: #fef7e0;
+  --danger: #d93025;
+  --danger-soft: #fce8e6;
+  --info: #1a73e8;
+  --info-soft: #e8f0fe;
+  --tint-blue: #e8f0fe;
+  --tint-green: #e6f4ea;
+  --tint-amber: #fef7e0;
+  --tint-violet: #f3e8fd;
+  --grad-a: #4285f4;
+  --grad-b: #9b72cb;
+  --grad-c: #d96570;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0b;
-    --surface: #131315;
-    --surface-2: #1b1b1e;
-    --line: rgba(255, 255, 255, 0.08);
-    --foreground: #ededef;
-    --muted: #8d8d96;
-    --accent: #858fe0;
-    --accent-soft: rgba(133, 143, 224, 0.12);
-    --accent-fg: #0e0e14;
-    --accent-strong: #99a2ea;
-    --ok: #6baf7f;
-    --ok-soft: #16211a;
-    --warn: #c7a24c;
-    --warn-soft: #242012;
-    --danger: #d07b75;
-    --danger-soft: #281615;
-    --info: #7fa3d8;
-    --info-soft: #141e2b;
+    --background: #131314;
+    --surface: #1e1f20;
+    --surface-2: #28292a;
+    --line: #3c4043;
+    --foreground: #e3e3e3;
+    --muted: #9aa0a6;
+    --accent: #a8c7fa;
+    --accent-soft: #1f2c41;
+    --accent-fg: #062e6f;
+    --accent-strong: #c2d7fb;
+    --ok: #81c995;
+    --ok-soft: #1e2b22;
+    --warn: #fdd663;
+    --warn-soft: #2e2a1b;
+    --danger: #f28b82;
+    --danger-soft: #33201e;
+    --info: #a8c7fa;
+    --info-soft: #1f2c41;
+    --tint-blue: #1f2c41;
+    --tint-green: #1e2b22;
+    --tint-amber: #2e2a1b;
+    --tint-violet: #2a2233;
+    --grad-a: #8ab4f8;
+    --grad-b: #c58af9;
+    --grad-c: #f28b82;
   }
 }
 
@@ -65,13 +79,17 @@
   --color-danger-soft: var(--danger-soft);
   --color-info: var(--info);
   --color-info-soft: var(--info-soft);
+  --color-tint-blue: var(--tint-blue);
+  --color-tint-green: var(--tint-green);
+  --color-tint-amber: var(--tint-amber);
+  --color-tint-violet: var(--tint-violet);
   --font-sans: var(--font-body);
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
 }
 
 :root {
   /* Soft, large-blur, very low opacity — depth without weight. */
-  --shadow-card: 0 1px 2px rgb(17 17 19 / 0.03);
+  --shadow-card: 0 1px 2px rgb(31 31 31 / 0.04), 0 1px 3px 1px rgb(31 31 31 / 0.03);
   --shadow-card-hover: 0 1px 2px rgb(17 17 19 / 0.03), 0 12px 32px -16px rgb(17 17 19 / 0.12);
   --shadow-pop: 0 24px 64px -24px rgb(17 17 19 / 0.18);
 }
@@ -96,16 +114,31 @@ h1, h2, h3 {
   letter-spacing: -0.02em;
 }
 
-/* Primary action: solid muted accent, no gradient. */
+/* Primary action: filled pill, Google-blue. */
 .btn-primary {
   background: var(--accent);
   color: var(--accent-fg);
-  box-shadow: 0 1px 2px rgb(17 17 19 / 0.06);
-  transition: background-color 0.15s ease;
+  box-shadow: 0 1px 2px rgb(26 115 232 / 0.18);
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .btn-primary:hover {
   background: var(--accent-strong);
+  box-shadow: 0 1px 3px rgb(26 115 232 / 0.3);
+}
+
+/* Gemini-style gradient headline text. */
+.grad-text {
+  background-image: linear-gradient(90deg, var(--grad-a), var(--grad-b), var(--grad-c));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Brand tile: the one deliberate gradient in the app. */
+.brand-tile {
+  background-image: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+  color: #ffffff;
 }
 
 /* ---------------------------------------------------------------- motion

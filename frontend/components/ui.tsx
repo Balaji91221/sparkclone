@@ -66,7 +66,7 @@ export function Field({ label, hint, children }: FieldProps) {
 
 export const inputClass =
   "w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-foreground " +
-  "outline-none transition duration-150 placeholder:text-muted/70 focus:border-accent/50 focus:ring-2 focus:ring-accent/10";
+  "outline-none transition duration-150 placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20";
 
 type ButtonVariant = "primary" | "ghost" | "danger";
 
@@ -90,7 +90,7 @@ export function Button({ variant = "ghost", onClick, type = "button", disabled, 
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`rounded-lg px-3.5 py-1.5 text-[13px] font-medium transition
+      className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition
         duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50
         ${BUTTON_STYLES[variant]}`}
     >
@@ -116,7 +116,7 @@ export function PageHeader({ title, lede, action }: PageHeaderProps) {
 export function Card({ children }: { children: ReactNode }) {
   return (
     <div
-      className="overflow-hidden rounded-xl border border-line bg-surface
+      className="overflow-hidden rounded-2xl border border-line bg-surface
         shadow-[var(--shadow-card)]"
     >
       {children}
@@ -156,15 +156,31 @@ export function Skeleton({ rows = 3 }: { rows?: number }) {
   );
 }
 
-type StatCardProps = { label: string; value: string; hint?: string; tone?: "ok" | "warn" | "default" };
+type StatTint = "blue" | "green" | "amber" | "violet";
 
-export function StatCard({ label, value, hint, tone = "default" }: StatCardProps) {
+type StatCardProps = {
+  label: string;
+  value: string;
+  hint?: string;
+  tone?: "ok" | "warn" | "default";
+  tint?: StatTint;
+};
+
+const TINTS: Record<StatTint, string> = {
+  blue: "bg-tint-blue",
+  green: "bg-tint-green",
+  amber: "bg-tint-amber",
+  violet: "bg-tint-violet",
+};
+
+export function StatCard({ label, value, hint, tone = "default", tint }: StatCardProps) {
   const valueClass =
     tone === "ok" ? "text-ok" : tone === "warn" ? "text-warn" : "text-foreground";
   return (
     <div
-      className="rounded-xl border border-line bg-surface px-4 py-3.5
-        shadow-[var(--shadow-card)]"
+      className={`rounded-2xl px-4 py-3.5 ${
+        tint ? TINTS[tint] : "border border-line bg-surface shadow-[var(--shadow-card)]"
+      }`}
     >
       <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted">{label}</p>
       <p className={`mt-1 text-xl font-semibold tracking-tight tabular-nums ${valueClass}`}>
