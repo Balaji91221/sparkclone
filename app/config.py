@@ -1,7 +1,16 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
+
 from pydantic import BaseModel
+from dotenv import load_dotenv
+
+
+# Read configuration from this project's .env file before Settings is created.
+# The absolute path works whether the server is started from this folder,
+# Docker, or a process manager.
+load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=False)
 
 
 class Settings(BaseModel):

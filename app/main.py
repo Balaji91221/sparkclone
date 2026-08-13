@@ -78,4 +78,5 @@ def root():
 
 @app.get("/health")
 def health():
-    return {"ok": True}
+    """Small readiness endpoint used by the dashboard and deployment checks."""
+    return {"ok": True, "service": "astra", "version": app.version}

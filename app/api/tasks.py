@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+from apscheduler.triggers.cron import CronTrigger
+from pydantic import BaseModel, Field, field_validator
 
 from .. import scheduler
 from ..db import Task, db_session
@@ -11,12 +12,30 @@ router = APIRouter(prefix="/api/tasks", dependencies=[Depends(auth)])
 
 
 class TaskIn(BaseModel):
-    name: str
-    prompt: str
-    skill_ids: list[str] = []
-    allowed_tools: list[str] = []
-    cron: str = ""
+    """Validated input used for both creating and updating automations."""
+
+    name: str = Field(min_length=1, max_length=120)
+    prompt: str = Field(min_length=1, max_length=20_000)
+    skill_ids: list[str] = Field(default_factory=list)
+    allowed_tools: list[str] = Field(default_factory=list)
+    cron: str = Field(default="", max_length=100)
     enabled: bool = True
+
+    @field_validator("name", "prompt", "cron", mode="before")
+    @classmethod
+    def strip_text(cls, value: object) -> str:
+        return value.strip() if isinstance(value, str) else value
+
+    @field_validator("cron")
+    @classmethod
+    def validate_cron(cls, value: str) -> str:
+        if not value:
+            return value
+        try:
+            CronTrigger.from_crontab(value)
+        except ValueError as exc:
+            raise ValueError("Use a valid five-part cron expression, e.g. '0 9 * * MON-FRI'.") from exc
+        return value
 
 
 @router.post("")
