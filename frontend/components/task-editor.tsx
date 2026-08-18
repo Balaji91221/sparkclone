@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { createTask, updateTask } from "@/lib/api";
+import { createTask, rotateWebhookSecret, updateTask } from "@/lib/api";
 import type { TaskInput } from "@/lib/api";
 import type { SkillDef, Task } from "@/lib/types";
 import { ScheduleField } from "./schedule-field";
+import type { TriggerValue } from "./schedule-field";
 import { Button, inputClass } from "./ui";
 
 type SaveState = { kind: "idle" } | { kind: "saving" } | { kind: "saved" } | { kind: "error"; message: string };
@@ -27,6 +28,9 @@ function initialForm(mode: EditorMode): TaskInput {
         skill_ids: task.skill_ids,
         allowed_tools: task.allowed_tools,
         cron: task.cron,
+        trigger_type: task.trigger_type,
+        trigger_value: task.trigger_value,
+        max_retries: task.max_retries,
         enabled: task.enabled,
       };
     }
@@ -37,6 +41,9 @@ function initialForm(mode: EditorMode): TaskInput {
         skill_ids: [],
         allowed_tools: [],
         cron: "",
+        trigger_type: "manual",
+        trigger_value: "",
+        max_retries: 0,
         enabled: true,
       };
     default: {
@@ -114,9 +121,38 @@ export function TaskEditor({ mode, skills }: TaskEditorProps) {
         <p className="mb-2 text-[13px] font-medium text-muted">When to run</p>
         <div className="rounded-xl border border-line bg-surface px-5 py-4">
           <ScheduleField
-            value={form.cron}
-            onChange={(cron) => setForm((f) => ({ ...f, cron }))}
+            value={{ trigger_type: form.trigger_type, trigger_value: form.trigger_value }}
+            onChange={(v: TriggerValue) =>
+              setForm((f) => ({
+                ...f,
+                ...v,
+                cron: v.trigger_type === "cron" ? v.trigger_value : "",
+              }))
+            }
           />
+          {form.trigger_type === "webhook" ? (
+            <WebhookPanel
+              taskId={mode.kind === "edit" ? mode.task.id : null}
+              initialUrl={mode.kind === "edit" ? mode.task.webhook_url : null}
+            />
+          ) : null}
+          <label className="mt-3 flex items-center gap-2 text-sm text-muted">
+            Retries on failure
+            <select
+              value={form.max_retries}
+              onChange={(e) => setForm((f) => ({ ...f, max_retries: Number(e.target.value) }))}
+              aria-label="Retries on failure"
+              className="rounded-lg border border-line bg-surface px-2 py-1 text-sm
+                text-foreground outline-none focus:border-accent"
+            >
+              {[0, 1, 2, 3].map((n) => (
+                <option key={n} value={n}>{n === 0 ? "None" : n}</option>
+              ))}
+            </select>
+            {form.max_retries > 0 ? (
+              <span className="text-xs">failed runs retry with backoff (30s, 60s, 120s)</span>
+            ) : null}
+          </label>
         </div>
       </div>
 
@@ -175,6 +211,59 @@ export function TaskEditor({ mode, skills }: TaskEditorProps) {
             {save.message}
           </p>
         ) : null}
+      </div>
+    </div>
+  );
+}
+
+type WebhookPanelProps = { taskId: string | null; initialUrl: string | null };
+
+// Shown when the schedule kind is "webhook". The secret URL only exists once
+// the task is saved, so create mode just explains that.
+function WebhookPanel({ taskId, initialUrl }: WebhookPanelProps) {
+  const [url, setUrl] = useState<string | null>(initialUrl);
+  const [note, setNote] = useState("");
+
+  if (!taskId || !url) {
+    return (
+      <p className="mt-3 text-xs text-muted">
+        Save the task to get its webhook URL — external services POST to it to
+        start a run.
+      </p>
+    );
+  }
+
+  const full = `${window.location.origin}${url}`;
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(full);
+      setNote("Copied.");
+    } catch {
+      setNote("Copy failed — select the URL manually.");
+    }
+  };
+
+  const rotate = async () => {
+    if (!window.confirm("Rotate the webhook secret? The current URL stops working immediately.")) {
+      return;
+    }
+    try {
+      setUrl(await rotateWebhookSecret(taskId));
+      setNote("Secret rotated — update any services using the old URL.");
+    } catch (e: unknown) {
+      setNote(e instanceof Error ? e.message : String(e));
+    }
+  };
+
+  return (
+    <div className="mt-3 rounded-lg bg-surface-2 px-3 py-2.5">
+      <p className="text-xs font-medium text-muted">Webhook URL (POST to start a run)</p>
+      <code className="mt-1 block break-all font-mono text-xs">{full}</code>
+      <div className="mt-2 flex items-center gap-2">
+        <Button onClick={() => void copy()}>Copy</Button>
+        <Button onClick={() => void rotate()}>Rotate secret</Button>
+        {note ? <span role="status" className="text-xs text-muted">{note}</span> : null}
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Icon } from "@/components/icons";
 import { EmptyState, ErrorBanner, PageHeader, Skeleton } from "@/components/ui";
 import { deleteTask, listRuns, listTasks, runTask, updateTask } from "@/lib/api";
-import { ago, cronHuman } from "@/lib/format";
+import { ago, nextRunIn, scheduleHuman } from "@/lib/format";
 import type { RunSummary, Task } from "@/lib/types";
 import { usePoll } from "@/lib/use-poll";
 
@@ -45,12 +45,16 @@ export default function TasksPage() {
 
   const toggleEnabled = (t: Task) =>
     act(() =>
+      // Full task body: omitting a field here would silently reset it.
       updateTask(t.id, {
         name: t.name,
         prompt: t.prompt,
         skill_ids: t.skill_ids,
         allowed_tools: t.allowed_tools,
         cron: t.cron,
+        trigger_type: t.trigger_type,
+        trigger_value: t.trigger_value,
+        max_retries: t.max_retries,
         enabled: !t.enabled,
       }),
     );
@@ -82,7 +86,12 @@ export default function TasksPage() {
       >
         <div className="min-w-0 flex-1">
           <p className="truncate text-[15px] font-medium">{t.name}</p>
-          <p className="mt-0.5 text-[13px] text-muted">{cronHuman(t.cron)}</p>
+          <p className="mt-0.5 text-[13px] text-muted">
+            {scheduleHuman(t)}
+            {nextRunIn(t.next_run_at) ? (
+              <span className="text-accent"> · {nextRunIn(t.next_run_at)}</span>
+            ) : null}
+          </p>
           {lr ? (
             <p className="mt-0.5 text-[13px] text-muted">
               Last run {ago(lr.created_at)}

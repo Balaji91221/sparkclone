@@ -29,6 +29,48 @@ function time12(hour: string, min: string): string {
   return `${h12}:${min.padStart(2, "0")} ${period}`;
 }
 
+type Schedulable = { trigger_type: string; trigger_value: string; cron: string };
+
+// Human description covering every schedule kind the backend supports.
+export function scheduleHuman(t: Schedulable): string {
+  switch (t.trigger_type) {
+    case "interval": {
+      const s = Number(t.trigger_value) || 0;
+      if (s % 3600 === 0 && s >= 3600) {
+        const h = s / 3600;
+        return `Every ${h === 1 ? "hour" : `${h} hours`}`;
+      }
+      return `Every ${Math.max(1, Math.round(s / 60))} min`;
+    }
+    case "date": {
+      const d = new Date(t.trigger_value);
+      if (Number.isNaN(d.getTime())) return "Once (invalid date)";
+      return `Once on ${d.toLocaleString(undefined, {
+        month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
+      })}`;
+    }
+    case "webhook":
+      return "Webhook-triggered";
+    case "manual":
+      return "Manual — run on demand";
+    default:
+      return cronHuman(t.trigger_value || t.cron);
+  }
+}
+
+// "Next run in 12m" from an ISO timestamp; empty when absent/past.
+export function nextRunIn(iso: string | null): string {
+  if (!iso) return "";
+  const t = new Date(iso).getTime();
+  if (Number.isNaN(t)) return "";
+  const s = (t - Date.now()) / 1000;
+  if (s <= 0) return "Next run imminent";
+  if (s < 60) return "Next run in <1m";
+  if (s < 3600) return `Next run in ${Math.round(s / 60)}m`;
+  if (s < 86400) return `Next run in ${Math.round(s / 3600)}h`;
+  return `Next run in ${Math.round(s / 86400)}d`;
+}
+
 export function cronHuman(cron: string): string {
   if (!cron.trim()) return "Manual — run on demand";
   const p = cron.trim().split(/\s+/);

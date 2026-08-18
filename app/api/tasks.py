@@ -74,7 +74,10 @@ class TaskIn(BaseModel):
                                  "'2026-08-19T09:00:00+00:00'.") from exc
             if run_at.tzinfo is None:
                 run_at = run_at.replace(tzinfo=dt.timezone.utc)
-            if run_at <= dt.datetime.now(dt.timezone.utc):
+            # A disabled one-off has already fired (they self-disable); its
+            # past datetime is history, not a scheduling request — editing
+            # such a task must not 422.
+            if self.enabled and run_at <= dt.datetime.now(dt.timezone.utc):
                 raise ValueError("The scheduled datetime is in the past.")
             self.cron = ""
         else:  # webhook | manual

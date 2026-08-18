@@ -1,11 +1,20 @@
 // Shapes returned by the FastAPI backend (app/main.py). Data crossing the
 // network boundary is unknown until narrowed by the parse* functions below.
 
+export const TRIGGER_TYPES = ["cron", "interval", "date", "webhook", "manual"] as const;
+
+export type TriggerType = (typeof TRIGGER_TYPES)[number];
+
 export type Task = {
   id: string;
   name: string;
   prompt: string;
   cron: string;
+  trigger_type: TriggerType;
+  trigger_value: string; // cron string | interval seconds | ISO datetime
+  max_retries: number;
+  next_run_at: string | null;
+  webhook_url: string | null;
   skill_ids: string[];
   allowed_tools: string[];
   enabled: boolean;
@@ -75,13 +84,24 @@ function runStatus(v: unknown): RunStatus {
   return (RUN_STATUSES as readonly string[]).includes(str(v)) ? (v as RunStatus) : "queued";
 }
 
+function triggerType(v: unknown, cron: string): TriggerType {
+  if ((TRIGGER_TYPES as readonly string[]).includes(str(v))) return v as TriggerType;
+  return cron ? "cron" : "manual";
+}
+
 export function parseTask(v: unknown): Task | null {
   if (!isRecord(v) || typeof v.id !== "string") return null;
+  const cron = str(v.cron);
   return {
     id: v.id,
     name: str(v.name),
     prompt: str(v.prompt),
-    cron: str(v.cron),
+    cron,
+    trigger_type: triggerType(v.trigger_type, cron),
+    trigger_value: str(v.trigger_value) || cron,
+    max_retries: typeof v.max_retries === "number" ? v.max_retries : 0,
+    next_run_at: typeof v.next_run_at === "string" ? v.next_run_at : null,
+    webhook_url: typeof v.webhook_url === "string" ? v.webhook_url : null,
     skill_ids: strList(v.skill_ids),
     allowed_tools: strList(v.allowed_tools),
     enabled: v.enabled === true,

@@ -50,6 +50,14 @@ def test_date_in_past_rejected():
                trigger_value="2020-01-01T00:00:00+00:00")
 
 
+def test_past_date_allowed_when_disabled():
+    # A fired one-off self-disables; editing (e.g. renaming) it re-submits its
+    # past datetime and must not be rejected.
+    t = TaskIn(**BASE, trigger_type="date",
+               trigger_value="2020-01-01T00:00:00+00:00", enabled=False)
+    assert t.trigger_type == "date"
+
+
 def test_date_not_iso_rejected():
     with pytest.raises(ValidationError):
         TaskIn(**BASE, trigger_type="date", trigger_value="tomorrow 9am")

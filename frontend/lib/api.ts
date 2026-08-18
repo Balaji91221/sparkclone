@@ -6,7 +6,7 @@ import {
   parseSkill,
   parseTask,
 } from "./types";
-import type { Approval, RunDetail, RunSummary, SkillDef, Task } from "./types";
+import type { Approval, RunDetail, RunSummary, SkillDef, Task, TriggerType } from "./types";
 
 const TOKEN_KEY = "spark_token";
 const TOKEN_EVENT = "spark:token";
@@ -85,6 +85,9 @@ export type TaskInput = {
   skill_ids: string[];
   allowed_tools: string[];
   cron: string;
+  trigger_type: TriggerType;
+  trigger_value: string;
+  max_retries: number;
   enabled: boolean;
 };
 
@@ -106,6 +109,14 @@ export async function deleteTask(id: string): Promise<void> {
 
 export async function runTask(id: string): Promise<void> {
   await request(`/api/tasks/${id}/run`, { method: "POST" });
+}
+
+// Returns the new webhook path; the old URL stops working immediately.
+export async function rotateWebhookSecret(id: string): Promise<string> {
+  const res = await request(`/api/tasks/${id}/webhook-secret`, { method: "POST" });
+  const url = (res as Record<string, unknown> | null)?.webhook_url;
+  if (typeof url !== "string") throw new ApiError(500, "unexpected rotate response");
+  return url;
 }
 
 export async function listSkills(signal?: AbortSignal): Promise<SkillDef[]> {

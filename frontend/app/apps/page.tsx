@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { Icon } from "@/components/icons";
 import { ScheduleField } from "@/components/schedule-field";
+import type { TriggerValue } from "@/components/schedule-field";
 import { Button, ErrorBanner, Modal, PageHeader, Skeleton, inputClass } from "@/components/ui";
 import { createTask, listMcpServers, listSkills } from "@/lib/api";
 import type { MCPServerInfo } from "@/lib/api";
@@ -167,7 +168,8 @@ function AppAutomationDialog({ app, skills, onClose }: DialogProps) {
   const router = useRouter();
   const [name, setName] = useState(`${app.name} automation`);
   const [prompt, setPrompt] = useState(app.template);
-  const [cron, setCron] = useState("");
+  const [trigger, setTrigger] = useState<TriggerValue>(
+    { trigger_type: "manual", trigger_value: "" });
   const [skillIds, setSkillIds] = useState<string[]>([]);
   const [save, setSave] = useState<SaveState>({ kind: "idle" });
 
@@ -187,7 +189,9 @@ function AppAutomationDialog({ app, skills, onClose }: DialogProps) {
         prompt: prompt.trim(),
         skill_ids: skillIds,
         allowed_tools: app.tools,
-        cron,
+        cron: trigger.trigger_type === "cron" ? trigger.trigger_value : "",
+        ...trigger,
+        max_retries: 0,
         enabled: true,
       });
       router.push("/tasks");
@@ -222,7 +226,7 @@ function AppAutomationDialog({ app, skills, onClose }: DialogProps) {
 
         <p className="mb-1.5 mt-4 text-[13px] font-medium text-muted">When to run</p>
         <div className="rounded-xl border border-line bg-surface px-4 py-3">
-          <ScheduleField value={cron} onChange={setCron} />
+          <ScheduleField value={trigger} onChange={setTrigger} />
         </div>
 
         {skills.length > 0 ? (
