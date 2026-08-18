@@ -9,3 +9,6 @@ cryptography==43.*
 youtube-transcript-api==1.*
 mcp==2.*
 psycopg[binary]==3.*
+
+# dev / test
+pytest==8.*

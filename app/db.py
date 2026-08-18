@@ -4,8 +4,8 @@ import datetime as dt
 import enum
 import uuid
 
-from sqlalchemy import (JSON, Column, DateTime, Enum, ForeignKey, String, Text,
-                        create_engine)
+from sqlalchemy import (JSON, Column, DateTime, Enum, ForeignKey, Integer,
+                        String, Text, create_engine)
 from sqlalchemy.orm import DeclarativeBase, Session, relationship, sessionmaker
 
 from .config import settings
@@ -68,6 +68,12 @@ class Task(Base):
     skill_ids = Column(JSON, default=list)      # list[str]
     allowed_tools = Column(JSON, default=list)  # empty = all tools
     cron = Column(String, default="")           # e.g. "0 9 * * MON"; empty = manual
+    # Schedule kind: "cron" | "interval" | "date" | "webhook" | "manual".
+    # "" on legacy rows means: derive from cron (cron set -> cron, else manual).
+    trigger_type = Column(String, default="")
+    trigger_value = Column(String, default="")  # cron string | seconds | ISO datetime
+    webhook_secret = Column(String, default="")  # set only for webhook tasks
+    max_retries = Column(Integer, default=0)     # 0-3 automatic retries on failure
     enabled = Column(String, default="true")
     created_at = Column(DateTime(timezone=True), default=utcnow)
     runs = relationship("Run", back_populates="task", cascade="all, delete-orphan")
@@ -78,7 +84,8 @@ class Run(Base):
     id = Column(String, primary_key=True, default=new_id)
     task_id = Column(String, ForeignKey("tasks.id"), nullable=False)
     status = Column(Enum(RunStatus), default=RunStatus.queued)
-    trigger = Column(String, default="manual")  # manual | schedule
+    trigger = Column(String, default="manual")  # manual | schedule | webhook | retry
+    attempt = Column(Integer, default=0)        # 0 = first try, 1+ = retry number
     started_at = Column(DateTime(timezone=True))
     finished_at = Column(DateTime(timezone=True))
     output = Column(Text, default="")
@@ -165,6 +172,27 @@ def _migrate() -> None:
         if "chat_id" not in cols:
             conn.execute(text(
                 "ALTER TABLE approvals ADD COLUMN chat_id VARCHAR DEFAULT ''"))
+            conn.commit()
+        task_cols = [row[1] for row in conn.execute(text("PRAGMA table_info(tasks)"))]
+        added = False
+        for name, ddl in (
+            ("trigger_type", "VARCHAR DEFAULT ''"),
+            ("trigger_value", "VARCHAR DEFAULT ''"),
+            ("webhook_secret", "VARCHAR DEFAULT ''"),
+            ("max_retries", "INTEGER DEFAULT 0"),
+        ):
+            if name not in task_cols:
+                conn.execute(text(f"ALTER TABLE tasks ADD COLUMN {name} {ddl}"))
+                added = True
+        if added:
+            # Backfill so every existing row has an explicit trigger kind.
+            conn.execute(text(
+                "UPDATE tasks SET trigger_type = CASE WHEN cron != '' THEN 'cron' "
+                "ELSE 'manual' END, trigger_value = cron WHERE trigger_type = ''"))
+            conn.commit()
+        run_cols = [row[1] for row in conn.execute(text("PRAGMA table_info(runs)"))]
+        if "attempt" not in run_cols:
+            conn.execute(text("ALTER TABLE runs ADD COLUMN attempt INTEGER DEFAULT 0"))
             conn.commit()
 
 

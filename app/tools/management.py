@@ -36,30 +36,91 @@ def _cron_valid(cron: str) -> bool:
         return False
 
 
+def _parse_run_at(run_at: str) -> "dt.datetime | str":
+    """ISO datetime in the future, or an error message string."""
+    import datetime as dt
+    try:
+        when = dt.datetime.fromisoformat(run_at.strip())
+    except ValueError:
+        return (f"Invalid datetime: {run_at!r}. Use ISO format, e.g. "
+                "'2026-08-19T09:00:00+05:30'.")
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=dt.timezone.utc)
+    if when <= dt.datetime.now(dt.timezone.utc):
+        return f"{run_at!r} is in the past. Nothing created."
+    return when
+
+
 def create_task(name: str, prompt: str, cron: str = "",
+                interval_minutes: int = 0, run_at: str = "",
                 skill_ids: list[str] | None = None) -> str:
-    if not _cron_valid(cron):
-        return f"Invalid cron expression: {cron!r}. Nothing created."
     from .. import scheduler
+    given = sum(bool(x) for x in (cron.strip(), interval_minutes, run_at.strip()))
+    if given > 1:
+        return "Give at most one of cron, interval_minutes, or run_at."
+    trigger_type, trigger_value = "manual", ""
+    if cron.strip():
+        if not _cron_valid(cron):
+            return f"Invalid cron expression: {cron!r}. Nothing created."
+        trigger_type, trigger_value = "cron", cron.strip()
+    elif interval_minutes:
+        if interval_minutes * 60 < scheduler.MIN_INTERVAL_S:
+            return (f"Minimum interval is {scheduler.MIN_INTERVAL_S // 60} "
+                    "minute(s). Nothing created.")
+        trigger_type, trigger_value = "interval", str(int(interval_minutes) * 60)
+    elif run_at.strip():
+        when = _parse_run_at(run_at)
+        if isinstance(when, str):
+            return when
+        trigger_type, trigger_value = "date", when.isoformat()
     with db_session() as db:
         t = Task(name=name.strip() or "Untitled task",
                  prompt=prompt.rstrip() + GUARDRAILS,
                  skill_ids=skill_ids or [], allowed_tools=[],
-                 cron=cron.strip(), enabled="true")
+                 cron=trigger_value if trigger_type == "cron" else "",
+                 trigger_type=trigger_type, trigger_value=trigger_value,
+                 enabled="true")
         db.add(t)
         db.commit()
         task_id = t.id
     scheduler.sync_schedules()
-    schedule = cron.strip() or "manual (run on demand)"
+    schedule = {
+        "cron": trigger_value,
+        "interval": f"every {interval_minutes} minute(s)",
+        "date": f"once at {trigger_value}",
+        "manual": "manual (run on demand)",
+    }[trigger_type]
     return (f"Task created. id={task_id} name={name!r} schedule={schedule}. "
             "Standard honesty guardrails were appended to its prompt.")
 
 
+def schedule_task_once(name: str, prompt: str, run_at: str) -> str:
+    """One-off reminder/run at a specific datetime; disables itself after."""
+    return create_task(name=name, prompt=prompt, run_at=run_at)
+
+
 def update_task(task_id: str, name: str = "", prompt: str = "",
-                cron: str | None = None, enabled: bool | None = None) -> str:
-    if cron is not None and not _cron_valid(cron):
-        return f"Invalid cron expression: {cron!r}. Nothing changed."
+                cron: str | None = None, interval_minutes: int | None = None,
+                run_at: str | None = None, enabled: bool | None = None) -> str:
     from .. import scheduler
+    given = sum(x is not None for x in (cron, interval_minutes, run_at))
+    if given > 1:
+        return "Give at most one of cron, interval_minutes, or run_at."
+    schedule: tuple[str, str] | None = None  # (trigger_type, trigger_value)
+    if cron is not None:
+        if not _cron_valid(cron):
+            return f"Invalid cron expression: {cron!r}. Nothing changed."
+        schedule = ("cron", cron.strip()) if cron.strip() else ("manual", "")
+    elif interval_minutes is not None:
+        if interval_minutes * 60 < scheduler.MIN_INTERVAL_S:
+            return (f"Minimum interval is {scheduler.MIN_INTERVAL_S // 60} "
+                    "minute(s). Nothing changed.")
+        schedule = ("interval", str(int(interval_minutes) * 60))
+    elif run_at is not None:
+        when = _parse_run_at(run_at)
+        if isinstance(when, str):
+            return when
+        schedule = ("date", when.isoformat())
     with db_session() as db:
         t = db.get(Task, task_id)
         if not t:
@@ -71,9 +132,10 @@ def update_task(task_id: str, name: str = "", prompt: str = "",
         if prompt.strip():
             t.prompt = prompt.rstrip() + GUARDRAILS
             changes.append("prompt (guardrails re-appended)")
-        if cron is not None:
-            t.cron = cron.strip()
-            changes.append(f"cron -> {cron.strip() or 'manual'}")
+        if schedule is not None:
+            t.trigger_type, t.trigger_value = schedule
+            t.cron = schedule[1] if schedule[0] == "cron" else ""
+            changes.append(f"schedule -> {schedule[0]} {schedule[1]}".rstrip())
         if enabled is not None:
             t.enabled = "true" if enabled else "false"
             changes.append(f"enabled -> {enabled}")
@@ -85,8 +147,16 @@ def update_task(task_id: str, name: str = "", prompt: str = "",
 def list_tasks() -> str:
     with db_session() as db:
         rows = db.query(Task).all()
+        from .. import scheduler
         return json.dumps([{
-            "id": t.id, "name": t.name, "cron": t.cron or "manual",
+            "id": t.id, "name": t.name,
+            "schedule": {
+                "cron": t.cron or t.trigger_value,
+                "interval": f"every {int(t.trigger_value or 0) // 60} min",
+                "date": f"once at {t.trigger_value}",
+                "webhook": "webhook-triggered",
+                "manual": "manual",
+            }[scheduler.effective_trigger_type(t)],
             "enabled": t.enabled == "true",
             "prompt_preview": t.prompt[:160],
         } for t in rows], ensure_ascii=False, indent=1)
@@ -147,21 +217,33 @@ _OBJ = {"type": "object", "properties": {}}
 
 MANAGEMENT_TOOLS: dict[str, Tool] = {t.name: t for t in [
     Tool(name="create_task",
-         description="Create a new automation task. Draft a complete, self-contained prompt (goal, steps, tools, delivery); honesty guardrails are appended automatically. cron empty = manual.",
+         description="Create a new automation task. Draft a complete, self-contained prompt (goal, steps, tools, delivery); honesty guardrails are appended automatically. Give AT MOST ONE schedule: cron (recurring calendar pattern), interval_minutes (every N minutes, min 1), or run_at (one-off ISO datetime). All empty = manual run-on-demand.",
          input_schema={"type": "object", "properties": {
              "name": {"type": "string"},
              "prompt": {"type": "string"},
-             "cron": {"type": "string", "description": "e.g. '0 21 * * MON-FRI'; empty for manual"},
+             "cron": {"type": "string", "description": "e.g. '0 21 * * MON-FRI'; empty for none"},
+             "interval_minutes": {"type": "integer", "description": "run every N minutes (min 1)"},
+             "run_at": {"type": "string", "description": "one-off ISO datetime, e.g. '2026-08-19T09:00:00+05:30'"},
              "skill_ids": {"type": "array", "items": {"type": "string"}},
          }, "required": ["name", "prompt"]},
          fn=create_task),
+    Tool(name="schedule_task_once",
+         description="Schedule a one-off run/reminder at a specific datetime ('remind me tomorrow at 9am'). The task fires exactly once, then disables itself. run_at is an ISO datetime with timezone offset.",
+         input_schema={"type": "object", "properties": {
+             "name": {"type": "string"},
+             "prompt": {"type": "string"},
+             "run_at": {"type": "string", "description": "ISO datetime, e.g. '2026-08-19T09:00:00+05:30'"},
+         }, "required": ["name", "prompt", "run_at"]},
+         fn=schedule_task_once),
     Tool(name="update_task",
-         description="Update an existing task. Only pass the fields to change; a new prompt fully replaces the old one (confirm with the user first).",
+         description="Update an existing task. Only pass the fields to change; a new prompt fully replaces the old one (confirm with the user first). To change the schedule pass exactly one of: cron (empty string = manual), interval_minutes, or run_at.",
          input_schema={"type": "object", "properties": {
              "task_id": {"type": "string"},
              "name": {"type": "string"},
              "prompt": {"type": "string"},
-             "cron": {"type": "string"},
+             "cron": {"type": "string", "description": "recurring calendar schedule; '' = manual"},
+             "interval_minutes": {"type": "integer", "description": "run every N minutes (min 1)"},
+             "run_at": {"type": "string", "description": "one-off ISO datetime"},
              "enabled": {"type": "boolean"},
          }, "required": ["task_id"]},
          fn=update_task),

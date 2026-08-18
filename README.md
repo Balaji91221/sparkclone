@@ -23,7 +23,15 @@ Dashboard: Next.js App Router + Tailwind. Storage: Postgres (Docker) or SQLite.
   **streamable HTTP**; tools are discovered (with pagination), namespaced
   `mcp_<server>_<tool>`, and their results wrapped as untrusted content.
 - **Skills** — reusable markdown instruction blocks attached to tasks.
-- **Schedules** — cron triggers (APScheduler) plus on-demand "Run now".
+- **Schedules** — cron, fixed intervals ("every 15 minutes"), and one-off runs
+  at a datetime ("remind me tomorrow at 9am" — fires once, then disables
+  itself), plus on-demand "Run now". Missed fires while the server was down run
+  once on startup (1-hour grace, coalesced). Tasks may opt into up to 3
+  automatic retries with backoff; each retry is a visible run.
+- **Webhook triggers** — `POST /api/hooks/{task_id}/{secret}` starts a run from
+  any external service (GitHub push, form submission, alert). Authenticated by
+  a per-task rotatable secret, never the dashboard token; rate-capped to one
+  fire per minute per task.
 - **Approval gates** — sensitive tool calls pause the run or chat until you
   approve or deny from the dashboard.
 - **Prompt-injection defense** — all external content (emails, web pages,
@@ -114,7 +122,7 @@ frontend/ (Next.js) ──► FastAPI (app/main.py + app/api routers) ──► 
   `app/tools/registry.py`. Set `requires_approval=True` for anything sensitive.
 - **MCP servers**: add them from Settings → MCP in the dashboard (any transport);
   `scripts/demo_mcp_server.py` is a tiny test server supporting all three.
-- **Event triggers**: add a webhook endpoint that calls
-  `scheduler.enqueue_run(task_id)`.
+- **Event triggers**: built in — create a task with `trigger_type="webhook"`
+  and point the external service at its `webhook_url`.
 - **Distributed workers**: the in-process scheduler and rate limiter bound one
   process; scale-out needs a shared queue (e.g. Redis) and an external cron.

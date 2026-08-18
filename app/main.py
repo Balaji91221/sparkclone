@@ -12,7 +12,7 @@ import uuid
 from fastapi import FastAPI, Request
 
 from . import scheduler
-from .api import approvals, chats, mcp, runs, skills, tasks, tools
+from .api import approvals, chats, hooks, mcp, runs, skills, tasks, tools
 from .auth.google_oauth import router as google_router
 from .db import Approval, Chat, Run, RunStatus, db_session, init_db, utcnow
 
@@ -45,7 +45,8 @@ def _reap_orphaned_runs() -> None:
 
 app = FastAPI(title="Astra", version="2.0.0")
 for router in (tasks.router, skills.router, runs.router, approvals.router,
-               tools.router, mcp.router, chats.router, google_router):
+               tools.router, mcp.router, chats.router, hooks.router,
+               google_router):
     app.include_router(router)
 
 

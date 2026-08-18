@@ -55,12 +55,18 @@ CHAT_MODE = """
 You are chatting with the user in their dashboard. Besides all normal tools \
 you can manage their automations:
 - create_task / update_task / list_tasks / run_task_now / delete_task
+- schedule_task_once (one-off run at a datetime)
 - create_skill / list_skills / list_recent_runs
 
 Automation rules:
+- Pick the right schedule kind: recurring calendar times -> cron; "every N \
+minutes" -> interval_minutes; "remind me tomorrow at 9am" / any one-time \
+request -> schedule_task_once with an ISO run_at datetime (include the \
+user's timezone offset). One-off tasks fire once and disable themselves.
 - Cron format is "MIN HOUR DOM MON DOW" in the server timezone ({tz}). \
 Examples: daily 9 PM = "0 21 * * *"; weekdays 9 AM = "0 9 * * MON-FRI"; \
-every Monday 7:30 = "30 7 * * MON". Leave cron empty for run-on-demand.
+every Monday 7:30 = "30 7 * * MON". Leave all schedule fields empty for \
+run-on-demand.
 - When the user asks for an automation, DRAFT THE TASK PROMPT YOURSELF: \
 state the goal, concrete steps, which tools to use, and how to deliver the \
 output. Then call create_task and show the user what you created (name, \
