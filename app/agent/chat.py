@@ -31,6 +31,7 @@ class ChatAgent:
     def run_turn(self) -> None:
         try:
             self._run_turn()
+            self._maybe_title()
         except Exception:  # noqa: BLE001
             self._append({"role": "assistant", "content":
                           "Something went wrong on my side:\n```\n"
@@ -125,6 +126,39 @@ class ChatAgent:
         self._set_status("thinking")
         return decision == "approved"
 
+    def _maybe_title(self) -> None:
+        """Give the chat a real title after its first completed exchange.
+
+        The API seeds title = first message[:60]; only that placeholder (or
+        "New chat") is ever replaced, so a generated or user-visible title is
+        never overwritten and this runs at most once per chat."""
+        try:
+            with db_session() as db:
+                chat = db.get(Chat, self.chat_id)
+                if not chat:
+                    return
+                rows = (db.query(ChatMessage)
+                        .filter(ChatMessage.chat_id == self.chat_id)
+                        .order_by(ChatMessage.created_at).all())
+                title = chat.title
+            msgs = [dict(r.message) for r in rows]
+            user_text = _first_text(msgs, "user")
+            if title not in ("New chat", user_text[:60].strip()):
+                return
+            reply_text = _last_text(msgs, "assistant")
+            if not user_text or not reply_text:
+                return
+            new_title = generate_chat_title(user_text, reply_text)
+            if not new_title:
+                return
+            with db_session() as db:
+                chat = db.get(Chat, self.chat_id)
+                if chat:
+                    chat.title = new_title
+                    db.commit()
+        except Exception:  # noqa: BLE001 — a failed title must never break the turn
+            pass
+
     def _load_history(self) -> list[dict]:
         with db_session() as db:
             rows = (db.query(ChatMessage)
@@ -148,6 +182,54 @@ class ChatAgent:
                 chat.status = status
                 chat.updated_at = utcnow()
                 db.commit()
+
+
+def _block_text(content: object) -> str:
+    """Text from a message's content — plain string (OpenAI format) or a list
+    of blocks with text fields (Anthropic format)."""
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        return "\n".join(
+            b["text"] for b in content
+            if isinstance(b, dict) and isinstance(b.get("text"), str))
+    return ""
+
+
+def _first_text(msgs: list[dict], role: str) -> str:
+    for m in msgs:
+        if m.get("role") == role:
+            text = _block_text(m.get("content")).strip()
+            if text:
+                return text
+    return ""
+
+
+def _last_text(msgs: list[dict], role: str) -> str:
+    for m in reversed(msgs):
+        if m.get("role") == role:
+            text = _block_text(m.get("content")).strip()
+            if text:
+                return text
+    return ""
+
+
+TITLE_SYSTEM = (
+    "You name conversations for a sidebar. Reply with ONLY the title: "
+    "3-6 words, plain text, no quotes, no trailing punctuation.")
+
+
+def generate_chat_title(user_text: str, reply_text: str) -> str:
+    """One cheap LLM call; returns '' on any unusable output."""
+    prompt = (f"User: {user_text[:500]}\n"
+              f"Assistant: {reply_text[:500]}\n\nTitle:")
+    result = providers.complete(
+        TITLE_SYSTEM, [{"role": "user", "content": prompt}], [])
+    raw = (result["text"] or "").strip()
+    if not raw:
+        return ""
+    title = raw.splitlines()[0].strip().strip('"\'').rstrip(".!").strip()
+    return title[:60]
 
 
 def run_chat_turn(chat_id: str) -> None:
