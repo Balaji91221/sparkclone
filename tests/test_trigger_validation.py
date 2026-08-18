@@ -68,6 +68,15 @@ def test_date_valid():
     assert t.trigger_type == "date"
 
 
+def test_date_with_z_suffix_accepted():
+    # JS Date.toISOString() ends in "Z"; Python 3.10 fromisoformat does not
+    # accept it without normalization.
+    z = future_iso().replace("+00:00", "Z")
+    assert z.endswith("Z")
+    t = TaskIn(**BASE, trigger_type="date", trigger_value=z)
+    assert t.trigger_type == "date"
+
+
 def test_unknown_trigger_type_rejected():
     with pytest.raises(ValidationError):
         TaskIn(**BASE, trigger_type="fortnightly")

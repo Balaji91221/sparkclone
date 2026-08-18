@@ -57,7 +57,8 @@ def build_trigger(task: Task):
         seconds = max(int(task.trigger_value), MIN_INTERVAL_S)
         return IntervalTrigger(seconds=seconds)
     if kind == "date":
-        run_at = dt.datetime.fromisoformat(task.trigger_value)
+        # "Z" suffix: sent by JS clients; Python 3.10 needs "+00:00".
+        run_at = dt.datetime.fromisoformat(task.trigger_value.replace("Z", "+00:00"))
         if run_at.tzinfo is None:
             run_at = run_at.replace(tzinfo=dt.timezone.utc)
         return DateTrigger(run_date=run_at)

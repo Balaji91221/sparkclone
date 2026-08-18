@@ -109,9 +109,8 @@ test.describe("new schedule kinds", () => {
     await page.waitForURL("**/tasks");
     expect((await findTask(name)).max_retries).toBe(2);
 
-    const row = page.locator("div", { hasText: name }).last();
-    await row.getByLabel(`Actions for ${name}`).click();
-    await page.getByRole("button", { name: "Pause" }).click();
+    await page.getByLabel(`Actions for ${name}`).click();
+    await page.getByRole("button", { name: "Pause", exact: true }).click();
 
     await expect
       .poll(async () => (await findTask(name)).enabled)

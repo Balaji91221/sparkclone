@@ -68,7 +68,10 @@ class TaskIn(BaseModel):
             self.cron = ""
         elif self.trigger_type == "date":
             try:
-                run_at = dt.datetime.fromisoformat(self.trigger_value)
+                # JS clients send a trailing "Z"; Python 3.10 fromisoformat
+                # only accepts "+00:00".
+                run_at = dt.datetime.fromisoformat(
+                    self.trigger_value.replace("Z", "+00:00"))
             except ValueError as exc:
                 raise ValueError("trigger_value must be an ISO datetime, e.g. "
                                  "'2026-08-19T09:00:00+00:00'.") from exc

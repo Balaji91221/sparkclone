@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const BACKEND = process.env.BACKEND_URL ?? "http://localhost:8000";
 
 const nextConfig: NextConfig = {
+  // The floating dev-tools badge overlaps the sidebar footer; hide it.
+  devIndicators: false,
   async rewrites() {
     return [
       { source: "/api/:path*", destination: `${BACKEND}/api/:path*` },

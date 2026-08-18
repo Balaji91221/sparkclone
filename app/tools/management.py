@@ -40,7 +40,8 @@ def _parse_run_at(run_at: str) -> "dt.datetime | str":
     """ISO datetime in the future, or an error message string."""
     import datetime as dt
     try:
-        when = dt.datetime.fromisoformat(run_at.strip())
+        # "Z" suffix normalization for Python 3.10's fromisoformat.
+        when = dt.datetime.fromisoformat(run_at.strip().replace("Z", "+00:00"))
     except ValueError:
         return (f"Invalid datetime: {run_at!r}. Use ISO format, e.g. "
                 "'2026-08-19T09:00:00+05:30'.")

@@ -170,6 +170,34 @@ function ReasoningGroup({ texts }: { texts: string[] }) {
   );
 }
 
+// Chat keeps the model's internal reasoning tucked behind a disclosure —
+// the reply is the star; the thinking is a click away.
+function ChatReasoning({ texts, live }: { texts: string[]; live: boolean }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="anim-rise mb-3">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="inline-flex items-center gap-1.5 rounded-full border border-line
+          bg-surface px-3 py-1 text-xs font-medium text-muted transition duration-150
+          hover:bg-surface-2 hover:text-foreground"
+      >
+        <Icon name="sparkle" className={`h-3 w-3 ${live ? "pulse-soft" : ""}`} />
+        {live ? "Thinking…" : "Thought process"}
+        <Chevron open={open} />
+      </button>
+      {open ? (
+        <div className="mt-2 border-l-2 border-line pl-4">
+          <ReasoningBody texts={texts} small />
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+
 function ToolDetails({ input, result }: {
   input: unknown;
   result: { text: string; external: boolean } | null;
@@ -297,17 +325,9 @@ function ChatItem({ item, live }: { item: FeedItem; live: boolean }) {
         </div>
       );
     case "reasoning-group":
-      return (
-        <div className="anim-rise mb-3 border-l-2 border-line pl-4">
-          <ReasoningBody texts={item.texts} small />
-        </div>
-      );
+      return <ChatReasoning texts={item.texts} live={live} />;
     case "reasoning":
-      return (
-        <div className="anim-rise mb-3 border-l-2 border-line pl-4">
-          <ReasoningBody texts={[item.text]} small />
-        </div>
-      );
+      return <ChatReasoning texts={[item.text]} live={live} />;
     case "narration":
       return (
         <div className="anim-rise mb-6 flex gap-3">
@@ -422,7 +442,7 @@ export function ActivityFeed({ transcript, live, finishedOk, variant = "run" }: 
     return (
       <div>
         {items.map((item, i) => (
-          <ChatItem key={i} item={item} live={live} />
+          <ChatItem key={i} item={item} live={live && i === items.length - 1} />
         ))}
         {live ? (
           <div className="mb-4 flex items-center gap-3">

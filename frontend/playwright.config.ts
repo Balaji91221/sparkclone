@@ -14,7 +14,7 @@ export default defineConfig({
   retries: 0,
   reporter: [["list"]],
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: process.env.PW_BASE_URL ?? "http://localhost:3000",
     trace: "retain-on-failure",
     viewport: { width: 1380, height: 900 },
   },
