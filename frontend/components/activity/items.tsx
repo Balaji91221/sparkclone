@@ -3,8 +3,9 @@
 // Feed item model + the per-item renderers for both variants: the run
 // timeline (StepView) and the chat conversation (ChatItem).
 
-import { Icon } from "../icons";
 import { Markdown } from "../markdown";
+import { CopyButton } from "../chat/copy-button";
+import { Icon } from "../icons";
 import type { Step } from "@/lib/transcript-steps";
 import { mono, Row } from "./primitives";
 import { ChatReasoning, ReasoningGroup } from "./reasoning";
@@ -40,10 +41,10 @@ export function ChatItem({ item, live }: { item: FeedItem; live: boolean }) {
   switch (item.kind) {
     case "task":
       return (
-        <div className="anim-rise mb-6 flex justify-end">
+        <div className="anim-rise mb-8 flex justify-end pl-20">
           <div
-            className="max-w-[75%] rounded-2xl rounded-br-md bg-accent px-4 py-2.5
-              text-sm leading-relaxed text-accent-fg shadow-sm"
+            className="max-w-[75%] rounded-[1.25rem] rounded-br-md bg-surface-2 px-4 py-2.5
+              text-[15px] leading-relaxed text-foreground"
           >
             <p className="whitespace-pre-wrap">{item.text}</p>
           </div>
@@ -55,16 +56,13 @@ export function ChatItem({ item, live }: { item: FeedItem; live: boolean }) {
       return <ChatReasoning texts={[item.text]} live={live} />;
     case "narration":
       return (
-        <div className="anim-rise mb-6 flex gap-3">
-          <span
-            aria-hidden
-            className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full
-              bg-accent-soft text-[13px] text-accent"
-          >
-            <Icon name="sparkle" className="h-3.5 w-3.5" />
-          </span>
-          <div className="min-w-0 flex-1">
+        <div className="anim-rise group mb-8">
+          <div className="min-w-0 [&_.md-body]:text-[15px] [&_.md-body]:leading-7">
             <Markdown>{item.text}</Markdown>
+          </div>
+          <div className="mt-3 flex items-center gap-1 opacity-60 transition
+            group-hover:opacity-100">
+            <CopyButton text={item.text} />
           </div>
         </div>
       );

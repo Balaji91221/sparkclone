@@ -100,14 +100,14 @@ export function ChatToolStep({ step, live }: { step: ToolCallStep; live: boolean
   const result = step.result === null ? null : displayResult(step.result);
 
   return (
-    <div className="anim-rise mb-3 border-l-2 border-line pl-4">
+    <div className="anim-rise mb-4">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="inline-flex max-w-full items-center gap-2 rounded-full border
-          border-line bg-surface py-1 pl-1.5 pr-3 text-[13px] transition duration-150
-          hover:bg-surface-2"
+        className="inline-flex max-w-full items-center gap-2 rounded-full py-1 pl-1 pr-3
+          text-[13px] text-muted transition duration-150 hover:bg-surface-2
+          hover:text-foreground"
       >
         <span
           className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-[11px]

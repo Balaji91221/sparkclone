@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
 import {
   getSession,
@@ -84,18 +84,23 @@ export function AppShell({ children }: { children: ReactNode }) {
 type ShellData = { pendingApprovals: number; googleEmail: string };
 
 function ConnectedShell({ children }: { children: ReactNode }) {
+  // A transient failure of the status call (dev proxy hiccup, abort) must not
+  // flip the sidebar to "Connect Google"; keep the last known answer instead.
+  const lastGoogleEmail = useRef("");
   const fetchShellData = useCallback(async (signal: AbortSignal): Promise<ShellData> => {
     const [approvals, google] = await Promise.all([
       listApprovals(signal),
-      googleStatus(signal).catch(() => ({ connected: false, email: "", scopes: [] })),
+      googleStatus(signal).catch(() => null),
     ]);
-    return {
-      pendingApprovals: approvals.length,
-      googleEmail: google.connected ? google.email : "",
-    };
+    if (google) lastGoogleEmail.current = google.connected ? google.email : "";
+    return { pendingApprovals: approvals.length, googleEmail: lastGoogleEmail.current };
   }, []);
   const { state } = usePoll(fetchShellData, 5000);
-  const data = state.kind === "ready" ? state.data : null;
+  // Keep showing the last good snapshot through a failed poll (dev proxy
+  // hiccups are common with several pages polling at once). Render-time
+  // state adjustment, per react.dev "storing information from previous renders".
+  const [data, setData] = useState<ShellData | null>(null);
+  if (state.kind === "ready" && state.data !== data) setData(state.data);
   const pathname = usePathname();
 
   // Desktop: sidebar toggles between full and hidden (close button).
@@ -169,7 +174,11 @@ function ConnectedShell({ children }: { children: ReactNode }) {
         className={`px-4 py-6 md:px-8 md:py-8 ${navOpen ? "md:ml-[232px]" : ""}`}
       >
         {/* Keyed by route so page changes get a soft cross-fade. */}
-        <div key={pathname} className="anim-fade mx-auto max-w-4xl">
+        <div
+          key={pathname}
+          // Chat is a full-height workspace; every other page reads best as a column.
+          className={`anim-fade mx-auto ${pathname === "/chat" ? "max-w-[1400px]" : "max-w-4xl"}`}
+        >
           {children}
         </div>
       </main>

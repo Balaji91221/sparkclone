@@ -232,3 +232,10 @@ h1, h2, h3 {
   }
   .anim-rise, .anim-fade { opacity: 1; transform: none; }
 }
+
+/* Tables inside agent replies: a soft right-edge fade signals horizontal scroll. */
+.md-table {
+  mask-image: linear-gradient(to right, black calc(100% - 28px), transparent);
+}
+.md-table::-webkit-scrollbar { height: 6px; }
+.md-table::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }

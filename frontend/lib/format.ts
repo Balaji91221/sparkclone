@@ -89,3 +89,18 @@ export function cronHuman(cron: string): string {
   if (dom !== "*") return `Monthly on day ${dom} around ${time}`;
   return `Daily around ${time}`;
 }
+
+// "Today" / "Yesterday" / "Previous 7 days" / "Older" — for grouping lists.
+export function dayBucket(timestamp: string): string {
+  if (!timestamp) return "Older";
+  const iso = timestamp.replace(" ", "T");
+  const t = new Date(iso.endsWith("Z") ? iso : `${iso}Z`);
+  if (Number.isNaN(t.getTime())) return "Older";
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+  const days = Math.floor((startOfToday.getTime() - t.getTime()) / 86_400_000);
+  if (days < 0) return "Today";
+  if (days === 0) return "Yesterday";
+  if (days < 7) return "Previous 7 days";
+  return "Older";
+}

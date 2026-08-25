@@ -62,17 +62,17 @@ export function ReasoningGroup({ texts }: { texts: string[] }) {
 export function ChatReasoning({ texts, live }: { texts: string[]; live: boolean }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="anim-rise mb-3">
+    <div className="anim-rise mb-4 -ml-2">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="inline-flex items-center gap-1.5 rounded-full border border-line
-          bg-surface px-3 py-1 text-xs font-medium text-muted transition duration-150
-          hover:bg-surface-2 hover:text-foreground"
+        className="inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-[13px]
+          font-medium text-muted transition duration-150 hover:bg-surface-2
+          hover:text-foreground"
       >
-        <Icon name="sparkle" className={`h-3 w-3 ${live ? "pulse-soft" : ""}`} />
-        {live ? "Thinking…" : "Thought process"}
+        <Icon name="sparkle" className={`h-3.5 w-3.5 ${live ? "pulse-soft" : ""}`} />
+        {live ? "Thinking…" : "Show thinking"}
         <Chevron open={open} />
       </button>
       {open ? (
