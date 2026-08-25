@@ -13,8 +13,17 @@ from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 
 sys.path.insert(0, ".")
-from app.db import (Approval, Base, Chat, ChatMessage, GoogleCredential,  # noqa: E402
-                    MCPServer, Run, Skill, Task)
+from app.db import (  # noqa: E402
+    Approval,
+    Base,
+    Chat,
+    ChatMessage,
+    GoogleCredential,
+    MCPServer,
+    Run,
+    Skill,
+    Task,
+)
 
 TABLES = [Skill, Task, Run, Approval, Chat, ChatMessage, GoogleCredential, MCPServer]
 

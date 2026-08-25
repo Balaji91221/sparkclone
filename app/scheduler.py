@@ -22,6 +22,7 @@ from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.date import DateTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 
+from . import notifications
 from .agent.agent import execute_run
 from .db import Run, RunStatus, Task, db_session, utcnow
 
@@ -41,10 +42,8 @@ def submit(fn, *args) -> None:
 
 
 def effective_trigger_type(task: Task) -> str:
-    """Legacy rows (trigger_type='') derive their kind from the cron column."""
-    if task.trigger_type:
-        return task.trigger_type
-    return "cron" if task.cron else "manual"
+    """Trigger kind with '' (pre-backfill legacy rows) read as manual."""
+    return task.trigger_type or "manual"
 
 
 def build_trigger(task: Task):
@@ -52,7 +51,7 @@ def build_trigger(task: Task):
     Raises ValueError on an invalid stored schedule."""
     kind = effective_trigger_type(task)
     if kind == "cron":
-        return CronTrigger.from_crontab(task.trigger_value or task.cron)
+        return CronTrigger.from_crontab(task.trigger_value)
     if kind == "interval":
         seconds = max(int(task.trigger_value), MIN_INTERVAL_S)
         return IntervalTrigger(seconds=seconds)
@@ -77,22 +76,26 @@ def enqueue_run(task_id: str, trigger: str = "manual", attempt: int = 0) -> str:
 
 def _execute(run_id: str, task_id: str) -> None:
     execute_run(run_id)
-    _maybe_retry(run_id, task_id)
+    if not _maybe_retry(run_id, task_id):
+        # No retry scheduled: if the run failed, this was its final attempt.
+        # (notify_run_failed checks the status itself and never raises.)
+        notifications.notify_run_failed(run_id)
 
 
-def _maybe_retry(run_id: str, task_id: str) -> None:
+def _maybe_retry(run_id: str, task_id: str) -> bool:
+    """Schedule a backoff retry if warranted; True when one was scheduled."""
     with db_session() as db:
         run = db.get(Run, run_id)
         task = db.get(Task, task_id)
         if not run or not task or run.status != RunStatus.failed:
-            return
+            return False
         # One-off (date) tasks disable themselves on fire, but their failed
         # run may still retry; other disabled tasks never do.
         if task.enabled != "true" and effective_trigger_type(task) != "date":
-            return
+            return False
         attempt = run.attempt or 0
         if attempt >= (task.max_retries or 0):
-            return
+            return False
     delay = RETRY_BASE_DELAY_S * (2 ** attempt)
     log.info("run %s failed (attempt %d); retrying in %ds", run_id, attempt, delay)
     _scheduler.add_job(
@@ -100,6 +103,7 @@ def _maybe_retry(run_id: str, task_id: str) -> None:
         args=[task_id, "retry", attempt + 1],
         id=f"retry-{run_id}", replace_existing=True,
         misfire_grace_time=MISFIRE_GRACE_S, coalesce=True)
+    return True
 
 
 def _fire(task_id: str) -> None:
@@ -136,7 +140,7 @@ def sync_schedules() -> None:
             trigger = build_trigger(t)
         except (ValueError, TypeError):
             log.warning("task %s has an invalid schedule (%s=%r); skipping",
-                        t.id, effective_trigger_type(t), t.trigger_value or t.cron)
+                        t.id, effective_trigger_type(t), t.trigger_value)
             continue
         if trigger is not None:
             wanted[t.id] = trigger

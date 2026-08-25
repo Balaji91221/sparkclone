@@ -1,0 +1,19 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tool descriptions and user-facing message strings are long by design.
+"app/tools/registry.py" = ["E501"]
+"app/tools/management.py" = ["E501"]
+# conftest must set DATABASE_URL before any app import.
+"tests/conftest.py" = ["E402"]
+# Report layout script: compact table-building one-liners.
+"scripts/build_report.py" = ["E501", "E702"]

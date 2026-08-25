@@ -11,9 +11,18 @@ import type { Approval, RunDetail, RunSummary, SkillDef, Task, TriggerType } fro
 const TOKEN_KEY = "spark_token";
 const TOKEN_EVENT = "spark:token";
 
+// Local-dev convenience: set NEXT_PUBLIC_SPARK_DEV_TOKEN in frontend/.env.local
+// (gitignored) to skip the login screen. Leave unset in production builds.
+const DEV_TOKEN = (process.env.NEXT_PUBLIC_SPARK_DEV_TOKEN ?? "").trim();
+
+// True when the dev token is active — sign-out is a no-op in that mode.
+export function hasDevToken(): boolean {
+  return DEV_TOKEN !== "";
+}
+
 export function getToken(): string {
   if (typeof window === "undefined") return "";
-  return window.localStorage.getItem(TOKEN_KEY) ?? "";
+  return window.localStorage.getItem(TOKEN_KEY) ?? DEV_TOKEN;
 }
 
 export function setToken(token: string): void {
@@ -84,7 +93,6 @@ export type TaskInput = {
   prompt: string;
   skill_ids: string[];
   allowed_tools: string[];
-  cron: string;
   trigger_type: TriggerType;
   trigger_value: string;
   max_retries: number;
@@ -147,6 +155,40 @@ export async function listApprovals(signal?: AbortSignal): Promise<Approval[]> {
 
 export async function decideApproval(id: string, decision: "approve" | "deny"): Promise<void> {
   await request(`/api/approvals/${id}/${decision}`, { method: "POST" });
+}
+
+export type NotificationSettings = {
+  notify_on_final_failure: boolean;
+  notify_on_pending_approval: boolean;
+  notify_on_chat_approval: boolean;
+  failure_cooldown_minutes: number;
+  delivery: "email" | "stdout";
+};
+
+function parseNotificationSettings(v: unknown): NotificationSettings {
+  const r = (typeof v === "object" && v !== null ? v : {}) as Record<string, unknown>;
+  return {
+    notify_on_final_failure: r.notify_on_final_failure !== false,
+    notify_on_pending_approval: r.notify_on_pending_approval !== false,
+    notify_on_chat_approval: r.notify_on_chat_approval === true,
+    failure_cooldown_minutes:
+      typeof r.failure_cooldown_minutes === "number" ? r.failure_cooldown_minutes : 60,
+    delivery: r.delivery === "email" ? "email" : "stdout",
+  };
+}
+
+export async function getNotificationSettings(
+  signal?: AbortSignal,
+): Promise<NotificationSettings> {
+  return parseNotificationSettings(await request("/api/settings/notifications", { signal }));
+}
+
+export async function updateNotificationSettings(
+  body: Omit<NotificationSettings, "delivery">,
+): Promise<NotificationSettings> {
+  return parseNotificationSettings(
+    await request("/api/settings/notifications", { method: "PUT", body }),
+  );
 }
 
 export type GoogleStatus = { connected: boolean; email: string; scopes: string[] };

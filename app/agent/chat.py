@@ -9,6 +9,7 @@ from __future__ import annotations
 import time
 import traceback
 
+from .. import notifications
 from ..db import Approval, Chat, ChatMessage, db_session, utcnow
 from ..mcp import manager as mcp_manager
 from ..tools.management import MANAGEMENT_TOOLS
@@ -113,6 +114,7 @@ class ChatAgent:
             db.add(approval)
             db.commit()
             approval_id = approval.id
+        notifications.notify_approval_pending(approval_id, from_chat=True)
         self._set_status("waiting_approval")
         decision = "denied"
         deadline = time.monotonic() + timeout

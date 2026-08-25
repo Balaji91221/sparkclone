@@ -16,7 +16,7 @@ import json
 import smtplib
 import subprocess
 import tempfile
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from email.mime.text import MIMEText
 from typing import Any, Callable
 
@@ -114,6 +114,22 @@ def list_drive_files(query: str = "", limit: int = 20) -> str:
 def read_drive_file(file_id: str) -> str:
     from ..google import client as g
     return UNTRUSTED_WRAP.format(body=g.drive_read(file_id))
+
+
+def list_calendar_events(time_min: str, time_max: str, query: str = "",
+                         limit: int = 20) -> str:
+    from ..google import client as g
+    res = g.calendar_list_events(time_min, time_max, query, limit)
+    if isinstance(res, str):
+        return res
+    return UNTRUSTED_WRAP.format(body=json.dumps(res, ensure_ascii=False, indent=1))
+
+
+def create_calendar_event(summary: str, start: str, end: str,
+                          description: str = "",
+                          attendees: list[str] | None = None) -> str:
+    from ..google import client as g
+    return g.calendar_create_event(summary, start, end, description, attendees)
 
 
 # -------------------------------------------------------------- youtube tools
@@ -230,16 +246,16 @@ def run_python(code: str) -> str:
 
 # -------------------------------------------------------------------- notify
 
-def notify(message: str) -> str:
+def notify(message: str, subject: str = "Astra notification") -> str:
     if settings.notify_email:
         # Prefer the connected Google account; it sends only to the user's own
         # NOTIFY_EMAIL, so it stays ungated (unlike send_gmail/send_email).
         from ..google import client as g
-        result = g.gmail_send(settings.notify_email, "Astra notification", message)
+        result = g.gmail_send(settings.notify_email, subject, message)
         if not result.startswith(("Google is not connected", "Gmail send failed")):
             return result
         if settings.smtp_host:
-            return send_email(settings.notify_email, "Astra notification", message)
+            return send_email(settings.notify_email, subject, message)
     print(f"[notify] {message}")
     return "Notification recorded (no delivery channel configured, logged to stdout)."
 
@@ -322,6 +338,31 @@ register(Tool(
         "file_id": {"type": "string"},
     }, "required": ["file_id"]},
     fn=read_drive_file,
+))
+register(Tool(
+    name="list_calendar_events",
+    description="List events on the user's primary Google Calendar between two ISO datetimes (with timezone offset), soonest first. Optional free-text search query.",
+    input_schema={"type": "object", "properties": {
+        "time_min": {"type": "string", "description": "Window start, ISO datetime, e.g. '2026-08-24T00:00:00+05:30'"},
+        "time_max": {"type": "string", "description": "Window end, ISO datetime"},
+        "query": {"type": "string", "description": "Free-text search over event fields", "default": ""},
+        "limit": {"type": "integer", "description": "Max events (1-50)", "default": 20},
+    }, "required": ["time_min", "time_max"]},
+    fn=list_calendar_events,
+))
+register(Tool(
+    name="create_calendar_event",
+    description="Create an event on the user's primary Google Calendar. Requires human approval before executing (it writes to the calendar and can invite attendees). start/end are ISO datetimes with timezone offset, or 'YYYY-MM-DD' for all-day.",
+    input_schema={"type": "object", "properties": {
+        "summary": {"type": "string", "description": "Event title"},
+        "start": {"type": "string", "description": "ISO datetime or YYYY-MM-DD"},
+        "end": {"type": "string", "description": "ISO datetime or YYYY-MM-DD"},
+        "description": {"type": "string", "default": ""},
+        "attendees": {"type": "array", "items": {"type": "string"},
+                      "description": "Attendee email addresses (they get invites)"},
+    }, "required": ["summary", "start", "end"]},
+    fn=create_calendar_event,
+    requires_approval=True,
 ))
 register(Tool(
     name="youtube_channel_feed",

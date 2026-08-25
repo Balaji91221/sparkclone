@@ -41,7 +41,7 @@ def test_interval_below_minimum_rejected():
 
 def test_interval_valid():
     t = TaskIn(**BASE, trigger_type="interval", trigger_value="900")
-    assert t.cron == ""
+    assert t.trigger_type == "interval"
 
 
 def test_date_in_past_rejected():

@@ -6,6 +6,7 @@ mutate tasks on their own.
 """
 from __future__ import annotations
 
+import datetime as dt
 import json
 
 from ..db import Run, Skill, Task, db_session
@@ -36,9 +37,8 @@ def _cron_valid(cron: str) -> bool:
         return False
 
 
-def _parse_run_at(run_at: str) -> "dt.datetime | str":
+def _parse_run_at(run_at: str) -> dt.datetime | str:
     """ISO datetime in the future, or an error message string."""
-    import datetime as dt
     try:
         # "Z" suffix normalization for Python 3.10's fromisoformat.
         when = dt.datetime.fromisoformat(run_at.strip().replace("Z", "+00:00"))
@@ -54,7 +54,8 @@ def _parse_run_at(run_at: str) -> "dt.datetime | str":
 
 def create_task(name: str, prompt: str, cron: str = "",
                 interval_minutes: int = 0, run_at: str = "",
-                skill_ids: list[str] | None = None) -> str:
+                skill_ids: list[str] | None = None,
+                allowed_tools: list[str] | None = None) -> str:
     from .. import scheduler
     given = sum(bool(x) for x in (cron.strip(), interval_minutes, run_at.strip()))
     if given > 1:
@@ -77,8 +78,7 @@ def create_task(name: str, prompt: str, cron: str = "",
     with db_session() as db:
         t = Task(name=name.strip() or "Untitled task",
                  prompt=prompt.rstrip() + GUARDRAILS,
-                 skill_ids=skill_ids or [], allowed_tools=[],
-                 cron=trigger_value if trigger_type == "cron" else "",
+                 skill_ids=skill_ids or [], allowed_tools=allowed_tools or [],
                  trigger_type=trigger_type, trigger_value=trigger_value,
                  enabled="true")
         db.add(t)
@@ -98,6 +98,19 @@ def create_task(name: str, prompt: str, cron: str = "",
 def schedule_task_once(name: str, prompt: str, run_at: str) -> str:
     """One-off reminder/run at a specific datetime; disables itself after."""
     return create_task(name=name, prompt=prompt, run_at=run_at)
+
+
+def set_reminder(message: str, run_at: str) -> str:
+    """One-off notification at a datetime. Unlike schedule_task_once, the
+    resulting task can ONLY call notify — it cannot touch email, files, or
+    the web — so it is safe for verbatim reminder delivery."""
+    text = message.strip()
+    if not text:
+        return "Give the reminder a message. Nothing created."
+    prompt = ("Call the notify tool exactly once with exactly this message, "
+              f"then stop: {text}")
+    return create_task(name=f"Reminder: {text[:60]}", prompt=prompt,
+                       run_at=run_at, allowed_tools=["notify"])
 
 
 def update_task(task_id: str, name: str = "", prompt: str = "",
@@ -135,7 +148,6 @@ def update_task(task_id: str, name: str = "", prompt: str = "",
             changes.append("prompt (guardrails re-appended)")
         if schedule is not None:
             t.trigger_type, t.trigger_value = schedule
-            t.cron = schedule[1] if schedule[0] == "cron" else ""
             changes.append(f"schedule -> {schedule[0]} {schedule[1]}".rstrip())
         if enabled is not None:
             t.enabled = "true" if enabled else "false"
@@ -152,7 +164,7 @@ def list_tasks() -> str:
         return json.dumps([{
             "id": t.id, "name": t.name,
             "schedule": {
-                "cron": t.cron or t.trigger_value,
+                "cron": t.trigger_value,
                 "interval": f"every {int(t.trigger_value or 0) // 60} min",
                 "date": f"once at {t.trigger_value}",
                 "webhook": "webhook-triggered",
@@ -236,6 +248,13 @@ MANAGEMENT_TOOLS: dict[str, Tool] = {t.name: t for t in [
              "run_at": {"type": "string", "description": "ISO datetime, e.g. '2026-08-19T09:00:00+05:30'"},
          }, "required": ["name", "prompt", "run_at"]},
          fn=schedule_task_once),
+    Tool(name="set_reminder",
+         description="Set a one-off reminder ('remind me at 9pm to stretch'). Delivers the given message verbatim via the user's notification channel at run_at, then the task disables itself. Prefer this over schedule_task_once for plain reminders — the created task can only notify, nothing else.",
+         input_schema={"type": "object", "properties": {
+             "message": {"type": "string", "description": "The reminder text, delivered as-is"},
+             "run_at": {"type": "string", "description": "ISO datetime, e.g. '2026-08-25T21:00:00+05:30'"},
+         }, "required": ["message", "run_at"]},
+         fn=set_reminder),
     Tool(name="update_task",
          description="Update an existing task. Only pass the fields to change; a new prompt fully replaces the old one (confirm with the user first). To change the schedule pass exactly one of: cron (empty string = manual), interval_minutes, or run_at.",
          input_schema={"type": "object", "properties": {

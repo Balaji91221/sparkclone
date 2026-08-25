@@ -3,9 +3,8 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from pydantic import BaseModel
 from dotenv import load_dotenv
-
+from pydantic import BaseModel
 
 # Read configuration from this project's .env file before Settings is created.
 # The absolute path works whether the server is started from this folder,
@@ -14,6 +13,10 @@ load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=False)
 
 
 class Settings(BaseModel):
+    # Deployment environment: "dev" (default) or "production". In production
+    # the app refuses to start with default secrets (see app/main.py).
+    env: str = os.getenv("SPARK_ENV", "dev")
+
     # LLM provider: "nvidia" (NIM, OpenAI-compatible) or "anthropic"
     llm_provider: str = os.getenv("LLM_PROVIDER", "nvidia")
 
@@ -66,6 +69,9 @@ class Settings(BaseModel):
     oauth_redirect_url: str = os.getenv(
         "OAUTH_REDIRECT_URL", "http://localhost:3000/auth/google/callback")
 
+    # Dashboard origin, used to build links in notification emails.
+    dashboard_url: str = os.getenv("DASHBOARD_URL", "http://localhost:3000")
+
     # Signs OAuth state values and encrypts stored refresh tokens.
     spark_secret_key: str = os.getenv("SPARK_SECRET_KEY", "dev-secret-change-me")
 
@@ -79,3 +85,10 @@ class Settings(BaseModel):
 
 
 settings = Settings()
+
+
+def insecure_default_secrets() -> list[str]:
+    """Names of secrets still set to their well-known dev defaults."""
+    defaults = (("SPARK_API_TOKEN", settings.api_token, "change-me"),
+                ("SPARK_SECRET_KEY", settings.spark_secret_key, "dev-secret-change-me"))
+    return [name for name, value, default in defaults if value == default]

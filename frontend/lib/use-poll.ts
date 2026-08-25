@@ -10,8 +10,13 @@ type PollState<T> =
 type Poll<T> = { state: PollState<T>; reload: () => void };
 
 // Polls `fn` every `intervalMs`, aborting in-flight requests on unmount.
+// `intervalMs: null` pauses the interval (the initial load and manual
+// `reload` still work) — use it to stop polling terminal states.
 // `fn` must be referentially stable (wrap it in useCallback at the call site).
-export function usePoll<T>(fn: (signal: AbortSignal) => Promise<T>, intervalMs: number): Poll<T> {
+export function usePoll<T>(
+  fn: (signal: AbortSignal) => Promise<T>,
+  intervalMs: number | null,
+): Poll<T> {
   const [state, setState] = useState<PollState<T>>({ kind: "loading" });
   const [tick, setTick] = useState(0);
   const reload = useCallback(() => setTick((t) => t + 1), []);
@@ -31,11 +36,11 @@ export function usePoll<T>(fn: (signal: AbortSignal) => Promise<T>, intervalMs: 
     };
 
     void load();
-    const timer = window.setInterval(() => void load(), intervalMs);
+    const timer = intervalMs === null ? null : window.setInterval(() => void load(), intervalMs);
     return () => {
       disposed = true;
       controller.abort();
-      window.clearInterval(timer);
+      if (timer !== null) window.clearInterval(timer);
     };
   }, [fn, intervalMs, tick]);
 

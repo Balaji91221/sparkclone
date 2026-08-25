@@ -10,11 +10,11 @@ from __future__ import annotations
 import time
 import traceback
 
+from .. import notifications
 from ..config import settings
 from ..db import Approval, Run, RunStatus, Skill, Task, db_session, utcnow
 from ..mcp import manager as mcp_manager
 from ..tools.registry import TOOLS, UNTRUSTED_WRAP, anthropic_tool_specs
-
 from . import providers
 from .prompts import build_system
 
@@ -138,6 +138,7 @@ class AstraAgent:
             r.status = RunStatus.waiting_approval
             db.commit()
             approval_id = approval.id
+        notifications.notify_approval_pending(approval_id)
         decision = "denied"
         deadline = time.monotonic() + timeout
         while time.monotonic() < deadline:

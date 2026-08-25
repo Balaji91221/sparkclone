@@ -34,7 +34,8 @@ test.describe("manual schedule editor", () => {
 
     const task = (await listTasks(ctx)).find((t) => t.name === name);
     expect(task).toBeTruthy();
-    expect(task?.cron).toBe("30 18 * * MON,FRI");
+    expect(task?.trigger_type).toBe("cron");
+    expect(task?.trigger_value).toBe("30 18 * * MON,FRI");
   });
 
   test("creates a daily schedule and renders it back", async ({ page }) => {
@@ -63,7 +64,8 @@ test.describe("manual schedule editor", () => {
     await page.getByRole("button", { name: "Create task" }).click();
     await page.waitForURL("**/tasks");
     const task = (await listTasks(ctx)).find((t) => t.name === name);
-    expect(task?.cron).toBe("*/15 9-17 * * MON-FRI");
+    expect(task?.trigger_type).toBe("cron");
+    expect(task?.trigger_value).toBe("*/15 9-17 * * MON-FRI");
   });
 
   test("rejects an empty prompt", async ({ page }) => {

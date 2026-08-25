@@ -4,8 +4,17 @@ import datetime as dt
 import enum
 import uuid
 
-from sqlalchemy import (JSON, Column, DateTime, Enum, ForeignKey, Integer,
-                        String, Text, create_engine)
+from sqlalchemy import (
+    JSON,
+    Column,
+    DateTime,
+    Enum,
+    ForeignKey,
+    Integer,
+    String,
+    Text,
+    create_engine,
+)
 from sqlalchemy.orm import DeclarativeBase, Session, relationship, sessionmaker
 
 from .config import settings
@@ -67,9 +76,9 @@ class Task(Base):
     prompt = Column(Text, nullable=False)
     skill_ids = Column(JSON, default=list)      # list[str]
     allowed_tools = Column(JSON, default=list)  # empty = all tools
-    cron = Column(String, default="")           # e.g. "0 9 * * MON"; empty = manual
     # Schedule kind: "cron" | "interval" | "date" | "webhook" | "manual".
-    # "" on legacy rows means: derive from cron (cron set -> cron, else manual).
+    # _migrate() backfills legacy rows from the old cron column, so "" only
+    # appears transiently and readers treat it as "manual".
     trigger_type = Column(String, default="")
     trigger_value = Column(String, default="")  # cron string | seconds | ISO datetime
     webhook_secret = Column(String, default="")  # set only for webhook tasks
@@ -146,6 +155,13 @@ class MCPServer(Base):
     created_at = Column(DateTime(timezone=True), default=utcnow)
 
 
+class Setting(Base):
+    """Small key/value store for user-editable app settings."""
+    __tablename__ = "settings"
+    key = Column(String, primary_key=True)
+    value = Column(JSON, nullable=False, default=dict)
+
+
 class GoogleCredential(Base):
     __tablename__ = "google_credentials"
     id = Column(String, primary_key=True, default=new_id)
@@ -162,10 +178,24 @@ def init_db() -> None:
     _migrate()
 
 
+# Backfill legacy rows before the cron column is dropped: rows written before
+# trigger_type existed derive their kind from cron. Portable SQL (SQLite + PG).
+_CRON_BACKFILL = (
+    "UPDATE tasks SET "
+    "trigger_type = CASE WHEN cron != '' THEN 'cron' ELSE 'manual' END, "
+    "trigger_value = CASE WHEN cron != '' THEN cron ELSE trigger_value END "
+    "WHERE trigger_type = '' OR trigger_type IS NULL")
+
+
 def _migrate() -> None:
     """Tiny additive migrations create_all can't do on existing tables."""
-    if not settings.database_url.startswith("sqlite"):
-        return
+    if settings.database_url.startswith("sqlite"):
+        _migrate_sqlite()
+    else:
+        _migrate_postgres()
+
+
+def _migrate_sqlite() -> None:
     from sqlalchemy import text
     with engine.connect() as conn:
         cols = [row[1] for row in conn.execute(text("PRAGMA table_info(approvals)"))]
@@ -174,7 +204,6 @@ def _migrate() -> None:
                 "ALTER TABLE approvals ADD COLUMN chat_id VARCHAR DEFAULT ''"))
             conn.commit()
         task_cols = [row[1] for row in conn.execute(text("PRAGMA table_info(tasks)"))]
-        added = False
         for name, ddl in (
             ("trigger_type", "VARCHAR DEFAULT ''"),
             ("trigger_value", "VARCHAR DEFAULT ''"),
@@ -183,16 +212,30 @@ def _migrate() -> None:
         ):
             if name not in task_cols:
                 conn.execute(text(f"ALTER TABLE tasks ADD COLUMN {name} {ddl}"))
-                added = True
-        if added:
-            # Backfill so every existing row has an explicit trigger kind.
-            conn.execute(text(
-                "UPDATE tasks SET trigger_type = CASE WHEN cron != '' THEN 'cron' "
-                "ELSE 'manual' END, trigger_value = cron WHERE trigger_type = ''"))
-            conn.commit()
+        if "cron" in task_cols:
+            conn.execute(text(_CRON_BACKFILL))
+            try:
+                conn.execute(text("ALTER TABLE tasks DROP COLUMN cron"))
+            except Exception:  # noqa: BLE001 — SQLite < 3.35 can't DROP COLUMN
+                # The orphaned column is harmless: the model no longer maps it,
+                # so it just keeps its per-row default from here on.
+                pass
+        conn.commit()
         run_cols = [row[1] for row in conn.execute(text("PRAGMA table_info(runs)"))]
         if "attempt" not in run_cols:
             conn.execute(text("ALTER TABLE runs ADD COLUMN attempt INTEGER DEFAULT 0"))
+            conn.commit()
+
+
+def _migrate_postgres() -> None:
+    from sqlalchemy import text
+    with engine.connect() as conn:
+        has_cron = conn.execute(text(
+            "SELECT 1 FROM information_schema.columns "
+            "WHERE table_name = 'tasks' AND column_name = 'cron'")).first()
+        if has_cron:
+            conn.execute(text(_CRON_BACKFILL))
+            conn.execute(text("ALTER TABLE tasks DROP COLUMN IF EXISTS cron"))
             conn.commit()
 
 

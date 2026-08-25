@@ -9,7 +9,6 @@ export type Task = {
   id: string;
   name: string;
   prompt: string;
-  cron: string;
   trigger_type: TriggerType;
   trigger_value: string; // cron string | interval seconds | ISO datetime
   max_retries: number;
@@ -41,12 +40,22 @@ export type RunStatus = (typeof RUN_STATUSES)[number];
 export type RunSummary = {
   id: string;
   task_id: string;
+  task_name: string;
   status: RunStatus;
   trigger: string;
+  attempt: number;
   created_at: string;
   finished_at: string | null;
   output: string;
   error: string;
+};
+
+export type RelatedRun = {
+  id: string;
+  status: RunStatus;
+  attempt: number;
+  trigger: string;
+  created_at: string;
 };
 
 export type RunDetail = {
@@ -54,6 +63,7 @@ export type RunDetail = {
   task_id: string;
   task_name: string;
   trigger: string;
+  attempt: number;
   created_at: string;
   finished_at: string | null;
   status: RunStatus;
@@ -62,6 +72,9 @@ export type RunDetail = {
   // Agent message history — a JSON list whose exact block shapes belong to the
   // LLM provider; the transcript viewer narrows it further.
   transcript: unknown;
+  // Other runs of the same task, newest first (the inferred retry chain —
+  // the backend has no parent-run link).
+  related: RelatedRun[];
 };
 
 export type Approval = {
@@ -84,21 +97,19 @@ function runStatus(v: unknown): RunStatus {
   return (RUN_STATUSES as readonly string[]).includes(str(v)) ? (v as RunStatus) : "queued";
 }
 
-function triggerType(v: unknown, cron: string): TriggerType {
+function triggerType(v: unknown): TriggerType {
   if ((TRIGGER_TYPES as readonly string[]).includes(str(v))) return v as TriggerType;
-  return cron ? "cron" : "manual";
+  return "manual";
 }
 
 export function parseTask(v: unknown): Task | null {
   if (!isRecord(v) || typeof v.id !== "string") return null;
-  const cron = str(v.cron);
   return {
     id: v.id,
     name: str(v.name),
     prompt: str(v.prompt),
-    cron,
-    trigger_type: triggerType(v.trigger_type, cron),
-    trigger_value: str(v.trigger_value) || cron,
+    trigger_type: triggerType(v.trigger_type),
+    trigger_value: str(v.trigger_value),
     max_retries: typeof v.max_retries === "number" ? v.max_retries : 0,
     next_run_at: typeof v.next_run_at === "string" ? v.next_run_at : null,
     webhook_url: typeof v.webhook_url === "string" ? v.webhook_url : null,
@@ -123,12 +134,25 @@ export function parseRunSummary(v: unknown): RunSummary | null {
   return {
     id: v.id,
     task_id: str(v.task_id),
+    task_name: str(v.task_name),
     status: runStatus(v.status),
     trigger: str(v.trigger),
+    attempt: typeof v.attempt === "number" ? v.attempt : 0,
     created_at: str(v.created_at),
     finished_at: typeof v.finished_at === "string" ? v.finished_at : null,
     output: str(v.output),
     error: str(v.error),
+  };
+}
+
+function parseRelatedRun(v: unknown): RelatedRun | null {
+  if (!isRecord(v) || typeof v.id !== "string") return null;
+  return {
+    id: v.id,
+    status: runStatus(v.status),
+    attempt: typeof v.attempt === "number" ? v.attempt : 0,
+    trigger: str(v.trigger),
+    created_at: str(v.created_at),
   };
 }
 
@@ -139,12 +163,14 @@ export function parseRunDetail(v: unknown): RunDetail | null {
     task_id: str(v.task_id),
     task_name: str(v.task_name),
     trigger: str(v.trigger),
+    attempt: typeof v.attempt === "number" ? v.attempt : 0,
     created_at: str(v.created_at),
     finished_at: typeof v.finished_at === "string" ? v.finished_at : null,
     status: runStatus(v.status),
     output: str(v.output),
     error: str(v.error),
     transcript: v.transcript,
+    related: parseList(v.related, parseRelatedRun),
   };
 }
 

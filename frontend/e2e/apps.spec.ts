@@ -40,7 +40,8 @@ test.describe("apps gallery", () => {
     await page.waitForURL("**/tasks");
 
     const task = (await listTasks(ctx)).find((t) => t.name === name);
-    expect(task?.cron).toBe("30 8 * * *");
+    expect(task?.trigger_type).toBe("cron");
+    expect(task?.trigger_value).toBe("30 8 * * *");
     expect(task?.allowed_tools).toEqual(["read_gmail", "send_gmail", "notify"]);
   });
 

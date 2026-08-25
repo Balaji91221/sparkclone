@@ -1,8 +1,13 @@
 .env
+.env.local
 __pycache__/
 *.pyc
-spark.db
+.pytest_cache/
+spark.db*
 node_modules/
 frontend/.next/
 frontend/out/
+frontend/test-results/
+frontend/tsconfig.tsbuildinfo
+frontend/next-env.d.ts
 .venv

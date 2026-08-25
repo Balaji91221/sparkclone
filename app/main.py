@@ -8,12 +8,15 @@ from __future__ import annotations
 import logging
 import time
 import uuid
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 
 from . import scheduler
 from .api import approvals, chats, hooks, mcp, runs, skills, tasks, tools
+from .api import settings as settings_api
 from .auth.google_oauth import router as google_router
+from .config import insecure_default_secrets, settings
 from .db import Approval, Chat, Run, RunStatus, db_session, init_db, utcnow
 
 log = logging.getLogger("spark")
@@ -43,18 +46,32 @@ def _reap_orphaned_runs() -> None:
         db.commit()
 
 
-app = FastAPI(title="Astra", version="2.0.0")
-for router in (tasks.router, skills.router, runs.router, approvals.router,
-               tools.router, mcp.router, chats.router, hooks.router,
-               google_router):
-    app.include_router(router)
+def _check_secrets() -> None:
+    insecure = insecure_default_secrets()
+    if not insecure:
+        return
+    if settings.env == "production":
+        raise RuntimeError(
+            f"Refusing to start with default secrets in production: {', '.join(insecure)}. "
+            "Set them in .env (openssl rand -hex 24).")
+    log.warning("Using default values for %s — fine for local dev, but set real "
+                "secrets in .env before exposing this server.", ", ".join(insecure))
 
 
-@app.on_event("startup")
-def _startup() -> None:
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    _check_secrets()
     init_db()
     _reap_orphaned_runs()
     scheduler.start()
+    yield
+
+
+app = FastAPI(title="Astra", version="2.0.0", lifespan=lifespan)
+for router in (tasks.router, skills.router, runs.router, approvals.router,
+               tools.router, mcp.router, chats.router, hooks.router,
+               settings_api.router, google_router):
+    app.include_router(router)
 
 
 @app.middleware("http")

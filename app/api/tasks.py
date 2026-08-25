@@ -3,8 +3,8 @@ from __future__ import annotations
 import datetime as dt
 import secrets
 
-from fastapi import APIRouter, Depends, HTTPException
 from apscheduler.triggers.cron import CronTrigger
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 from .. import scheduler
@@ -23,6 +23,8 @@ class TaskIn(BaseModel):
     prompt: str = Field(min_length=1, max_length=20_000)
     skill_ids: list[str] = Field(default_factory=list)
     allowed_tools: list[str] = Field(default_factory=list)
+    # Legacy input alias: clients that only know cron. Normalized into
+    # trigger_type/trigger_value below; never stored as-is.
     cron: str = Field(default="", max_length=100)
     # "" keeps the legacy behavior: cron set -> cron schedule, else manual.
     trigger_type: str = Field(default="", max_length=20)
@@ -55,7 +57,6 @@ class TaskIn(BaseModel):
             except ValueError as exc:
                 raise ValueError("Use a valid five-part cron expression, "
                                  "e.g. '0 9 * * MON-FRI'.") from exc
-            self.cron = self.trigger_value  # keep the legacy column in sync
         elif self.trigger_type == "interval":
             try:
                 seconds = int(self.trigger_value)
@@ -65,7 +66,6 @@ class TaskIn(BaseModel):
             if seconds < scheduler.MIN_INTERVAL_S:
                 raise ValueError(f"Minimum interval is {scheduler.MIN_INTERVAL_S} "
                                  "seconds.")
-            self.cron = ""
         elif self.trigger_type == "date":
             try:
                 # JS clients send a trailing "Z"; Python 3.10 fromisoformat
@@ -82,10 +82,8 @@ class TaskIn(BaseModel):
             # such a task must not 422.
             if self.enabled and run_at <= dt.datetime.now(dt.timezone.utc):
                 raise ValueError("The scheduled datetime is in the past.")
-            self.cron = ""
         else:  # webhook | manual
             self.trigger_value = ""
-            self.cron = ""
         return self
 
 
@@ -96,19 +94,18 @@ def _apply(t: Task, body: TaskIn) -> None:
     t.enabled = "true" if body.enabled else "false"
     if body.trigger_type:
         t.trigger_type, t.trigger_value = body.trigger_type, body.trigger_value
-        t.cron = body.cron
     elif scheduler.effective_trigger_type(t) in ("interval", "date", "webhook"):
         pass  # legacy client editing other fields — keep the schedule as-is
     else:
-        t.trigger_type, t.trigger_value, t.cron = "manual", "", ""
+        t.trigger_type, t.trigger_value = "manual", ""
     if t.trigger_type == "webhook" and not t.webhook_secret:
         t.webhook_secret = secrets.token_urlsafe(24)
 
 
 def _task_out(t: Task) -> dict:
     kind = scheduler.effective_trigger_type(t)
-    return {"id": t.id, "name": t.name, "prompt": t.prompt, "cron": t.cron,
-            "trigger_type": kind, "trigger_value": t.trigger_value or t.cron,
+    return {"id": t.id, "name": t.name, "prompt": t.prompt,
+            "trigger_type": kind, "trigger_value": t.trigger_value,
             "max_retries": t.max_retries or 0,
             "skill_ids": t.skill_ids, "allowed_tools": t.allowed_tools,
             "enabled": t.enabled == "true",

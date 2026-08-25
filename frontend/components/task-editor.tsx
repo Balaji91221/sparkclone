@@ -27,7 +27,6 @@ function initialForm(mode: EditorMode): TaskInput {
         prompt: task.prompt,
         skill_ids: task.skill_ids,
         allowed_tools: task.allowed_tools,
-        cron: task.cron,
         trigger_type: task.trigger_type,
         trigger_value: task.trigger_value,
         max_retries: task.max_retries,
@@ -40,7 +39,6 @@ function initialForm(mode: EditorMode): TaskInput {
         prompt: mode.prefill?.prompt ?? "",
         skill_ids: [],
         allowed_tools: [],
-        cron: "",
         trigger_type: "manual",
         trigger_value: "",
         max_retries: 0,
@@ -122,13 +120,7 @@ export function TaskEditor({ mode, skills }: TaskEditorProps) {
         <div className="rounded-xl border border-line bg-surface px-5 py-4">
           <ScheduleField
             value={{ trigger_type: form.trigger_type, trigger_value: form.trigger_value }}
-            onChange={(v: TriggerValue) =>
-              setForm((f) => ({
-                ...f,
-                ...v,
-                cron: v.trigger_type === "cron" ? v.trigger_value : "",
-              }))
-            }
+            onChange={(v: TriggerValue) => setForm((f) => ({ ...f, ...v }))}
           />
           {form.trigger_type === "webhook" ? (
             <WebhookPanel

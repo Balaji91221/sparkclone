@@ -35,6 +35,10 @@ SCOPES = [
     "https://www.googleapis.com/auth/gmail.readonly",
     "https://www.googleapis.com/auth/gmail.send",
     "https://www.googleapis.com/auth/drive.readonly",
+    # Added after the first release: accounts connected before this scope
+    # existed get 403s from the Calendar API until the user reconnects
+    # (prompt=consent always re-issues a refresh token with current scopes).
+    "https://www.googleapis.com/auth/calendar.events",
 ]
 
 

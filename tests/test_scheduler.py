@@ -25,17 +25,18 @@ def future_iso(minutes: int = 10) -> str:
 
 
 def test_build_trigger_per_kind():
-    with db_session() as db:
-        legacy = Task(name="l", prompt="p", cron="0 9 * * *")
-        cron = Task(name="c", prompt="p", trigger_type="cron",
-                    trigger_value="0 9 * * *")
-        interval = Task(name="i", prompt="p", trigger_type="interval",
-                        trigger_value="300")
-        date = Task(name="d", prompt="p", trigger_type="date",
-                    trigger_value=future_iso())
-        webhook = Task(name="w", prompt="p", trigger_type="webhook")
-        manual = Task(name="m", prompt="p")
-    assert isinstance(scheduler.build_trigger(legacy), CronTrigger)
+    # Pre-backfill legacy row (trigger_type='') is treated as manual;
+    # _migrate() backfills real legacy rows before the app reads them.
+    legacy = Task(name="l", prompt="p", trigger_type="")
+    cron = Task(name="c", prompt="p", trigger_type="cron",
+                trigger_value="0 9 * * *")
+    interval = Task(name="i", prompt="p", trigger_type="interval",
+                    trigger_value="300")
+    date = Task(name="d", prompt="p", trigger_type="date",
+                trigger_value=future_iso())
+    webhook = Task(name="w", prompt="p", trigger_type="webhook")
+    manual = Task(name="m", prompt="p")
+    assert scheduler.build_trigger(legacy) is None
     assert isinstance(scheduler.build_trigger(cron), CronTrigger)
     assert isinstance(scheduler.build_trigger(interval), IntervalTrigger)
     assert isinstance(scheduler.build_trigger(date), DateTrigger)
@@ -44,8 +45,7 @@ def test_build_trigger_per_kind():
 
 
 def test_interval_floor_applied():
-    with db_session() as db:
-        t = Task(name="i", prompt="p", trigger_type="interval", trigger_value="1")
+    t = Task(name="i", prompt="p", trigger_type="interval", trigger_value="1")
     trig = scheduler.build_trigger(t)
     assert trig.interval.total_seconds() == scheduler.MIN_INTERVAL_S
 

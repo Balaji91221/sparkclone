@@ -48,7 +48,6 @@ def test_chat_update_switches_interval_to_cron():
         t = db.get(Task, task_id)
         assert t.trigger_type == "cron"
         assert t.trigger_value == "0 21 * * *"
-        assert t.cron == "0 21 * * *"
 
 
 def test_chat_update_rejects_two_schedules():

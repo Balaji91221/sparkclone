@@ -1,7 +1,9 @@
 import { defineConfig } from "@playwright/test";
 
-// E2E suite for Astra. Requires both dev servers running:
-//   backend  http://localhost:8010  (uvicorn with .env loaded)
+// E2E suite for Astra. Local-only (not run in CI — chat specs need a real
+// LLM; CI support would need a stub provider + workflow-managed servers).
+// Requires both dev servers running:
+//   backend  http://localhost:8000  (uvicorn with .env loaded)
 //   frontend http://localhost:3000  (next dev)
 // Tests seed data through the real API and clean up after themselves;
 // everything they create is prefixed "E2E-PW".

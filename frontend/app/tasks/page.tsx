@@ -51,7 +51,6 @@ export default function TasksPage() {
         prompt: t.prompt,
         skill_ids: t.skill_ids,
         allowed_tools: t.allowed_tools,
-        cron: t.cron,
         trigger_type: t.trigger_type,
         trigger_value: t.trigger_value,
         max_retries: t.max_retries,

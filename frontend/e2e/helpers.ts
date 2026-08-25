@@ -3,7 +3,7 @@ import path from "node:path";
 import { request } from "@playwright/test";
 import type { APIRequestContext, Page } from "@playwright/test";
 
-export const API = "http://localhost:8010";
+export const API = "http://localhost:8000";
 export const PREFIX = "E2E-PW";
 
 let cachedToken = "";

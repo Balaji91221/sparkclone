@@ -35,7 +35,8 @@ test.describe("chat-driven scheduling", () => {
       .toBe(true);
 
     const task = (await listTasks(ctx)).find((t) => t.name === name);
-    expect(task?.cron).toBe("0 7 * * *");
+    expect(task?.trigger_type).toBe("cron");
+    expect(task?.trigger_value).toBe("0 7 * * *");
 
     // The new schedule shows up in the UI with human phrasing.
     await login(page);

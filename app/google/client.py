@@ -17,9 +17,14 @@ from ..config import settings
 
 GMAIL = "https://gmail.googleapis.com/gmail/v1/users/me"
 DRIVE = "https://www.googleapis.com/drive/v3"
+CALENDAR = "https://www.googleapis.com/calendar/v3"
 
 RECONNECT_MSG = ("Google is not connected (or the connection expired). "
                  "Open Settings in the dashboard and click Connect Google.")
+
+CALENDAR_RECONNECT_MSG = (
+    "Calendar access not granted — open Settings and reconnect Google "
+    "(a new Calendar permission was added after this account connected).")
 
 
 def _client(token: str) -> httpx.Client:
@@ -103,6 +108,76 @@ def gmail_send(to: str, subject: str, body: str, html: str = "",
             note = (f" NOTE: {len(rejected)} attachment(s) were refused (outside "
                     f"{settings.attachments_dir}): {rejected}")
         return f"Email sent to {to} via Gmail (id {res.json().get('id', '?')}).{note}"
+
+
+def _calendar_error(res: httpx.Response) -> str:
+    if res.status_code == 403:
+        return CALENDAR_RECONNECT_MSG
+    return f"Calendar API error {res.status_code}: {res.text[:300]}"
+
+
+def _event_time(value: str) -> dict | str:
+    """Google event time object from an ISO string; error message on bad input.
+    A bare date (YYYY-MM-DD) means all-day."""
+    import datetime as dt
+    v = value.strip()
+    try:
+        # "Z" suffix normalization for Python 3.10's fromisoformat.
+        dt.datetime.fromisoformat(v.replace("Z", "+00:00"))
+    except ValueError:
+        return (f"Invalid datetime: {value!r}. Use ISO format, e.g. "
+                "'2026-08-25T15:00:00+05:30' (or 'YYYY-MM-DD' for all-day).")
+    return {"date": v} if len(v) == 10 else {"dateTime": v}
+
+
+def calendar_list_events(time_min: str, time_max: str, query: str = "",
+                         limit: int = 20) -> list[dict] | str:
+    token = get_access_token()
+    if not token:
+        return RECONNECT_MSG
+    limit = max(1, min(int(limit), 50))
+    params: dict = {"maxResults": limit, "singleEvents": "true",
+                    "orderBy": "startTime",
+                    "timeMin": time_min, "timeMax": time_max}
+    if query:
+        params["q"] = query
+    with _client(token) as c:
+        res = c.get(f"{CALENDAR}/calendars/primary/events", params=params)
+        if res.status_code != 200:
+            return _calendar_error(res)
+        return [{
+            "summary": e.get("summary", ""),
+            "start": e.get("start", {}),
+            "end": e.get("end", {}),
+            "location": e.get("location", ""),
+            "attendees": [a.get("email", "") for a in e.get("attendees", [])],
+            "id": e.get("id", ""),
+        } for e in res.json().get("items", [])]
+
+
+def calendar_create_event(summary: str, start: str, end: str,
+                          description: str = "",
+                          attendees: list[str] | None = None) -> str:
+    token = get_access_token()
+    if not token:
+        return RECONNECT_MSG
+    start_obj, end_obj = _event_time(start), _event_time(end)
+    if isinstance(start_obj, str):
+        return start_obj
+    if isinstance(end_obj, str):
+        return end_obj
+    body: dict = {"summary": summary, "start": start_obj, "end": end_obj}
+    if description:
+        body["description"] = description
+    if attendees:
+        body["attendees"] = [{"email": a} for a in attendees]
+    with _client(token) as c:
+        res = c.post(f"{CALENDAR}/calendars/primary/events", json=body)
+        if res.status_code != 200:
+            return _calendar_error(res)
+        e = res.json()
+        return (f"Event created: {e.get('summary', summary)!r} "
+                f"({e.get('htmlLink', 'no link')}).")
 
 
 def drive_list(query: str, limit: int) -> list[dict] | str:

@@ -45,14 +45,14 @@ Dashboard: Next.js App Router + Tailwind. Storage: Postgres (Docker) or SQLite.
 
 ```bash
 cp .env.example .env        # fill in the values below
-docker compose up --build   # API on :8010, Postgres on :5433
+docker compose up --build   # API on :8000, Postgres on :5433
 ```
 
 Without Docker (Postgres already running, or leave `DATABASE_URL` unset for SQLite):
 
 ```bash
 pip install -r requirements.txt
-uvicorn app.main:app --port 8010 --reload
+uvicorn app.main:app --port 8000 --reload
 ```
 
 ### Dashboard (Next.js)

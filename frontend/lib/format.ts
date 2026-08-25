@@ -29,7 +29,7 @@ function time12(hour: string, min: string): string {
   return `${h12}:${min.padStart(2, "0")} ${period}`;
 }
 
-type Schedulable = { trigger_type: string; trigger_value: string; cron: string };
+type Schedulable = { trigger_type: string; trigger_value: string };
 
 // Human description covering every schedule kind the backend supports.
 export function scheduleHuman(t: Schedulable): string {
@@ -54,7 +54,7 @@ export function scheduleHuman(t: Schedulable): string {
     case "manual":
       return "Manual — run on demand";
     default:
-      return cronHuman(t.trigger_value || t.cron);
+      return cronHuman(t.trigger_value);
   }
 }
 

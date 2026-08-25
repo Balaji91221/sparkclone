@@ -3,22 +3,19 @@
 import Link from "next/link";
 import { useCallback } from "react";
 import { Card, EmptyState, ErrorBanner, PageHeader, Skeleton, StatusChip } from "@/components/ui";
-import { listRuns, listTasks } from "@/lib/api";
+import { listRuns } from "@/lib/api";
 import { ago, formatTimestamp } from "@/lib/format";
-import type { RunSummary, Task } from "@/lib/types";
+import type { RunSummary } from "@/lib/types";
 import { usePoll } from "@/lib/use-poll";
 
-type RunsData = { runs: RunSummary[]; tasks: Task[] };
-
 export default function RunsPage() {
-  const fetchAll = useCallback(async (signal: AbortSignal): Promise<RunsData> => {
-    const [runs, tasks] = await Promise.all([listRuns(signal), listTasks(signal)]);
-    return { runs, tasks };
-  }, []);
-  const { state } = usePoll(fetchAll, 4000);
+  const fetchRuns = useCallback(
+    (signal: AbortSignal): Promise<RunSummary[]> => listRuns(signal),
+    [],
+  );
+  const { state } = usePoll(fetchRuns, 4000);
 
-  const data = state.kind === "ready" ? state.data : null;
-  const taskName = new Map(data?.tasks.map((t) => [t.id, t.name]) ?? []);
+  const runs = state.kind === "ready" ? state.data : null;
 
   return (
     <div>
@@ -29,13 +26,13 @@ export default function RunsPage() {
       {state.kind === "error" ? <ErrorBanner message={state.message} /> : null}
       {state.kind === "loading" ? <Skeleton rows={5} /> : null}
 
-      {data && data.runs.length === 0 ? (
+      {runs && runs.length === 0 ? (
         <EmptyState title="No runs yet" hint="Run a task and its execution will appear here." />
       ) : null}
 
-      {data && data.runs.length > 0 ? (
+      {runs && runs.length > 0 ? (
         <Card>
-          {data.runs.map((r, i) => (
+          {runs.map((r, i) => (
             <Link
               key={r.id}
               href={`/runs/${r.id}`}
@@ -44,8 +41,16 @@ export default function RunsPage() {
               style={{ "--d": `${Math.min(i, 8) * 70}ms` } as React.CSSProperties}
             >
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium">
-                  {taskName.get(r.task_id) ?? "(deleted task)"}
+                <p className="flex items-center gap-2 text-sm font-medium">
+                  <span className="truncate">{r.task_name || "(deleted task)"}</span>
+                  {r.attempt > 0 ? (
+                    <span
+                      className="shrink-0 rounded-full border border-warn/40 bg-warn-soft
+                        px-2 py-0.5 text-[11px] font-medium text-warn"
+                    >
+                      retry {r.attempt}
+                    </span>
+                  ) : null}
                 </p>
                 <p className="mt-0.5 truncate text-[13px] text-muted">
                   {formatTimestamp(r.created_at)} · {r.trigger} · {ago(r.created_at)}

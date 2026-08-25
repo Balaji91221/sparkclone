@@ -189,7 +189,6 @@ function AppAutomationDialog({ app, skills, onClose }: DialogProps) {
         prompt: prompt.trim(),
         skill_ids: skillIds,
         allowed_tools: app.tools,
-        cron: trigger.trigger_type === "cron" ? trigger.trigger_value : "",
         ...trigger,
         max_retries: 0,
         enabled: true,

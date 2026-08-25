@@ -39,8 +39,17 @@ from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.platypus import (BaseDocTemplate, Flowable, Frame, KeepTogether,
-                                PageTemplate, Paragraph, Spacer, Table, TableStyle)
+from reportlab.platypus import (
+    BaseDocTemplate,
+    Flowable,
+    Frame,
+    KeepTogether,
+    PageTemplate,
+    Paragraph,
+    Spacer,
+    Table,
+    TableStyle,
+)
 
 # (path, regular subfont index, bold subfont index) — index is for .ttc files.
 # Helvetica Neue ships with macOS and includes the ₹ glyph; DejaVu covers Linux.

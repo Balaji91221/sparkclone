@@ -12,3 +12,4 @@ psycopg[binary]==3.*
 
 # dev / test
 pytest==8.*
+ruff==0.*
