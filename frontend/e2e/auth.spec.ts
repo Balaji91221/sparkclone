@@ -32,8 +32,8 @@ test.describe("authentication", () => {
     await openTokenForm(page);
     await page.getByPlaceholder("Paste your token").fill(apiToken());
     await page.getByRole("button", { name: "Sign in with token" }).click();
-    await expect(page.getByRole("heading", { name: /Put .*Astra.* to work/ })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Ask Astra" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Make progress/ })).toBeVisible();
+    await expect(page.getByText("ACTIVE TASKS", { exact: false })).toBeVisible();
   });
 
   test("stored token skips the login screen", async ({ page }) => {

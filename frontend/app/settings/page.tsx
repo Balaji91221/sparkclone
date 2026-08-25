@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { AgentToolsSection } from "@/components/agent-tools";
 import { MCPSettings } from "@/components/mcp-settings";
 import { Button, Card, PageHeader, Skeleton } from "@/components/ui";
 import {
   getNotificationSettings,
   googleDisconnect,
   googleStatus,
-  listAgentTools,
   updateNotificationSettings,
 } from "@/lib/api";
 import type { NotificationSettings } from "@/lib/api";
@@ -236,48 +236,3 @@ function NotificationsCard() {
   );
 }
 
-function AgentToolsSection() {
-  const fetchTools = useCallback((signal: AbortSignal) => listAgentTools(signal), []);
-  const { state } = usePoll(fetchTools, 30000);
-
-  return (
-    <div>
-      <h2 className="mb-3 mt-8 text-[15px] font-semibold">Agent tools</h2>
-      {state.kind === "loading" ? <Skeleton rows={4} /> : null}
-      {state.kind === "error" ? (
-        <p className="rounded-lg bg-danger-soft px-3 py-2 text-sm text-danger">{state.message}</p>
-      ) : null}
-      {state.kind === "ready" ? (
-        <Card>
-          {state.data.map((t) => (
-            <div
-              key={t.name}
-              className="flex items-center justify-between gap-4 border-b border-line px-5
-                py-3.5 last:border-0"
-            >
-              <div className="min-w-0">
-                <p className="truncate font-mono text-sm font-medium">
-                  
-                  {t.name}
-                </p>
-                <p className="line-clamp-1 text-[13px] text-muted">
-                  {t.source !== "builtin" ? `via ${t.source} · ` : ""}
-                  {t.description}
-                </p>
-              </div>
-              {t.requires_approval ? (
-                <span className="shrink-0 rounded-full bg-warn-soft px-2.5 py-0.5 text-xs font-medium text-warn">
-                  approval required
-                </span>
-              ) : (
-                <span className="shrink-0 rounded-full bg-surface-2 px-2.5 py-0.5 text-xs text-muted">
-                  auto
-                </span>
-              )}
-            </div>
-          ))}
-        </Card>
-      ) : null}
-    </div>
-  );
-}
