@@ -132,19 +132,33 @@ export default function SkillsPage() {
       {skills.length > 0 ? (
         <Card>
           {skills.map((s) => (
-            <div
-              key={s.id}
-              className="flex items-start justify-between gap-4 border-b border-line px-5
-                py-4 last:border-0"
-            >
-              <div className="min-w-0">
-                <p className="font-mono text-sm font-medium">{s.name}</p>
-                <p className="mt-1 line-clamp-2 text-sm text-muted">{s.instructions}</p>
+            <details key={s.id} className="group border-b border-line last:border-0">
+              <summary
+                className="flex cursor-pointer list-none items-center gap-4 px-5 py-4
+                  transition hover:bg-surface-2/60 [&::-webkit-details-marker]:hidden"
+              >
+                <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted transition-transform
+                  group-open:rotate-90" fill="none" stroke="currentColor" strokeWidth="2"
+                  strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M9 6l6 6-6 6" />
+                </svg>
+                <div className="min-w-0 flex-1">
+                  <p className="font-mono text-sm font-medium">{s.name}</p>
+                  <p className="mt-0.5 truncate text-[13px] text-muted">
+                    {s.description || s.instructions.split("\n")[0]}
+                  </p>
+                </div>
+                <Button variant="danger" onClick={() => void remove(s.id, s.name)}>
+                  Delete
+                </Button>
+              </summary>
+              <div className="border-t border-line bg-background/50 px-5 py-4 pl-[3.25rem]">
+                <pre className="whitespace-pre-wrap font-sans text-[13px] leading-relaxed
+                  text-foreground/90">
+                  {s.instructions}
+                </pre>
               </div>
-              <Button variant="danger" onClick={() => void remove(s.id, s.name)}>
-                Delete
-              </Button>
-            </div>
+            </details>
           ))}
         </Card>
       ) : null}
@@ -181,9 +195,17 @@ export default function SkillsPage() {
                 placeholder="inbox-digest-style"
               />
             </Field>
-            <Field label="Instructions">
+            <Field label="Description" hint="One line shown in the list">
+              <input
+                className={inputClass}
+                value={dialog.form.description}
+                onChange={(e) => setForm({ description: e.target.value })}
+                placeholder="Turn unread email into a prioritized action list"
+              />
+            </Field>
+            <Field label="Instructions" hint="Markdown, written as directions to the agent">
               <textarea
-                className={`${inputClass} min-h-[120px] resize-y`}
+                className={`${inputClass} min-h-[160px] resize-y font-mono text-[13px]`}
                 value={dialog.form.instructions}
                 onChange={(e) => setForm({ instructions: e.target.value })}
                 placeholder="Group by importance. Flag invoices and deadlines first."

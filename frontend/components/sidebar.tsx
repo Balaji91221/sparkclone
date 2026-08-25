@@ -83,7 +83,8 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut, onClose }: S
               key={item.href}
               href={item.href}
               className={`relative flex items-center gap-3 rounded-full px-4 py-2 text-sm
-                font-medium transition duration-150 ${
+                font-medium transition duration-150 focus-visible:outline-none
+                focus-visible:ring-2 focus-visible:ring-accent/30 ${
                   active
                     ? "bg-accent-soft text-accent"
                     : "text-muted hover:bg-surface-2 hover:text-foreground"

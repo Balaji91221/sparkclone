@@ -102,6 +102,7 @@ function ConnectedShell({ children }: { children: ReactNode }) {
   const [data, setData] = useState<ShellData | null>(null);
   if (state.kind === "ready" && state.data !== data) setData(state.data);
   const pathname = usePathname();
+  const isChat = pathname === "/chat";
 
   // Desktop: sidebar toggles between full and hidden (close button).
   // Mobile: sidebar is an overlay drawer opened from the top bar.
@@ -171,13 +172,21 @@ function ConnectedShell({ children }: { children: ReactNode }) {
       </header>
 
       <main
-        className={`px-4 py-6 md:px-8 md:py-8 ${navOpen ? "md:ml-[232px]" : ""}`}
+        className={`${navOpen ? "md:ml-[232px]" : ""} ${
+          // Chat is an edge-to-edge, full-height workspace (mail-app layout):
+          // no page padding, pinned to the viewport minus the top bar when the
+          // sidebar is collapsed. Every other page is a padded reading column.
+          isChat
+            ? `flex flex-col h-[calc(100dvh-49px)] ${navOpen ? "md:h-dvh" : ""}`
+            : "px-4 py-6 md:px-8 md:py-8"
+        }`}
       >
         {/* Keyed by route so page changes get a soft cross-fade. */}
         <div
           key={pathname}
-          // Chat is a full-height workspace; every other page reads best as a column.
-          className={`anim-fade mx-auto ${pathname === "/chat" ? "max-w-[1400px]" : "max-w-4xl"}`}
+          className={`anim-fade w-full ${
+            isChat ? "flex min-h-0 flex-1 flex-col" : "mx-auto max-w-4xl"
+          }`}
         >
           {children}
         </div>

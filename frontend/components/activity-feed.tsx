@@ -9,6 +9,8 @@ import { useState } from "react";
 import { toSteps } from "@/lib/transcript-steps";
 import { Icon } from "./icons";
 import { ChatItem, groupSteps, isNudge, StepView } from "./activity/items";
+import type { FeedItem } from "./activity/items";
+import { WorkBlock } from "./activity/work-block";
 import { Chevron, Row } from "./activity/primitives";
 import { useAutoscroll } from "./activity/use-autoscroll";
 
@@ -44,11 +46,26 @@ export function ActivityFeed({ transcript, live, finishedOk, variant = "run" }: 
   const toolCount = steps.filter((s) => s.kind === "tool").length;
 
   if (variant === "chat") {
+    // Fold each run of reasoning/tool steps into one collapsible "work" row so
+    // the reply, not the trace, is what the eye lands on.
+    const blocks: Array<{ kind: "work"; items: FeedItem[] } | { kind: "item"; item: FeedItem }> = [];
+    for (const item of items) {
+      const isWork = item.kind === "reasoning" || item.kind === "reasoning-group" || item.kind === "tool";
+      const last = blocks[blocks.length - 1];
+      if (isWork && last && last.kind === "work") last.items.push(item);
+      else if (isWork) blocks.push({ kind: "work", items: [item] });
+      else blocks.push({ kind: "item", item });
+    }
     return (
       <div>
-        {items.map((item, i) => (
-          <ChatItem key={i} item={item} live={live && i === items.length - 1} />
-        ))}
+        {blocks.map((b, i) => {
+          const isLast = i === blocks.length - 1;
+          return b.kind === "work" ? (
+            <WorkBlock key={i} items={b.items} live={live && isLast} />
+          ) : (
+            <ChatItem key={i} item={b.item} live={live && isLast} />
+          );
+        })}
         {live ? (
           <div className="mb-4 flex items-center gap-3">
             <span

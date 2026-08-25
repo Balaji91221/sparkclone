@@ -52,6 +52,11 @@ const PATHS: Record<string, string> = {
   clock: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2",
   terminal: "M4 17l5-5-5-5M11 19h9",
   check: "M5 12l5 5 9-10",
+  x: "M6 6l12 12M18 6L6 18",
+  shield: "M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z",
+  server: "M4 5h16v5H4zM4 14h16v5H4zM7 7.5h.01M7 16.5h.01",
+  google: "M12 11v2.5h4.2c-.4 2-2 3.5-4.2 3.5a4.5 4.5 0 1 1 0-9c1.2 0 2.2.4 3 1.1l1.9-1.9A7.5 7.5 0 1 0 12 19.5c4.3 0 7.2-3 7.2-7.3 0-.4 0-.8-.1-1.2z",
+  sliders: "M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0M14 4v4M8 10v4M16 16v4",
 };
 
 export type IconName = keyof typeof PATHS;

@@ -273,13 +273,7 @@ export function AgentToolsSection() {
 
   return (
     <div>
-      <div className="mb-3 mt-8 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
-        <div>
-          <h2 className="text-[15px] font-semibold">Agent tools</h2>
-          <p className="text-[13px] text-muted">
-            Everything the agent can call right now, grouped by where it comes from.
-          </p>
-        </div>
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
         <div className="flex items-center gap-5">
           {state.kind === "ready" ? (
             <div className="hidden items-center gap-4 sm:flex">

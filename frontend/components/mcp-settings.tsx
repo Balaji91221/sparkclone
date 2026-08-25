@@ -63,8 +63,11 @@ export function MCPSettings() {
 
   return (
     <div>
-      <div className="mb-3 mt-8 flex items-baseline justify-between">
-        <h2 className="text-[15px] font-semibold">MCP servers</h2>
+      <div className="mb-3 flex items-center justify-between gap-4">
+        <p className="max-w-xl text-xs text-muted">
+          Only add servers you trust — their tool descriptions and outputs enter the
+          agent&apos;s context.
+        </p>
         <Button variant="primary" onClick={() => {
           setError("");
           setDialog({ kind: "open", form: EMPTY, argsText: "" });
@@ -72,10 +75,6 @@ export function MCPSettings() {
           Connect server
         </Button>
       </div>
-      <p className="mb-3 max-w-xl text-xs text-muted">
-        Tools from connected MCP servers become callable by the agent. Only add servers
-        you trust — their tool descriptions and outputs enter the agent&apos;s context.
-      </p>
       {error && dialog.kind === "closed" ? (
         <p className="mb-3 rounded-lg bg-danger-soft px-3 py-2 text-sm text-danger">{error}</p>
       ) : null}

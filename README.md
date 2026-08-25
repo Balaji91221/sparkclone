@@ -80,6 +80,17 @@ npm run dev        # http://localhost:3000 — "Sign in with Google" (SPARK_ALLO
 | `YOUTUBE_API_KEY` | YouTube Data API v3 (video metadata) |
 | `DATABASE_URL` | e.g. `postgresql+psycopg://spark:sparkpass@localhost:5433/sparkclone`; omit for SQLite |
 
+## Starter skills
+
+Skills are reusable instruction blocks the agent can attach to any task. Seed a
+curated set of twelve (inbox triage, daily briefing, research digest, meeting
+prep, market watch, email drafting, …) with:
+
+```bash
+python -m scripts.seed_skills        # creates missing skills, refreshes existing ones
+python -m scripts.seed_skills --list # preview without writing
+```
+
 ## Example: weekday inbox digest
 
 Open **Chat** and say: *"Every weekday at 9am, read my inbox, summarize what

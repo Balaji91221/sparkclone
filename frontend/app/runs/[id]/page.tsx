@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { ActivityFeed } from "@/components/activity-feed";
 import { Markdown } from "@/components/markdown";
+import { StatusTile } from "@/components/list";
 import { Button, ErrorBanner, Skeleton, StatusChip } from "@/components/ui";
 import { getRun } from "@/lib/api";
 import { ago } from "@/lib/format";
@@ -33,9 +34,14 @@ export default function RunDetailPage() {
 
   return (
     <div>
-      <Link href="/runs" className="text-sm text-accent hover:underline">
-        ← All runs
-      </Link>
+      <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[13px] text-muted">
+        <Link href="/runs" className="rounded-md px-1 py-0.5 transition hover:bg-surface-2
+          hover:text-foreground">
+          Runs
+        </Link>
+        <span aria-hidden>/</span>
+        <span className="truncate text-foreground">Run detail</span>
+      </nav>
 
       {state.kind === "error" ? (
         <div className="mt-4">
@@ -96,20 +102,29 @@ function AttemptBadge({ attempt }: { attempt: number }) {
 function PreviousAttempts({ run }: { run: RunDetail }) {
   if (run.related.length === 0) return null;
   return (
-    <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-line pt-3">
-      <span className="text-xs text-muted">Other runs of this task:</span>
+    <div className="flex flex-wrap items-center gap-2 border-t border-line px-5 py-3">
+      <span className="text-xs font-medium text-muted">Other runs of this task</span>
       {run.related.map((r) => (
         <Link
           key={r.id}
           href={`/runs/${r.id}`}
-          className="flex items-center gap-1.5 rounded-lg border border-line px-2 py-1
-            text-xs hover:border-accent"
+          className="flex items-center gap-1.5 rounded-full border border-line py-0.5 pl-0.5 pr-2.5
+            text-xs transition hover:border-accent/50 hover:bg-accent-soft/40"
         >
           <StatusChip status={r.status} />
           {r.attempt > 0 ? <span className="text-muted">retry {r.attempt}</span> : null}
           <span className="text-muted">{ago(r.created_at)}</span>
         </Link>
       ))}
+    </div>
+  );
+}
+
+function Fact({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="min-w-0">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted">{label}</p>
+      <p className="mt-0.5 truncate text-sm">{children}</p>
     </div>
   );
 }
@@ -132,24 +147,27 @@ function RunView({ run }: { run: RunDetail }) {
   const dur = duration(run);
   return (
     <div className="mt-4">
-      <div
-        className="glass sticky top-3 z-10 mb-6 rounded-xl border border-line px-5 py-4
-          shadow-sm"
-      >
-        <div className="flex items-center justify-between gap-4">
-          <h1 className="flex min-w-0 items-center gap-2 text-lg font-semibold tracking-tight">
-            <span className="truncate">{run.task_name || "Run detail"}</span>
-            <AttemptBadge attempt={run.attempt} />
-          </h1>
+      <div className="mb-6 overflow-hidden rounded-2xl border border-line bg-surface
+        shadow-[var(--shadow-card)]">
+        <div className="flex items-start gap-4 px-5 pt-5">
+          <StatusTile status={run.status} />
+          <div className="min-w-0 flex-1">
+            <h1 className="flex min-w-0 items-center gap-2 text-xl font-semibold tracking-tight">
+              <span className="truncate">{run.task_name || "Run detail"}</span>
+              <AttemptBadge attempt={run.attempt} />
+            </h1>
+            <p className="mt-0.5 font-mono text-xs text-muted">{run.id}</p>
+          </div>
           <StatusChip status={run.status} />
         </div>
-        <p className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-          <span>Trigger: {run.trigger || "manual"}</span>
-          <span>Started {ago(run.created_at)}</span>
-          {dur ? <span>Took {dur}</span> : null}
-          {!dur && isLive(run.status) ? <LiveDuration since={run.created_at} /> : null}
-          <span className="font-mono">{run.id.slice(0, 12)}…</span>
-        </p>
+        <dl className="grid grid-cols-2 gap-4 px-5 py-5 sm:grid-cols-4">
+          <Fact label="Trigger"><span className="capitalize">{run.trigger || "manual"}</span></Fact>
+          <Fact label="Started">{ago(run.created_at)}</Fact>
+          <Fact label="Duration">
+            {dur ? dur : isLive(run.status) ? <LiveDuration since={run.created_at} /> : "—"}
+          </Fact>
+          <Fact label="Attempt">{run.attempt + 1}{run.related.length ? ` of ${run.related.length + 1}` : ""}</Fact>
+        </dl>
         <PreviousAttempts run={run} />
       </div>
 

@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { AgentToolsSection } from "@/components/agent-tools";
 import { MCPSettings } from "@/components/mcp-settings";
+import { Icon } from "@/components/icons";
 import { Button, Card, PageHeader, Skeleton } from "@/components/ui";
 import {
   getNotificationSettings,
@@ -32,37 +33,111 @@ export default function SettingsPage() {
 
   return (
     <div>
-      <PageHeader title="Settings" lede="Connections, tools, and backend status." />
+      <PageHeader title="Settings" lede="Connections, notifications, integrations and what the agent can do." />
 
-      <h2 className="mb-3 text-[15px] font-semibold">Backend</h2>
-      <Card>
-        <div className="flex items-center justify-between px-5 py-4">
-          <div>
-            <p className="text-sm font-medium">FastAPI server</p>
-            <p className="text-[13px] text-muted">Proxied from this dashboard to the API server</p>
-          </div>
-          {health?.kind === "ok" ? (
-            <span className="rounded-full bg-ok-soft px-2.5 py-0.5 text-xs font-medium text-ok">
-              online
-            </span>
-          ) : (
-            <span className="rounded-full bg-danger-soft px-2.5 py-0.5 text-xs font-medium text-danger">
-              {health ? `offline — ${health.message}` : "checking…"}
-            </span>
-          )}
+      <div className="flex gap-10">
+        <SectionNav />
+        <div className="min-w-0 flex-1 space-y-10">
+          <Section id="backend" title="Backend" lede="Where this dashboard sends its requests.">
+            <Card>
+              <div className="flex items-center gap-4 px-5 py-4">
+                <Tile icon="server" className="bg-surface-2 text-foreground" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium">FastAPI server</p>
+                  <p className="text-[13px] text-muted">Proxied from this dashboard to the API server</p>
+                </div>
+                {health?.kind === "ok" ? (
+                  <Pill tone="ok">Online</Pill>
+                ) : (
+                  <Pill tone="danger">{health ? `Offline — ${health.message}` : "Checking…"}</Pill>
+                )}
+              </div>
+            </Card>
+          </Section>
+
+          <Section id="google" title="Google account"
+            lede="One sign-in covers the dashboard and the agent's access to Gmail, Drive and Calendar.">
+            <GoogleCard />
+          </Section>
+
+          <Section id="notifications" title="Notifications" lede="When Astra should email you.">
+            <NotificationsCard />
+          </Section>
+
+          <Section id="mcp" title="Integrations" lede="MCP servers extend what the agent can call.">
+            <MCPSettings />
+          </Section>
+
+          <Section id="tools" title="Agent tools" lede="Reference for everything the agent can call right now.">
+            <AgentToolsSection />
+          </Section>
         </div>
-      </Card>
-
-      <h2 className="mb-3 mt-8 text-[15px] font-semibold">Google account</h2>
-      <GoogleCard />
-
-      <h2 className="mb-3 mt-8 text-[15px] font-semibold">Notifications</h2>
-      <NotificationsCard />
-
-      <MCPSettings />
-
-      <AgentToolsSection />
+      </div>
     </div>
+  );
+}
+
+const SECTIONS = [
+  { id: "backend", label: "Backend" },
+  { id: "google", label: "Google account" },
+  { id: "notifications", label: "Notifications" },
+  { id: "mcp", label: "Integrations" },
+  { id: "tools", label: "Agent tools" },
+];
+
+function SectionNav() {
+  return (
+    <nav aria-label="Settings sections" className="sticky top-8 hidden w-44 shrink-0 self-start lg:block">
+      <ul className="space-y-0.5">
+        {SECTIONS.map((s) => (
+          <li key={s.id}>
+            <a
+              href={`#${s.id}`}
+              className="block rounded-lg px-3 py-1.5 text-[13px] text-muted transition
+                hover:bg-surface-2 hover:text-foreground"
+            >
+              {s.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+type SectionProps = { id: string; title: string; lede: string; children: React.ReactNode };
+
+function Section({ id, title, lede, children }: SectionProps) {
+  return (
+    <section id={id} className="scroll-mt-8">
+      <h2 className="text-[15px] font-semibold">{title}</h2>
+      <p className="mb-3 text-[13px] text-muted">{lede}</p>
+      {children}
+    </section>
+  );
+}
+
+function Tile({ icon, className }: { icon: string; className: string }) {
+  return (
+    <span aria-hidden className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${className}`}>
+      <Icon name={icon} className="h-5 w-5" />
+    </span>
+  );
+}
+
+const PILL: Record<"ok" | "danger" | "muted", string> = {
+  ok: "bg-ok-soft text-ok",
+  danger: "bg-danger-soft text-danger",
+  muted: "bg-surface-2 text-muted",
+};
+
+function Pill({ tone, children }: { tone: keyof typeof PILL; children: React.ReactNode }) {
+  return (
+    <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs
+      font-medium ${PILL[tone]}`}>
+      <span className="h-1.5 w-1.5 rounded-full bg-current" />
+      {children}
+    </span>
   );
 }
 
@@ -85,8 +160,9 @@ function GoogleCard() {
 
   return (
     <Card>
-      <div className="flex items-center justify-between gap-4 px-5 py-4">
-        <div>
+      <div className="flex items-center gap-4 px-5 py-4">
+        <Tile icon="google" className="bg-tint-blue text-accent" />
+        <div className="min-w-0 flex-1">
           <p className="text-sm font-medium">Gmail, Drive &amp; Calendar</p>
           <p className="max-w-md text-[13px] text-muted">
             {status?.connected
@@ -104,9 +180,7 @@ function GoogleCard() {
         </div>
         {status?.connected ? (
           <div className="flex shrink-0 items-center gap-2">
-            <span className="rounded-full bg-ok-soft px-2.5 py-0.5 text-xs font-medium text-ok">
-              connected
-            </span>
+            <Pill tone="ok">Connected</Pill>
             <Button onClick={() => void disconnect()}>Disconnect</Button>
           </div>
         ) : (

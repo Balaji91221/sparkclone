@@ -19,28 +19,29 @@ function toolTitle(name: string): string | null {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h3 className="mb-2 px-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">{title}</h3>
+      <h3 className="mb-2 px-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
+        {title}
+      </h3>
       {children}
     </section>
   );
 }
 
-// Right-hand rail (xl screens): what Astra has done in this conversation and
-// where to manage what it can do. Mirrors the "Progress / Skills & apps"
-// panel pattern so the thread itself stays clean.
+// Activity panel on wide screens. Only rendered once Astra has actually done
+// something in this conversation — an empty rail reads as an unfinished page.
 export function ContextRail({ transcript, status }: ContextRailProps) {
   const tools = toSteps(transcript).filter((s) => s.kind === "tool");
-  const recent = tools.slice(-6).reverse();
+  if (tools.length === 0 && status !== "thinking") return null;
+  const recent = tools.slice(-8).reverse();
 
   return (
-    <aside className="hidden w-60 shrink-0 flex-col gap-7 pt-1 xl:flex">
-      <Section title="Progress">
+    <aside className="hidden w-64 shrink-0 flex-col gap-7 overflow-y-auto border-l border-line
+      bg-background/40 px-3 py-5 xl:flex">
+      <Section title="Activity">
         {tools.length === 0 ? (
-          <p className="px-2 text-[13px] text-muted">
-            {status === "thinking" ? "Astra is thinking…" : "No actions taken yet."}
-          </p>
+          <p className="px-2 text-[13px] text-muted">Astra is thinking…</p>
         ) : (
-          <ul className="space-y-1">
+          <ul className="space-y-0.5">
             {recent.map((t) => {
               const look = toolLook(t.name);
               const title = toolTitle(t.name);
@@ -66,15 +67,13 @@ export function ContextRail({ transcript, status }: ContextRailProps) {
               );
             })}
             {tools.length > recent.length ? (
-              <li className="px-2 pt-1 text-xs text-muted">
-                +{tools.length - recent.length} earlier
-              </li>
+              <li className="px-2 pt-1 text-xs text-muted">+{tools.length - recent.length} earlier</li>
             ) : null}
           </ul>
         )}
       </Section>
 
-      <Section title="Skills & apps">
+      <Section title="Manage">
         <ul className="space-y-0.5 text-[13px]">
           <li>
             <Link href="/apps" className="block rounded-lg px-2 py-1.5 transition hover:bg-surface-2">
@@ -87,7 +86,7 @@ export function ContextRail({ transcript, status }: ContextRailProps) {
             </Link>
           </li>
           <li>
-            <Link href="/settings" className="block rounded-lg px-2 py-1.5 transition hover:bg-surface-2">
+            <Link href="/settings#tools" className="block rounded-lg px-2 py-1.5 transition hover:bg-surface-2">
               Agent tools
             </Link>
           </li>

@@ -51,7 +51,7 @@ function ChatPageInner() {
   };
 
   return (
-    <div className="flex h-[calc(100dvh-8.5rem)] gap-6 md:h-[calc(100vh-4rem)]">
+    <div className="flex min-h-0 flex-1 bg-surface">
       <ChatList
         chats={chats}
         loading={chatsState.kind === "loading"}
@@ -61,8 +61,8 @@ function ChatPageInner() {
         onDelete={(id) => void remove(id)}
       />
 
-      <div className="flex min-w-0 flex-1 flex-col gap-2">
-        {error ? <ErrorBanner message={error} /> : null}
+      <div className="flex min-w-0 flex-1 flex-col">
+        {error ? <div className="px-6 pt-4"><ErrorBanner message={error} /></div> : null}
         {activeId ? (
           <Conversation chatId={activeId} onDelete={(id) => void remove(id)} />
         ) : (
