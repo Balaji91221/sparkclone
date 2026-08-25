@@ -1,10 +1,16 @@
-"""Google OAuth: connect the single user's Google account (Gmail + Drive).
+"""Google OAuth: dashboard sign-in + connect the user's Google account.
+
+One consent round-trip does both: it issues the dashboard session cookie and
+stores the Gmail/Drive/Calendar credential for the agent.
 
 Flow (all through the dashboard origin, proxied to this backend):
-  GET  /auth/google/login      -> 302 to Google's consent screen
-  GET  /auth/google/callback   -> code exchange, store tokens, 302 to /settings
-  GET  /auth/google/status     -> {connected, email, scopes}   (bearer auth)
-  POST /auth/google/disconnect -> revoke + delete stored tokens (bearer auth)
+  GET  /auth/google/login      -> 302 to Google's consent screen (public)
+  GET  /auth/google/callback   -> allowlist check, store tokens, set session
+                                  cookie, 302 to /  (denied -> /?auth=denied)
+  GET  /auth/google/session    -> {signed_in, email, google_enabled} (public)
+  POST /auth/google/logout     -> clear session cookie (public)
+  GET  /auth/google/status     -> {connected, email, scopes}   (auth)
+  POST /auth/google/disconnect -> revoke + delete stored tokens (auth)
 
 The refresh token is stored encrypted (see crypto.py). get_access_token() is
 the entry point for tools that need to call Google APIs.
@@ -15,12 +21,14 @@ import datetime as dt
 import urllib.parse
 
 import httpx
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, Response
 from fastapi.responses import RedirectResponse
 
+from ..api.deps import auth
 from ..config import settings
 from ..db import GoogleCredential, db_session, utcnow
 from .crypto import check_state, decrypt, encrypt, make_state
+from .session import clear_session_cookie, is_allowed, session_email, set_session_cookie
 
 router = APIRouter(prefix="/auth/google")
 
@@ -42,16 +50,17 @@ SCOPES = [
 ]
 
 
-def _require_token(request: Request) -> None:
-    token = request.headers.get("authorization", "").removeprefix("Bearer ").strip()
-    if token != settings.api_token:
-        raise HTTPException(401, "Invalid or missing API token")
+_require_token = auth  # kept for readability at the call sites below
 
 
 @router.get("/login")
 def login() -> RedirectResponse:
+    """Public: starts Google sign-in, which both logs the user in and
+    connects Gmail/Drive/Calendar for the agent."""
     if not settings.google_client_id:
         raise HTTPException(500, "GOOGLE_CLIENT_ID is not configured")
+    if not settings.allowed_emails:
+        raise HTTPException(404, "Google sign-in is disabled: SPARK_ALLOWED_EMAILS is empty")
     params = {
         "client_id": settings.google_client_id,
         "redirect_uri": settings.oauth_redirect_url,
@@ -91,6 +100,10 @@ def callback(request: Request) -> RedirectResponse:
         })
         email = userinfo_res.json().get("email", "") if userinfo_res.status_code == 200 else ""
 
+    if not is_allowed(email):
+        # Do not store anything for an account that may not use this instance.
+        return RedirectResponse(f"/?auth=denied&email={urllib.parse.quote(email)}")
+
     refresh_token = tokens.get("refresh_token", "")
     if not refresh_token:
         return RedirectResponse("/settings?google=error&reason=no_refresh_token")
@@ -106,7 +119,26 @@ def callback(request: Request) -> RedirectResponse:
             scopes=tokens.get("scope", "").split(),
         ))
         db.commit()
-    return RedirectResponse("/settings?google=connected")
+    response = RedirectResponse("/?google=connected")
+    set_session_cookie(response, email)
+    return response
+
+
+@router.get("/session", tags=["auth"])
+def session(request: Request) -> dict:
+    """Who the current browser session belongs to (no auth required)."""
+    email = session_email(request)
+    return {"signed_in": email is not None, "email": email or "",
+            "google_enabled": bool(settings.allowed_emails and settings.google_client_id)}
+
+
+@router.post("/logout", tags=["auth"])
+def logout() -> Response:
+    """Clears the dashboard session. The agent's Google credential is kept;
+    use /disconnect to revoke it."""
+    response = Response(status_code=204)
+    clear_session_cookie(response)
+    return response
 
 
 @router.get("/status")

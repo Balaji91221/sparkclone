@@ -11,18 +11,9 @@ import type { Approval, RunDetail, RunSummary, SkillDef, Task, TriggerType } fro
 const TOKEN_KEY = "spark_token";
 const TOKEN_EVENT = "spark:token";
 
-// Local-dev convenience: set NEXT_PUBLIC_SPARK_DEV_TOKEN in frontend/.env.local
-// (gitignored) to skip the login screen. Leave unset in production builds.
-const DEV_TOKEN = (process.env.NEXT_PUBLIC_SPARK_DEV_TOKEN ?? "").trim();
-
-// True when the dev token is active — sign-out is a no-op in that mode.
-export function hasDevToken(): boolean {
-  return DEV_TOKEN !== "";
-}
-
 export function getToken(): string {
   if (typeof window === "undefined") return "";
-  return window.localStorage.getItem(TOKEN_KEY) ?? DEV_TOKEN;
+  return window.localStorage.getItem(TOKEN_KEY) ?? "";
 }
 
 export function setToken(token: string): void {
@@ -57,24 +48,55 @@ type RequestOptions = {
   token?: string;
 };
 
+// Auth is either a bearer token (stored or candidate) or the HttpOnly session
+// cookie set by Google sign-in, which the browser attaches on its own since
+// /api and /auth are proxied through the dashboard origin.
 async function request(path: string, opts: RequestOptions = {}): Promise<unknown> {
+  const token = opts.token ?? getToken();
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (token) headers.Authorization = `Bearer ${token}`;
   const res = await fetch(path, {
     method: opts.method ?? "GET",
     signal: opts.signal,
-    headers: {
-      Authorization: `Bearer ${opts.token ?? getToken()}`,
-      "Content-Type": "application/json",
-    },
+    headers,
     body: opts.body === undefined ? undefined : JSON.stringify(opts.body),
   });
   if (res.status === 401) {
-    // A stored token the backend rejects is stale — drop it so the shell
-    // returns to the login screen. Candidate tokens (login flow) are spared.
+    // Stored auth the backend rejects is stale — drop it and notify the shell
+    // so it re-checks the session. Candidate tokens (login flow) are spared.
     if (opts.token === undefined) clearToken();
     throw new ApiError(401, "Invalid or missing API token");
   }
   if (!res.ok) throw new ApiError(res.status, await res.text());
   return res.json();
+}
+
+export type Session = { signedIn: boolean; email: string; googleEnabled: boolean };
+
+function parseSession(v: unknown): Session {
+  const o = typeof v === "object" && v !== null ? (v as Record<string, unknown>) : {};
+  return {
+    signedIn: o.signed_in === true,
+    email: typeof o.email === "string" ? o.email : "",
+    googleEnabled: o.google_enabled === true,
+  };
+}
+
+// Public endpoint: who the current cookie session belongs to, if anyone.
+export async function getSession(signal?: AbortSignal): Promise<Session> {
+  const res = await fetch("/auth/google/session", { signal });
+  if (!res.ok) throw new ApiError(res.status, await res.text());
+  return parseSession(await res.json());
+}
+
+// Ends the cookie session and forgets any stored token. clearToken() fires
+// the token event either way, which makes the shell re-check the session.
+export async function logout(): Promise<void> {
+  try {
+    await fetch("/auth/google/logout", { method: "POST" });
+  } finally {
+    clearToken();
+  }
 }
 
 // Used by the login screen to validate a candidate token before storing it.

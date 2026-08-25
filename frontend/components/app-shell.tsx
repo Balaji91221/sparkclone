@@ -3,7 +3,15 @@
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
-import { clearToken, getToken, googleStatus, listApprovals, subscribeToken } from "@/lib/api";
+import {
+  getSession,
+  getToken,
+  googleStatus,
+  listApprovals,
+  logout,
+  subscribeToken,
+} from "@/lib/api";
+import type { Session } from "@/lib/api";
 import { usePoll } from "@/lib/use-poll";
 import { Login } from "./login";
 import { Sidebar } from "./sidebar";
@@ -11,8 +19,40 @@ import { LogoMark } from "./icons";
 
 const serverSnapshot = () => "";
 
-export function AppShell({ children }: { children: ReactNode }) {
+type AuthState =
+  | { kind: "checking" }
+  | { kind: "signed-out"; session: Session }
+  | { kind: "signed-in" };
+
+// Re-checks the cookie session whenever the stored token changes or is
+// cleared (clearToken fires the token event even when nothing was stored,
+// which is how a 401 or sign-out gets us back to the login screen).
+function useAuthState(): AuthState {
   const token = useSyncExternalStore(subscribeToken, getToken, serverSnapshot);
+  const [tick, setTick] = useState(0);
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => subscribeToken(() => setTick((t) => t + 1)), []);
+  useEffect(() => {
+    if (token) return;
+    const ac = new AbortController();
+    getSession(ac.signal)
+      .then(setSession)
+      .catch((e: unknown) => {
+        if (!(e instanceof DOMException && e.name === "AbortError")) {
+          setSession({ signedIn: false, email: "", googleEnabled: false });
+        }
+      });
+    return () => ac.abort();
+  }, [token, tick]);
+
+  if (token) return { kind: "signed-in" };
+  if (!session) return { kind: "checking" };
+  return session.signedIn ? { kind: "signed-in" } : { kind: "signed-out", session };
+}
+
+export function AppShell({ children }: { children: ReactNode }) {
+  const auth = useAuthState();
 
   // Once an entrance animation finishes, drop the fill-mode pin so hover
   // transforms (.hover-lift) on the same element work again.
@@ -27,8 +67,18 @@ export function AppShell({ children }: { children: ReactNode }) {
     return () => document.removeEventListener("animationend", onEnd);
   }, []);
 
-  if (!token) return <Login />;
-  return <ConnectedShell>{children}</ConnectedShell>;
+  switch (auth.kind) {
+    case "checking":
+      return <main className="min-h-screen bg-background" />;
+    case "signed-out":
+      return <Login session={auth.session} />;
+    case "signed-in":
+      return <ConnectedShell>{children}</ConnectedShell>;
+    default: {
+      const _exhaustive: never = auth;
+      throw new Error(`unhandled auth state: ${JSON.stringify(_exhaustive)}`);
+    }
+  }
 }
 
 type ShellData = { pendingApprovals: number; googleEmail: string };
@@ -65,7 +115,7 @@ function ConnectedShell({ children }: { children: ReactNode }) {
     <Sidebar
       pendingApprovals={data?.pendingApprovals ?? 0}
       googleEmail={data?.googleEmail ?? ""}
-      onSignOut={clearToken}
+      onSignOut={() => void logout()}
       onClose={() => {
         setNavOpen(false);
         setDrawerOpen(false);

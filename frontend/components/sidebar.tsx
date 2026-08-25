@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { hasDevToken } from "@/lib/api";
 import { LogoMark } from "./icons";
 
 type NavItem = { href: string; label: string; icon: string };
@@ -141,7 +140,6 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut, onClose }: S
             Connect Google →
           </Link>
         )}
-        {hasDevToken() ? null : (
         <button
           type="button"
           onClick={onSignOut}
@@ -161,7 +159,6 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut, onClose }: S
           </svg>
           Sign out
         </button>
-        )}
       </div>
     </aside>
   );

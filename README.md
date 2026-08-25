@@ -63,17 +63,19 @@ server, so no CORS setup is needed:
 ```bash
 cd frontend
 npm install
-npm run dev        # http://localhost:3000 — sign in with SPARK_API_TOKEN
+npm run dev        # http://localhost:3000 — "Sign in with Google" (SPARK_ALLOWED_EMAILS)
+                   # or paste SPARK_API_TOKEN
 ```
 
 ### Environment
 
 | Variable | Purpose |
 |---|---|
-| `SPARK_API_TOKEN` | Single-user bearer token for the dashboard/API |
+| `SPARK_ALLOWED_EMAILS` | Google accounts (comma-separated) allowed to sign in to the dashboard; empty disables Google sign-in |
+| `SPARK_API_TOKEN` | Bearer token for scripts/webhooks/e2e, and a fallback dashboard login |
 | `SPARK_SECRET_KEY` | Fernet key material for encrypting Google refresh tokens |
 | `NVIDIA_API_KEY` | NVIDIA NIM key (LLM provider) |
-| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | OAuth client for Gmail + Drive |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | OAuth client for sign-in + Gmail/Drive/Calendar |
 | `OAUTH_REDIRECT_URL` | e.g. `http://localhost:3000/auth/google/callback` |
 | `YOUTUBE_API_KEY` | YouTube Data API v3 (video metadata) |
 | `DATABASE_URL` | e.g. `postgresql+psycopg://spark:sparkpass@localhost:5433/sparkclone`; omit for SQLite |
@@ -103,7 +105,8 @@ frontend/ (Next.js) ──► FastAPI (app/main.py + app/api routers) ──► 
 
 ## Security notes
 
-- Single-user bearer-token auth (`SPARK_API_TOKEN`). Put the app behind HTTPS
+- Single-user auth: Google sign-in (allowlisted email, signed HttpOnly session cookie)
+  or bearer token (`SPARK_API_TOKEN`). Put the app behind HTTPS
   (reverse proxy) before exposing it.
 - `send_gmail` always requires human approval; set `requires_approval=True` on
   any tool you consider sensitive.

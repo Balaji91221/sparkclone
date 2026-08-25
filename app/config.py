@@ -69,6 +69,13 @@ class Settings(BaseModel):
     oauth_redirect_url: str = os.getenv(
         "OAUTH_REDIRECT_URL", "http://localhost:3000/auth/google/callback")
 
+    # Google accounts allowed to sign in to the dashboard (comma-separated).
+    # Empty disables Google sign-in entirely; the bearer token still works.
+    allowed_emails: tuple[str, ...] = tuple(
+        e.strip().lower() for e in os.getenv("SPARK_ALLOWED_EMAILS", "").split(",")
+        if e.strip())
+    session_max_age: int = int(os.getenv("SPARK_SESSION_MAX_AGE", str(7 * 24 * 3600)))
+
     # Dashboard origin, used to build links in notification emails.
     dashboard_url: str = os.getenv("DASHBOARD_URL", "http://localhost:3000")
 
