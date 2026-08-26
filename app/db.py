@@ -230,6 +230,22 @@ def _migrate_sqlite() -> None:
 def _migrate_postgres() -> None:
     from sqlalchemy import text
     with engine.connect() as conn:
+        # create_all() only creates missing tables, never missing columns on an
+        # existing one — so add them here before anything reads them. The
+        # backfill below selects on trigger_type and fails outright if this is
+        # skipped on a table that predates it.
+        for table, name, ddl in (
+            ("approvals", "chat_id", "VARCHAR DEFAULT ''"),
+            ("tasks", "trigger_type", "VARCHAR DEFAULT ''"),
+            ("tasks", "trigger_value", "VARCHAR DEFAULT ''"),
+            ("tasks", "webhook_secret", "VARCHAR DEFAULT ''"),
+            ("tasks", "max_retries", "INTEGER DEFAULT 0"),
+            ("runs", "attempt", "INTEGER DEFAULT 0"),
+        ):
+            conn.execute(text(
+                f"ALTER TABLE {table} ADD COLUMN IF NOT EXISTS {name} {ddl}"))
+        conn.commit()
+
         has_cron = conn.execute(text(
             "SELECT 1 FROM information_schema.columns "
             "WHERE table_name = 'tasks' AND column_name = 'cron'")).first()

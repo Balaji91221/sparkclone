@@ -1,0 +1,96 @@
+[1;36m[run][0m database → postgres at localhost:5433
+[1;33m[run][0m stopping the Next dev server already running for frontend/ (pid 58583)
+[1;33m[run][0m reclaiming port 8000 from a stale python (pid 58553)
+[1;33m[run][0m reclaiming port 8000 from a stale python (pid 58561)
+[1;36m[run][0m backend  → http://localhost:8000/docs
+[1;36m[run][0m frontend → http://localhost:3000   (logs in .logs/)
+[1;36m[run][0m Ctrl-C to stop both.
+[api] INFO:     Will watch for changes in these directories: ['/Users/kelavathbalaji/Downloads/sparkclone']
+[api] INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[api] INFO:     Started reloader process [58690] using WatchFiles
+[web] 
+[web] > frontend@0.1.0 dev
+[web] > next dev --port 3000
+[web] 
+[web] ▲ Next.js 16.3.0 (Turbopack)
+[web] - Local:         http://localhost:3000
+[web] - Network:       http://192.168.70.148:3000
+[web] ✓ Ready in 229ms
+[web] ✓ Running next.config.ts took 17ms
+[api] INFO:     Started server process [58721]
+[api] INFO:     Waiting for application startup.
+[api] 2026-08-26 17:10:23,962 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 17:10:23,962 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 17:10:23,963 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 17:10:23,963 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 17:10:23,963 INFO apscheduler.scheduler Scheduler started
+[api] INFO:     Application startup complete.
+[web] 
+[api] INFO:     127.0.0.1:58809 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58808 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58808 - "GET /api/chats/4e2b29187d2c4cde9bfba2abcf5a1b98 HTTP/1.1" 200 OK
+[web]  GET /chat 200 in 269ms (next.js: 135ms, application-code: 134ms)
+[api] INFO:     127.0.0.1:58808 - "GET /auth/google/session HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58820 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/chats HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/chats/4e2b29187d2c4cde9bfba2abcf5a1b98 HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/chats/d54cda0f48c44f0fa906f0cc3a8a5679 HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/chats/d54cda0f48c44f0fa906f0cc3a8a5679 HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/chats/a8c8e704717c43999992c2fefd4f5d33 HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/chats/fdcd4a00335e403ba7114cc5161234ac HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/chats/4e2b29187d2c4cde9bfba2abcf5a1b98 HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /api/chats/4e2b29187d2c4cde9bfba2abcf5a1b98 HTTP/1.1" 200 OK
+[web]  GET /apps 200 in 25ms (next.js: 17ms, application-code: 8ms)
+[api] INFO:     127.0.0.1:58809 - "GET /api/mcp HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /api/skills HTTP/1.1" 200 OK
+[web]  GET /tasks 200 in 37ms (next.js: 25ms, application-code: 13ms)
+[api] INFO:     127.0.0.1:58819 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58809 - "GET /api/runs HTTP/1.1" 200 OK
+[web]  GET /tasks 200 in 40ms (next.js: 8ms, application-code: 32ms)
+[api] INFO:     127.0.0.1:58819 - "GET /auth/google/session HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58849 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58850 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58820 - "GET /api/runs HTTP/1.1" 200 OK
+[web]  GET /approvals 200 in 36ms (next.js: 23ms, application-code: 13ms)
+[api] INFO:     127.0.0.1:58820 - "GET /api/approvals HTTP/1.1" 200 OK
+[web]  GET /settings 200 in 21ms (next.js: 14ms, application-code: 8ms)
+[api] INFO:     127.0.0.1:58855 - "GET /health HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58820 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58849 - "GET /api/mcp HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58850 - "GET /api/settings/notifications HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /api/tools HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58850 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET / 200 in 31ms (next.js: 15ms, application-code: 16ms)
+[api] INFO:     127.0.0.1:58857 - "GET /health HTTP/1.1" 200 OK
+[web]  GET /runs 200 in 38ms (next.js: 26ms, application-code: 11ms)
+[api] INFO:     127.0.0.1:58850 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58850 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /settings 200 in 19ms (next.js: 5ms, application-code: 14ms)
+[api] INFO:     127.0.0.1:58855 - "GET /health HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58819 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58850 - "GET /api/settings/notifications HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58849 - "GET /api/mcp HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:58820 - "GET /api/tools HTTP/1.1" 200 OK
+[api] INFO:     Shutting down
+[web] [?25h
+[api] INFO:     Waiting for application shutdown.
+[api] INFO:     Application shutdown complete.
+[api] INFO:     Finished server process [58721]
+[api] INFO:     Stopping reloader process [58690]
+[1;33m[run][0m backend exited (rc=0)
+[1;33m[run][0m a process exited — shutting the stack down
+[1;36m[run][0m shutting down

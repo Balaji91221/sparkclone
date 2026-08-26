@@ -1,0 +1,4 @@
+[1;36m[run][0m database → postgres at localhost:5433
+[1;36m[run][0m backend  → http://localhost:8000  (docs at /docs)
+INFO:     Will watch for changes in these directories: ['/Users/kelavathbalaji/Downloads/sparkclone']
+ERROR:    [Errno 48] Address already in use
