@@ -1,0 +1,20 @@
+
+> frontend@0.1.0 dev
+> next dev --port 3102
+
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3102
+- Network:       http://192.168.70.148:3102
+✓ Ready in 397ms
+✓ Running next.config.ts took 120ms
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3101
+- PID:          65418
+- Dir:          /Users/kelavathbalaji/Downloads/sparkclone/frontend
+- Log:          .next/dev/logs/next-development.log
+
+You can access the existing server at http://localhost:3101,
+or run kill 65418 to stop it and start a new one.
+[?25h
+EXIT rc=1 at 17:30:03

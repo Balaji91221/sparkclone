@@ -1,0 +1,5 @@
+::1 - - [26/Aug/2026 18:54:40] "GET / HTTP/1.1" 200 -
+::1 - - [26/Aug/2026 18:54:40] code 404, message File not found
+::1 - - [26/Aug/2026 18:54:40] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [26/Aug/2026 18:54:41] "GET / HTTP/1.1" 200 -
+DECOY EXIT rc=143 at 18:55:00

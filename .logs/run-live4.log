@@ -1,0 +1,38 @@
+[1;36m[run][0m database → postgres at localhost:5433
+[1;36m[run][0m backend  → http://localhost:8000/docs
+[1;36m[run][0m frontend → http://localhost:3000   (logs in .logs/)
+[1;36m[run][0m Ctrl-C to stop both.
+[api] INFO:     Will watch for changes in these directories: ['/Users/kelavathbalaji/Downloads/sparkclone']
+[api] INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[api] INFO:     Started reloader process [80625] using WatchFiles
+[web] 
+[web] > frontend@0.1.0 dev
+[web] > next dev --port 3000
+[web] 
+[web] ▲ Next.js 16.3.0 (Turbopack)
+[web] - Local:         http://localhost:3000
+[web] - Network:       http://192.168.70.148:3000
+[web] ✓ Ready in 325ms
+[api] INFO:     Started server process [80637]
+[api] INFO:     Waiting for application startup.
+[web] ✓ Running next.config.ts took 116ms
+[api] 2026-08-26 18:11:07,820 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:11:07,821 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:11:07,821 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:11:07,821 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:11:07,821 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:11:07,821 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:11:07,821 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:11:07,821 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:11:07,821 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:11:07,821 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:11:07,821 INFO apscheduler.scheduler Scheduler started
+[api] INFO:     Application startup complete.
+[web] 
+[web]  GET / 200 in 298ms (next.js: 191ms, application-code: 108ms)
+[api] INFO:     127.0.0.1:61656 - "GET /health HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:61732 - "GET /health HTTP/1.1" 200 OK
+[web] [?25h
+[1;36m[run][0m shutting down
+./run.sh: line 73: 80627 Broken pipe: 13         tail -n0 -f "$LOG_DIR/backend.log"
+     80629 Terminated: 15          | sed -u 's/^/[api] /'

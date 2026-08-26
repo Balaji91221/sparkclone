@@ -5,18 +5,10 @@
 ▲ Next.js 16.3.0 (Turbopack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.70.148:3000
-✓ Ready in 338ms
-✓ Running next.config.ts took 144ms
+✓ Ready in 249ms
+✓ Running next.config.ts took 18ms
 
- GET / 200 in 491ms (next.js: 382ms, application-code: 108ms)
- GET /skills 200 in 37ms (next.js: 22ms, application-code: 15ms)
- GET /approvals 200 in 34ms (next.js: 21ms, application-code: 13ms)
- GET /approvals 200 in 22ms (next.js: 5ms, application-code: 17ms)
- GET /settings 200 in 34ms (next.js: 22ms, application-code: 12ms)
- GET /runs 200 in 37ms (next.js: 25ms, application-code: 12ms)
- GET /skills 200 in 23ms (next.js: 7ms, application-code: 16ms)
- GET /tasks 200 in 29ms (next.js: 19ms, application-code: 10ms)
- GET /apps 200 in 36ms (next.js: 21ms, application-code: 16ms)
- GET /chat 200 in 28ms (next.js: 21ms, application-code: 7ms)
- GET / 200 in 22ms (next.js: 7ms, application-code: 16ms)
+ GET / 200 in 228ms (next.js: 114ms, application-code: 114ms)
+ GET /api/chats 200 in 551ms (next.js: 507ms, application-code: 44ms)
+ GET /health 200 in 62ms (next.js: 38ms, application-code: 24ms)
 [?25h

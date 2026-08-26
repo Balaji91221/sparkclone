@@ -1,0 +1,291 @@
+[1;36m[run][0m database → postgres at localhost:5433
+[1;36m[run][0m backend  → http://localhost:8000/docs
+[1;36m[run][0m frontend → http://localhost:3000   (logs in .logs/)
+[1;36m[run][0m Ctrl-C to stop both.
+[api] INFO:     Will watch for changes in these directories: ['/Users/kelavathbalaji/Downloads/sparkclone']
+[api] INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[api] INFO:     Started reloader process [69479] using WatchFiles
+[web] 
+[web] > frontend@0.1.0 dev
+[web] > next dev --port 3000
+[web] 
+[web] ▲ Next.js 16.3.0 (Turbopack)
+[web] - Local:         http://localhost:3000
+[web] - Network:       http://192.168.70.148:3000
+[web] ✓ Ready in 330ms
+[api] INFO:     Started server process [69490]
+[api] INFO:     Waiting for application startup.
+[web] ✓ Running next.config.ts took 106ms
+[api] 2026-08-26 17:40:44,504 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 17:40:44,505 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 17:40:44,505 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 17:40:44,505 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 17:40:44,505 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 17:40:44,505 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 17:40:44,505 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 17:40:44,505 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 17:40:44,505 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 17:40:44,505 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 17:40:44,505 INFO apscheduler.scheduler Scheduler started
+[api] INFO:     Application startup complete.
+[web] 
+[web]  GET / 200 in 273ms (next.js: 148ms, application-code: 125ms)
+[api] INFO:     127.0.0.1:60427 - "GET /auth/google/session HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[web]  GET / 200 in 31ms (next.js: 7ms, application-code: 24ms)
+[api] INFO:     127.0.0.1:60445 - "GET /health HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60494 - "GET /api/chats HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60495 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60496 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60498 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60499 - "GET /api/skills HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60500 - "GET /api/mcp HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60501 - "GET /api/settings HTTP/1.1" 404 Not Found
+[api] INFO:     127.0.0.1:60502 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET / 200 in 23ms (next.js: 7ms, application-code: 16ms)
+[web]  GET /chat 200 in 101ms (next.js: 42ms, application-code: 59ms)
+[web]  GET /tasks 200 in 58ms (next.js: 40ms, application-code: 18ms)
+[web]  GET /runs 200 in 45ms (next.js: 31ms, application-code: 13ms)
+[web]  GET /skills 200 in 39ms (next.js: 27ms, application-code: 12ms)
+[web]  GET /apps 200 in 43ms (next.js: 29ms, application-code: 14ms)
+[web]  GET /settings 200 in 39ms (next.js: 25ms, application-code: 14ms)
+[web]  GET /approvals 200 in 35ms (next.js: 22ms, application-code: 13ms)
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60427 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60435 - "GET /api/tasks HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60437 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /api/runs HTTP/1.1" 200 OK
+[api] INFO:     127.0.0.1:60436 - "GET /health HTTP/1.1" 200 OK
+[web] [?25h
+[1;33m[run][0m a process exited — shutting the stack down
+[1;36m[run][0m shutting down
+[api] INFO:     Shutting down
+[api] INFO:     Waiting for application shutdown.
+[api] INFO:     Application shutdown complete.
+[api] INFO:     Finished server process [69490]
+[api] INFO:     Stopping reloader process [69479]
+[1;33m[run][0m backend exited (rc=0)

@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 # Runs the whole Astra/sparkclone stack: FastAPI backend + Next.js dashboard.
 #
-#   ./run.sh              start both (backend :8000, frontend :3000)
+#   ./run.sh (or: up)     start both (backend :8000, frontend :3000)
 #   ./run.sh backend      backend only
 #   ./run.sh frontend     frontend only
 #   ./run.sh docker       docker compose up --build (API + Postgres)
 #   ./run.sh test         pytest + frontend typecheck/lint
 #   ./run.sh down         stop whatever is running on both ports
+#   ./run.sh restart      stop, then start both
+#   ./run.sh status       show what is running
+#   ./run.sh logs         follow both logs
+#   ./run.sh deps         install dependencies only
 #
 # Env overrides: API_PORT, WEB_PORT, RELOAD=0 to disable uvicorn --reload,
 #               KILL_STALE=0 to fail instead of reclaiming a busy port.
@@ -25,9 +29,16 @@ KEEPALIVE="${KEEPALIVE:-75}"
 VENV="$ROOT/.venv"
 LOG_DIR="$ROOT/.logs"
 
-log()  { printf '\033[1;36m[run]\033[0m %s\n' "$*"; }
-warn() { printf '\033[1;33m[run]\033[0m %s\n' "$*" >&2; }
-die()  { printf '\033[1;31m[run]\033[0m %s\n' "$*" >&2; exit 1; }
+# Every [run] line is also appended to .logs/stack.log. Without this the exit
+# codes below live only in whichever terminal was open at the time, which is
+# exactly the evidence that goes missing when the stack dies unattended.
+_tee_log() {
+  [ -d "$LOG_DIR" ] || mkdir -p "$LOG_DIR" 2>/dev/null || true
+  printf '%s [run] %s\n' "$(date '+%F %T')" "$1" >> "$LOG_DIR/stack.log" 2>/dev/null || true
+}
+log()  { _tee_log "$*"; printf '\033[1;36m[run]\033[0m %s\n' "$*"; }
+warn() { _tee_log "WARN $*"; printf '\033[1;33m[run]\033[0m %s\n' "$*" >&2; }
+die()  { _tee_log "DIE  $*"; printf '\033[1;31m[run]\033[0m %s\n' "$*" >&2; exit 1; }
 
 ensure_env_file() {
   if [ ! -f .env ]; then
@@ -103,8 +114,21 @@ ensure_no_stray_next() {
   pid="$(sed -n 's/.*"pid":\([0-9]*\).*/\1/p' "$lock")"
   [ -n "$pid" ] || return 0
   ps -p "$pid" >/dev/null 2>&1 || return 0
+
+  # Only reclaim a server that is not answering. One that still serves requests
+  # belongs to someone -- another terminal, or a browser tab mid-session -- and
+  # killing it is indistinguishable from the app crashing on its own.
+  local live_port
+  live_port="$(lsof -iTCP -sTCP:LISTEN -a -p "$pid" -P -n 2>/dev/null \
+    | sed -n 's/.*:\([0-9][0-9]*\) (LISTEN).*/\1/p' | head -1)"
+  if [ -n "$live_port" ] \
+     && curl -fsS -o /dev/null -m 2 "http://127.0.0.1:$live_port/" 2>/dev/null; then
+    die "a Next dev server is already serving frontend/ at http://localhost:$live_port \
+(pid $pid). Use it, or stop it with './run.sh down'."
+  fi
+
   if [ "${KILL_STALE:-1}" != "0" ]; then
-    warn "stopping the Next dev server already running for frontend/ (pid $pid)"
+    warn "clearing an unresponsive Next dev server for frontend/ (pid $pid)"
     kill "$pid" 2>/dev/null || true
     for _ in $(seq 1 20); do
       ps -p "$pid" >/dev/null 2>&1 || return 0
@@ -120,6 +144,14 @@ ensure_no_stray_next() {
 # whatever it is. KILL_STALE=0 disables the reclaim entirely.
 reclaim_port() {
   local port="$1" pid cmd
+  # A port that answers HTTP belongs to a server someone is probably using --
+  # very likely another ./run.sh in another terminal. Killing it silently is
+  # how a working dashboard "shuts down by itself", so refuse and let the
+  # caller report the clash instead.
+  if curl -fsS -o /dev/null -m 2 "http://127.0.0.1:$port/" 2>/dev/null; then
+    warn "port $port is serving live requests — not touching it"
+    return 1
+  fi
   for pid in $(lsof -iTCP:"$port" -sTCP:LISTEN -t 2>/dev/null); do
     # `ps -o comm=` returns the full executable path, and macOS framework
     # Python reports it capitalised (.../MacOS/Python) — match case-insensitively.
@@ -159,12 +191,28 @@ stop_ports() {
   done
 }
 
+show_status() {
+  local port name pid
+  for port in "$API_PORT" "$WEB_PORT"; do
+    [ "$port" = "$API_PORT" ] && name=backend || name=frontend
+    # lsof exits 1 when nothing is listening, and `set -o pipefail` would make
+    # that abort the script mid-report.
+    pid="$(lsof -iTCP:"$port" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)"
+    if [ -n "$pid" ]; then
+      log "$name  → http://localhost:$port  (pid $pid)"
+    else
+      warn "$name  → not running"
+    fi
+  done
+}
+
 check_port() {
   port_busy "$1" || return 0
   if [ "${KILL_STALE:-1}" != "0" ] && reclaim_port "$1"; then
     return 0
   fi
-  die "port $1 is already in use ($2). Stop it or set ${3}=<other port>."
+  die "port $1 is already in use ($2). If that is another ./run.sh, use it; \
+otherwise './run.sh down' stops it, or set ${3}=<other port>."
 }
 
 start_backend() {
@@ -197,11 +245,11 @@ start_all() {
   check_port "$WEB_PORT" frontend WEB_PORT
   mkdir -p "$LOG_DIR"
 
-  local pids=()
+  local pids=() tails=()
   cleanup() {
     trap - INT TERM EXIT
     log "shutting down"
-    for pid in "${pids[@]:-}"; do
+    for pid in "${tails[@]:-}" "${pids[@]:-}"; do
       [ -n "$pid" ] || continue
       kill -- "-$pid" 2>/dev/null || kill "$pid" 2>/dev/null || true
     done
@@ -215,32 +263,41 @@ start_all() {
 
   local uargs=(uvicorn app.main:app --host 0.0.0.0 --port "$API_PORT" --timeout-keep-alive "$KEEPALIVE")
   [ "$RELOAD" = "1" ] && uargs+=(--reload)
-  # Each half runs inside its own subshell so that, under `set -m`, the
-  # subshell's PID is also its process-group id — that is what cleanup() kills
-  # and what the supervisor polls. Backgrounding a bare pipeline instead gives
-  # $! of the LAST element (sed) while the group is led by the FIRST, so the
-  # group kill silently misses and leaves orphans behind.
-  #
-  # stdin is detached: a background process group that reads the terminal gets
-  # SIGTTIN, and next dev's interactive keypress handler does exactly that.
+  # Servers write straight to their log files. Nothing pipes their stdout:
+  # a bare `next dev` writing to a file survives indefinitely, while the same
+  # server behind `| tee | sed` kept dying ~3 minutes in, taking the stack with
+  # it. The prefixed console view comes from `tail -f` instead, so a reader
+  # going away can no longer affect the server it was reading.
+  : > "$LOG_DIR/backend.log"
+  : > "$LOG_DIR/frontend.log"
+
+  # Job control puts each background job in its own process group. Without it
+  # every child shares run.sh's group, so a group-wide signal from any one of
+  # them (uvicorn's reloader kills by process group) also terminates the dev
+  # server -- which is a SIGTERM arriving at `next` while bash's own trap never
+  # fires, exactly the signature seen here.
   set -m
-  # ${PIPESTATUS[0]} is the real command's status; the pipeline's own $? is
-  # sed's and says nothing. rc=0 means the server exited on its own, 143 that
-  # something SIGTERMed it, 141 a SIGPIPE from the tee/sed chain dying.
-  (
-    "${uargs[@]}" 2>&1 | tee "$LOG_DIR/backend.log" | sed -u 's/^/[api] /'
-    warn "backend exited (rc=${PIPESTATUS[0]})"
-  ) </dev/null &
+
+  "${uargs[@]}" >> "$LOG_DIR/backend.log" 2>&1 &
   pids+=("$!")
 
   (
+    for sig in TERM INT HUP QUIT PIPE; do
+      # shellcheck disable=SC2064 — $sig must expand now, not at trap time
+      trap "warn 'frontend got SIG$sig'; ps -ax -o pid,ppid,lstart,command \
+        >> '$LOG_DIR/sigsnap.log' 2>/dev/null" "$sig"
+    done
     cd frontend
-    BACKEND_URL="http://127.0.0.1:$API_PORT" npm run dev -- --port "$WEB_PORT" 2>&1 \
-      | tee "$LOG_DIR/frontend.log" | sed -u 's/^/[web] /'
-    warn "frontend exited (rc=${PIPESTATUS[0]})"
-  ) </dev/null &
+    BACKEND_URL="http://127.0.0.1:$API_PORT" npm run dev -- --port "$WEB_PORT"
+  ) >> "$LOG_DIR/frontend.log" 2>&1 &
   pids+=("$!")
+
   set +m
+
+  tail -n0 -f "$LOG_DIR/backend.log" | sed -u 's/^/[api] /' &
+  tails+=("$!")
+  tail -n0 -f "$LOG_DIR/frontend.log" | sed -u 's/^/[web] /' &
+  tails+=("$!")
 
   log "backend  → http://localhost:$API_PORT/docs"
   log "frontend → http://localhost:$WEB_PORT   (logs in .logs/)"
@@ -252,7 +309,11 @@ start_all() {
   while :; do
     for pid in "${pids[@]}"; do
       if ! kill -0 "$pid" 2>/dev/null; then
-        warn "a process exited — shutting the stack down"
+        # `wait` returns the child's status, which under `set -e` would abort
+        # the script before it could report anything. Capture it instead.
+        local rc=0
+        wait "$pid" 2>/dev/null || rc=$?
+        warn "pid $pid exited (rc=$rc) — shutting the stack down"
         return 0
       fi
     done
@@ -270,11 +331,23 @@ run_tests() {
 }
 
 case "${1:-all}" in
-  all|"")   start_all ;;
+  all|up|start|"")   start_all ;;
   backend|api) start_backend ;;
   frontend|web) start_frontend ;;
   docker)   ensure_env_file; exec docker compose up --build ;;
   test)     run_tests ;;
   down|stop) log "stopping anything on ports $API_PORT and $WEB_PORT"; stop_ports ;;
-  *)        die "unknown command '$1' (use: all | backend | frontend | docker | test | down)" ;;
+  restart)  log "restarting"; stop_ports; start_all ;;
+  deps)     ensure_env_file; ensure_python; ensure_node; log "dependencies are up to date" ;;
+  status)   show_status ;;
+  logs)     tail -n 40 -f "$LOG_DIR/backend.log" "$LOG_DIR/frontend.log" ;;
+  *)        die "unknown command '$1'
+  up | all        start backend + frontend   (default)
+  down | stop     stop both
+  restart         stop, then start both
+  backend | frontend   start one half
+  status          show what is running
+  logs            follow both logs
+  deps            install python + node dependencies
+  test | docker" ;;
 esac

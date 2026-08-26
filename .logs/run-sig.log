@@ -1,0 +1,509 @@
+[1;36m[run][0m database → postgres at localhost:5433
+[1;36m[run][0m backend  → http://localhost:8000/docs
+[1;36m[run][0m frontend → http://localhost:3000   (logs in .logs/)
+[1;36m[run][0m Ctrl-C to stop both.
+[api] INFO:     Will watch for changes in these directories: ['/Users/kelavathbalaji/Downloads/sparkclone']
+[api] INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[api] INFO:     Started reloader process [86315] using WatchFiles
+[web] 
+[web] > frontend@0.1.0 dev
+[web] > next dev --port 3000
+[web] 
+[web] ▲ Next.js 16.3.0 (Turbopack)
+[web] - Local:         http://localhost:3000
+[web] - Network:       http://192.168.70.148:3000
+[web] ✓ Ready in 270ms
+[web] ✓ Running next.config.ts took 18ms
+[api] INFO:     Started server process [86333]
+[api] INFO:     Waiting for application startup.
+[api] 2026-08-26 18:26:09,322 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:26:09,323 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:26:09,323 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:26:09,323 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:26:09,323 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:26:09,323 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:26:09,323 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:26:09,324 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:26:09,324 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:26:09,324 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:26:09,324 INFO apscheduler.scheduler Scheduler started
+[api] INFO:     Application startup complete.
+[web] 
+[api] INFO:     ::ffff:127.0.0.1:0 - "GET /health HTTP/1.1" 200 OK
+[web]  GET /health 200 in 205ms (next.js: 164ms, application-code: 40ms)
+[web] [?25h
+[1;33m[run][0m pid 86316 exited (rc=143) — shutting the stack down
+[1;36m[run][0m shutting down
+[api] INFO:     Shutting down
+[api] INFO:     Waiting for application shutdown.
+[api] INFO:     Application shutdown complete.
+[api] INFO:     Finished server process [86333]
+[api] INFO:     Stopping reloader process [86315]
+[api] INFO:     Will watch for changes in these directories: ['/Users/kelavathbalaji/Downloads/sparkclone']
+[api] INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[api] INFO:     Started reloader process [88023] using WatchFiles
+[web] 
+[web] > frontend@0.1.0 dev
+[web] > next dev --port 3000
+[web] 
+[web] ▲ Next.js 16.3.0 (Turbopack)
+[web] - Local:         http://localhost:3000
+[web] - Network:       http://192.168.70.148:3000
+[web] ✓ Ready in 324ms
+[api] INFO:     Started server process [88035]
+[api] INFO:     Waiting for application startup.
+[web] ✓ Running next.config.ts took 99ms
+[api] 2026-08-26 18:31:43,219 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:31:43,220 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:31:43,220 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:31:43,220 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:31:43,220 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:31:43,220 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:31:43,220 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:31:43,220 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:31:43,220 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:31:43,220 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:31:43,220 INFO apscheduler.scheduler Scheduler started
+[api] INFO:     Application startup complete.
+[web] 
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 634ms (next.js: 598ms, application-code: 36ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 13ms (next.js: 3ms, application-code: 10ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 11ms (next.js: 3ms, application-code: 8ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 7ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 9ms (next.js: 3ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 14ms (next.js: 3ms, application-code: 11ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 7ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::ffff:127.0.0.1:0 - "GET /health HTTP/1.1" 200 OK
+[web]  GET /health 200 in 60ms (next.js: 53ms, application-code: 7ms)
+[web] [?25h
+[api] INFO:     Shutting down
+[api] INFO:     Waiting for application shutdown.
+[api] INFO:     Application shutdown complete.
+[api] INFO:     Finished server process [88035]
+[api] INFO:     Stopping reloader process [88023]
+[api] INFO:     Will watch for changes in these directories: ['/Users/kelavathbalaji/Downloads/sparkclone']
+[api] INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[api] INFO:     Started reloader process [89711] using WatchFiles
+[web] 
+[web] > frontend@0.1.0 dev
+[web] > next dev --port 3300
+[web] 
+[web] ▲ Next.js 16.3.0 (Turbopack)
+[web] - Local:         http://localhost:3300
+[web] - Network:       http://192.168.70.148:3300
+[web] ✓ Ready in 288ms
+[web] ✓ Running next.config.ts took 93ms
+[api] INFO:     Started server process [89724]
+[api] INFO:     Waiting for application startup.
+[api] 2026-08-26 18:37:30,711 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:37:30,711 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:37:30,711 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:37:30,711 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:37:30,711 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:37:30,711 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:37:30,711 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:37:30,711 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:37:30,711 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:37:30,711 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:37:30,711 INFO apscheduler.scheduler Scheduler started
+[api] INFO:     Application startup complete.
+[web] 
+[web]  GET / 200 in 304ms (next.js: 192ms, application-code: 112ms)
+[api] INFO:     127.0.0.1:62305 - "GET /health HTTP/1.1" 200 OK
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 531ms (next.js: 503ms, application-code: 28ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 10ms (next.js: 3ms, application-code: 7ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 9ms (next.js: 3ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 7ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 7ms (next.js: 3ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 9ms (next.js: 2ms, application-code: 7ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 2ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 3ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 9ms (next.js: 3ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 9ms (next.js: 3ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 1.9ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2.0ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 12ms (next.js: 2ms, application-code: 9ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2.0ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 5ms (next.js: 2.0ms, application-code: 3ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2.0ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 1.9ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 1.9ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 7ms (next.js: 3ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 7ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 5ms (next.js: 1.8ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 7ms (next.js: 3ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 2ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 3ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 7ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 5ms (next.js: 1.8ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 1.9ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 3ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 9ms (next.js: 2.0ms, application-code: 7ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 10ms (next.js: 4ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2.0ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2.0ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 3ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 1.8ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 5ms (next.js: 1.9ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 7ms (next.js: 1.9ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 7ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 7ms (next.js: 2ms, application-code: 5ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 5ms (next.js: 2ms, application-code: 3ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 6ms (next.js: 2ms, application-code: 4ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 8ms (next.js: 2ms, application-code: 6ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 11ms (next.js: 3ms, application-code: 8ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 23ms (next.js: 8ms, application-code: 15ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 401 Unauthorized
+[web]  GET /auth/google/status 401 in 9ms (next.js: 4ms, application-code: 5ms)
+[web]  GET / 200 in 36ms (next.js: 4ms, application-code: 31ms)
+[web]  GET / 200 in 12ms (next.js: 1.1ms, application-code: 11ms)
+[api] INFO:     Shutting down
+[api] INFO:     Waiting for application shutdown.
+[api] INFO:     Application shutdown complete.
+[api] INFO:     Finished server process [89724]
+[api] INFO:     Stopping reloader process [89711]
+[web] [?25h
+[web] 
+[web] > frontend@0.1.0 dev
+[web] > next dev --port 3000
+[web] 
+[api] INFO:     Will watch for changes in these directories: ['/Users/kelavathbalaji/Downloads/sparkclone']
+[api] INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[api] INFO:     Started reloader process [95283] using WatchFiles
+[web] ▲ Next.js 16.3.0 (Turbopack)
+[web] - Local:         http://localhost:3000
+[web] - Network:       http://192.168.70.148:3000
+[web] ✓ Ready in 287ms
+[web] ✓ Running next.config.ts took 18ms
+[api] INFO:     Started server process [95323]
+[api] INFO:     Waiting for application startup.
+[api] 2026-08-26 18:55:05,652 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:55:05,652 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:55:05,652 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:55:05,652 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:55:05,652 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:55:05,652 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:55:05,653 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:55:05,653 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:55:05,653 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:55:05,653 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:55:05,653 INFO apscheduler.scheduler Scheduler started
+[api] INFO:     Application startup complete.
+[web] 
+[web]  GET / 200 in 249ms (next.js: 156ms, application-code: 93ms)
+[api] INFO:     ::1:0 - "GET /auth/google/session HTTP/1.1" 200 OK
+[web]  GET /auth/google/session 200 in 474ms (next.js: 450ms, application-code: 24ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 14ms (next.js: 3ms, application-code: 11ms)
+[api] INFO:     ::1:0 - "GET /api/tasks HTTP/1.1" 200 OK
+[web]  GET /api/tasks 200 in 447ms (next.js: 430ms, application-code: 17ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 451ms (next.js: 417ms, application-code: 34ms)
+[api] INFO:     ::1:0 - "GET /api/runs HTTP/1.1" 200 OK
+[web]  GET /api/runs 200 in 466ms (next.js: 418ms, application-code: 49ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 14ms (next.js: 3ms, application-code: 11ms)
+[web]  GET /chat 200 in 38ms (next.js: 25ms, application-code: 13ms)
+[api] INFO:     ::1:0 - "GET /api/chats HTTP/1.1" 200 OK
+[web]  GET /api/chats 200 in 15ms (next.js: 4ms, application-code: 11ms)
+[api] INFO:     ::1:0 - "GET /api/chats/3a080b098c3142148f88d4cb5b9385cd HTTP/1.1" 200 OK
+[web]  GET /api/chats/3a080b098c3142148f88d4cb5b9385cd 200 in 39ms (next.js: 1.8ms, application-code: 38ms)
+[web]  GET /apps 200 in 36ms (next.js: 23ms, application-code: 13ms)
+[api] INFO:     ::1:0 - "GET /api/mcp HTTP/1.1" 200 OK
+[api] INFO:     ::1:0 - "GET /api/skills HTTP/1.1" 200 OK
+[web]  GET /api/mcp 200 in 16ms (next.js: 4ms, application-code: 12ms)
+[web]  GET /api/skills 200 in 17ms (next.js: 2ms, application-code: 15ms)
+[web]  GET /tasks 200 in 36ms (next.js: 24ms, application-code: 12ms)
+[api] INFO:     ::1:0 - "GET /api/tasks HTTP/1.1" 200 OK
+[web]  GET /api/tasks 200 in 13ms (next.js: 3ms, application-code: 9ms)
+[api] INFO:     ::1:0 - "GET /api/runs HTTP/1.1" 200 OK
+[web]  GET /api/runs 200 in 32ms (next.js: 6ms, application-code: 26ms)
+[web]  GET /skills 200 in 36ms (next.js: 24ms, application-code: 12ms)
+[api] INFO:     ::1:0 - "GET /api/skills HTTP/1.1" 200 OK
+[web]  GET /api/skills 200 in 11ms (next.js: 3ms, application-code: 8ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 11ms (next.js: 0.9ms, application-code: 10ms)
+[web]  GET /auth/google/status 200 in 12ms (next.js: 3ms, application-code: 9ms)
+[web]  GET /runs 200 in 20ms (next.js: 11ms, application-code: 8ms)
+[api] INFO:     ::1:0 - "GET /api/runs HTTP/1.1" 200 OK
+[web]  GET /api/runs 200 in 30ms (next.js: 3ms, application-code: 27ms)
+[web]  GET /approvals 200 in 20ms (next.js: 12ms, application-code: 8ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 11ms (next.js: 3ms, application-code: 8ms)
+[web]  GET /settings 200 in 37ms (next.js: 25ms, application-code: 12ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 38ms (next.js: 4ms, application-code: 35ms)
+[api] INFO:     ::1:0 - "GET /api/settings/notifications HTTP/1.1" 200 OK
+[api] INFO:     ::1:0 - "GET /health HTTP/1.1" 200 OK
+[web]  GET /api/settings/notifications 200 in 51ms (next.js: 7ms, application-code: 44ms)
+[web]  GET /health 200 in 59ms (next.js: 23ms, application-code: 36ms)
+[api] INFO:     ::1:0 - "GET /api/mcp HTTP/1.1" 200 OK
+[web]  GET /api/mcp 200 in 59ms (next.js: 29ms, application-code: 30ms)
+[api] 2026-08-26 18:55:15,102 INFO httpx2 HTTP Request: POST https://beta-api-studio-api.sam-co.in/mcp "HTTP/1.1 200 OK"
+[api] 2026-08-26 18:55:15,102 INFO mcp.client.streamable_http Received session ID: 5622a4aa974a4cd19d0a96652d183478
+[api] 2026-08-26 18:55:15,360 INFO httpx2 HTTP Request: POST https://beta-api-studio-api.sam-co.in/mcp "HTTP/1.1 202 Accepted"
+[api] 2026-08-26 18:55:15,884 INFO httpx2 HTTP Request: POST https://beta-api-studio-api.sam-co.in/mcp "HTTP/1.1 200 OK"
+[api] 2026-08-26 18:55:16,135 INFO httpx2 HTTP Request: DELETE https://beta-api-studio-api.sam-co.in/mcp "HTTP/1.1 200 OK"
+[api] 2026-08-26 18:55:16,136 INFO httpx2 HTTP Request: GET https://beta-api-studio-api.sam-co.in/mcp "HTTP/1.1 200 OK"
+[api] 2026-08-26 18:55:16,137 INFO mcp.client.streamable_http GET stream disconnected, reconnecting in 1000ms...
+[api] INFO:     ::1:0 - "GET /api/tools HTTP/1.1" 200 OK
+[web]  GET /api/tools 200 in 1714ms (next.js: 3ms, application-code: 1711ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 15ms (next.js: 5ms, application-code: 10ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 17ms (next.js: 10ms, application-code: 7ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 25ms (next.js: 13ms, application-code: 11ms)
+[web]  GET /auth/google/status 200 in 27ms (next.js: 7ms, application-code: 20ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 10ms (next.js: 1.1ms, application-code: 9ms)
+[api] INFO:     ::1:0 - "GET /health HTTP/1.1" 200 OK
+[web]  GET /health 200 in 16ms (next.js: 7ms, application-code: 9ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 37ms (next.js: 9ms, application-code: 28ms)
+[web]  GET /auth/google/status 200 in 40ms (next.js: 4ms, application-code: 36ms)
+[api] INFO:     ::1:0 - "GET /api/mcp HTTP/1.1" 200 OK
+[web]  GET /api/mcp 200 in 50ms (next.js: 9ms, application-code: 41ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 18ms (next.js: 4ms, application-code: 14ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 42ms (next.js: 6ms, application-code: 37ms)
+[web]  GET /auth/google/status 200 in 47ms (next.js: 17ms, application-code: 30ms)
+[api] INFO:     ::1:0 - "GET /health HTTP/1.1" 200 OK
+[web]  GET /health 200 in 15ms (next.js: 5ms, application-code: 10ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 21ms (next.js: 10ms, application-code: 11ms)
+[web]  GET /api/approvals 200 in 23ms (next.js: 6ms, application-code: 17ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 14ms (next.js: 3ms, application-code: 11ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 26ms (next.js: 16ms, application-code: 10ms)
+[web]  GET /auth/google/status 200 in 26ms (next.js: 18ms, application-code: 9ms)
+[api] INFO:     ::1:0 - "GET /health HTTP/1.1" 200 OK
+[web]  GET /health 200 in 18ms (next.js: 3ms, application-code: 15ms)
+[api] INFO:     ::1:0 - "GET /api/mcp HTTP/1.1" 200 OK
+[web]  GET /api/mcp 200 in 20ms (next.js: 5ms, application-code: 16ms)
+[api] INFO:     ::1:0 - "GET /api/tools HTTP/1.1" 200 OK
+[web]  GET /api/tools 200 in 23ms (next.js: 7ms, application-code: 16ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 15ms (next.js: 7ms, application-code: 9ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 21ms (next.js: 7ms, application-code: 14ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 23ms (next.js: 14ms, application-code: 9ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 24ms (next.js: 13ms, application-code: 11ms)
+[web]  GET /api/approvals 200 in 26ms (next.js: 6ms, application-code: 20ms)
+[api] INFO:     ::1:0 - "GET /health HTTP/1.1" 200 OK
+[web]  GET /health 200 in 16ms (next.js: 3ms, application-code: 13ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 17ms (next.js: 4ms, application-code: 13ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 16ms (next.js: 5ms, application-code: 11ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 27ms (next.js: 11ms, application-code: 16ms)
+[api] INFO:     ::1:0 - "GET /api/mcp HTTP/1.1" 200 OK
+[web]  GET /api/mcp 200 in 19ms (next.js: 8ms, application-code: 12ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 16ms (next.js: 5ms, application-code: 11ms)
+[api] INFO:     ::1:0 - "GET /api/approvals HTTP/1.1" 200 OK
+[web]  GET /api/approvals 200 in 21ms (next.js: 11ms, application-code: 10ms)
+[api] INFO:     ::1:0 - "GET /auth/google/status HTTP/1.1" 200 OK
+[web]  GET /auth/google/status 200 in 8ms (next.js: 1.1ms, application-code: 7ms)
+[api] INFO:     ::ffff:127.0.0.1:0 - "GET /health HTTP/1.1" 200 OK
+[web]  GET /health 200 in 5ms (next.js: 1.2ms, application-code: 4ms)
+[web] [?25h
+[api] INFO:     Shutting down
+[api] INFO:     Waiting for application shutdown.
+[api] INFO:     Application shutdown complete.
+[api] INFO:     Finished server process [95323]
+[api] INFO:     Stopping reloader process [95283]
+[api] INFO:     Will watch for changes in these directories: ['/Users/kelavathbalaji/Downloads/sparkclone']
+[api] INFO:     Uvicorn running on http://0.0.0.0:8111 (Press CTRL+C to quit)
+[api] INFO:     Started reloader process [95987] using WatchFiles
+[web] 
+[web] > frontend@0.1.0 dev
+[web] > next dev --port 3111
+[web] 
+[web] ▲ Next.js 16.3.0 (Turbopack)
+[web] - Local:         http://localhost:3111
+[web] - Network:       http://192.168.70.148:3111
+[web] ✓ Ready in 294ms
+[web] ✓ Running next.config.ts took 81ms
+[api] INFO:     Started server process [95999]
+[api] INFO:     Waiting for application startup.
+[api] 2026-08-26 18:56:49,932 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:56:49,932 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:56:49,933 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:56:49,933 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:56:49,933 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:56:49,933 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:56:49,933 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:56:49,933 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:56:49,933 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:56:49,933 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:56:49,933 INFO apscheduler.scheduler Scheduler started
+[api] INFO:     Application startup complete.
+[web] 
+[web]  GET / 200 in 270ms (next.js: 166ms, application-code: 104ms)
+[web] [?25h
+[api] INFO:     Shutting down
+[api] INFO:     Waiting for application shutdown.
+[api] INFO:     Application shutdown complete.
+[api] INFO:     Finished server process [95999]
+[api] INFO:     Stopping reloader process [95987]
+[api] INFO:     Will watch for changes in these directories: ['/Users/kelavathbalaji/Downloads/sparkclone']
+[api] INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[api] INFO:     Started reloader process [96300] using WatchFiles
+[web] 
+[web] > frontend@0.1.0 dev
+[web] > next dev --port 3000
+[web] 
+[web] ▲ Next.js 16.3.0 (Turbopack)
+[web] - Local:         http://localhost:3000
+[web] - Network:       http://192.168.70.148:3000
+[web] ✓ Ready in 249ms
+[web] ✓ Running next.config.ts took 18ms
+[api] INFO:     Started server process [96329]
+[api] INFO:     Waiting for application startup.
+[api] 2026-08-26 18:57:28,023 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:57:28,023 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:57:28,024 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:57:28,024 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:57:28,024 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+[api] 2026-08-26 18:57:28,024 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:57:28,024 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:57:28,024 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:57:28,024 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:57:28,024 INFO apscheduler.scheduler Added job "_fire" to job store "default"
+[api] 2026-08-26 18:57:28,024 INFO apscheduler.scheduler Scheduler started
+[api] INFO:     Application startup complete.
+[web] 
+[web]  GET / 200 in 228ms (next.js: 114ms, application-code: 114ms)
+[api] INFO:     ::1:0 - "GET /api/chats HTTP/1.1" 200 OK
+[web]  GET /api/chats 200 in 551ms (next.js: 507ms, application-code: 44ms)
+[api] INFO:     ::ffff:127.0.0.1:0 - "GET /health HTTP/1.1" 200 OK
+[web]  GET /health 200 in 62ms (next.js: 38ms, application-code: 24ms)
+[web] [?25h
+[api] INFO:     Shutting down
+[api] INFO:     Waiting for application shutdown.
+[api] INFO:     Application shutdown complete.
+[api] INFO:     Finished server process [96329]
+[api] INFO:     Stopping reloader process [96300]

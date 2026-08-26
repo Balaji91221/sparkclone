@@ -1,0 +1,23 @@
+[1;36m[run][0m frontend → http://localhost:3000
+
+> frontend@0.1.0 dev
+> next dev --port 3000
+
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.70.148:3000
+✓ Ready in 288ms
+✓ Running next.config.ts took 96ms
+
+ GET /health 502 in 552ms (next.js: 506ms, application-code: 46ms)
+ GET /health 502 in 6ms (next.js: 2ms, application-code: 4ms)
+ GET /health 502 in 8ms (next.js: 2ms, application-code: 5ms)
+ GET /health 502 in 8ms (next.js: 2ms, application-code: 5ms)
+ GET /health 502 in 8ms (next.js: 3ms, application-code: 6ms)
+ GET /health 502 in 5ms (next.js: 1.3ms, application-code: 4ms)
+ GET /health 502 in 6ms (next.js: 1.7ms, application-code: 4ms)
+ GET /health 502 in 7ms (next.js: 2ms, application-code: 5ms)
+ GET /health 502 in 7ms (next.js: 2ms, application-code: 5ms)
+ GET /health 502 in 6ms (next.js: 1.6ms, application-code: 4ms)
+ GET /api/chats 502 in 580ms (next.js: 576ms, application-code: 4ms)
+[?25h

@@ -1,0 +1,12 @@
+
+> frontend@0.1.0 dev
+> next dev --port 3101
+
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3101
+- Network:       http://192.168.70.148:3101
+✓ Ready in 396ms
+✓ Running next.config.ts took 121ms
+
+[?25h
+EXIT rc=143 at 17:31:55

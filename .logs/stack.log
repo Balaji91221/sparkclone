@@ -1,0 +1,48 @@
+2026-08-26 18:37:29 [run] database → postgres at localhost:5433
+2026-08-26 18:37:29 [run] backend  → http://localhost:8000/docs
+2026-08-26 18:37:29 [run] frontend → http://localhost:3300   (logs in .logs/)
+2026-08-26 18:37:29 [run] Ctrl-C to stop both.
+2026-08-26 18:54:52 [run] database → postgres at localhost:5433
+2026-08-26 18:54:52 [run] DIE  a Next dev server is already serving frontend/ at http://localhost:3300 (pid 89744). Use it, or stop it with './run.sh down'.
+2026-08-26 18:54:56 [run] database → postgres at localhost:5433
+2026-08-26 18:54:56 [run] DIE  a Next dev server is already serving frontend/ at http://localhost:3300 (pid 89744). Use it, or stop it with './run.sh down'.
+2026-08-26 18:55:00 [run] stopping anything on ports 8000 and 3000
+2026-08-26 18:55:01 [run] WARN pid 89711 exited (rc=0) — shutting the stack down
+2026-08-26 18:55:01 [run] shutting down
+2026-08-26 18:55:02 [run] stopping anything on ports 8000 and 3000
+2026-08-26 18:55:04 [run] database → postgres at localhost:5433
+2026-08-26 18:55:04 [run] backend  → http://localhost:8000/docs
+2026-08-26 18:55:04 [run] frontend → http://localhost:3000   (logs in .logs/)
+2026-08-26 18:55:04 [run] Ctrl-C to stop both.
+2026-08-26 18:56:04 [run] WARN pid 95284 exited (rc=143) — shutting the stack down
+2026-08-26 18:56:04 [run] shutting down
+2026-08-26 18:56:34 [run] DIE  unknown command 'badcmd'
+  up | all        start backend + frontend   (default)
+  down | stop     stop both
+  restart         stop, then start both
+  backend | frontend   start one half
+  status          show what is running
+  logs            follow both logs
+  deps            install python + node dependencies
+  test | docker
+2026-08-26 18:56:48 [run] database → postgres at localhost:5433
+2026-08-26 18:56:49 [run] backend  → http://localhost:8111/docs
+2026-08-26 18:56:49 [run] frontend → http://localhost:3111   (logs in .logs/)
+2026-08-26 18:56:49 [run] Ctrl-C to stop both.
+2026-08-26 18:57:10 [run] backend  → http://localhost:8111  (pid 95987)
+2026-08-26 18:57:11 [run] frontend  → http://localhost:3111  (pid 96019)
+2026-08-26 18:57:24 [run] stopping anything on ports 8111 and 3111
+2026-08-26 18:57:25 [run] WARN pid 95987 exited (rc=0) — shutting the stack down
+2026-08-26 18:57:25 [run] shutting down
+2026-08-26 18:57:27 [run] database → postgres at localhost:5433
+2026-08-26 18:57:27 [run] backend  → http://localhost:8000/docs
+2026-08-26 18:57:27 [run] frontend → http://localhost:3000   (logs in .logs/)
+2026-08-26 18:57:27 [run] Ctrl-C to stop both.
+2026-08-26 18:57:49 [run] backend  → http://localhost:8000  (pid 96300)
+2026-08-26 18:57:49 [run] frontend  → http://localhost:3000  (pid 96330)
+2026-08-26 18:58:15 [run] WARN backend  → not running
+2026-08-26 18:58:15 [run] WARN frontend  → not running
+2026-08-26 18:58:15 [run] backend  → http://localhost:8000  (pid 96300)
+2026-08-26 18:58:15 [run] frontend  → http://localhost:3000  (pid 96330)
+2026-08-26 19:01:12 [run] WARN pid 96301 exited (rc=143) — shutting the stack down
+2026-08-26 19:01:12 [run] shutting down

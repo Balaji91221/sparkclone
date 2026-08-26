@@ -1,0 +1,2690 @@
+--- 18:01:22
+75202 75169 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 RN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:01:27
+75202 75169 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:01:32
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:01:37
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:01:42
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:01:47
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:01:52
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:01:57
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:02
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:07
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:12
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:17
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:22
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:27
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:33
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:38
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:43
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:48
+75202     1 RN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:53
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:02:58
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:03
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:08
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:13
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:18
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:23
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:28
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:33
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:38
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:43
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:48
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:54
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:03:59
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:04
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:09
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:14
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:19
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:24
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:29
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:34
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:39
+75202     1 SN   bash ./run.sh
+75230 75202 SN   bash ./run.sh
+75231 75202 SN   bash ./run.sh
+75232 75230 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+75233 75230 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+75236 75230 SN   sed -u s/^/[api] /
+75237 75231 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+75238 75231 SN   sed -u s/^/[web] /
+75258 75235 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+75261 75258 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:44
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:49
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:54
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:04:59
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:05:04
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:05:10
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:05:15
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:05:20
+77650 77628 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 RN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:05:25
+77650 77628 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:05:30
+77650 77628 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:05:35
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:05:40
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:05:45
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:05:50
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:05:55
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:00
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:05
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:10
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:15
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:20
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:25
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:30
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:35
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:41
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:46
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:51
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:06:56
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:01
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:06
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:11
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:16
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:21
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:26
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:31
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:36
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:41
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:46
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:51
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:07:57
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:02
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:07
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:12
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:17
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:22
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:27
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:32
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:37
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:42
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:47
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:52
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:08:57
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:02
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:07
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+78269     1 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:13
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:18
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:23
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:28
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:33
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:38
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:43
+77650     1 SN   bash ./run.sh
+77678 77650 SN   bash ./run.sh
+77679 77650 SN   bash ./run.sh
+77680 77678 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+77681 77678 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/backend.log
+77682 77678 SN   sed -u s/^/[api] /
+77685 77679 SN   tee /Users/kelavathbalaji/Downloads/sparkclone/.logs/frontend.log
+77686 77679 SN   sed -u s/^/[web] /
+77710 77683 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+77718 77710 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:48
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:53
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:09:58
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:03
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:08
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:13
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:18
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:24
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:29
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:34
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:39
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:44
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:49
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:54
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:10:59
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:11:04
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:11:09
+80597 80578 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:11:14
+80597 80578 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:11:19
+80597 80578 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:11:24
+80597 80578 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 RN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:11:29
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:11:35
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:11:40
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:11:45
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:11:50
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:11:55
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:00
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:05
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:10
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:15
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:20
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:25
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:30
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:35
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:40
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:46
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:51
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:12:56
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:01
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:06
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:11
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:16
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:21
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:26
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:31
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:36
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:42
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:47
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:52
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:13:57
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:02
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:07
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:12
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:17
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:22
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:27
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:32
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:37
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:42
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:48
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:53
+80597     1 SN   bash ./run.sh
+80625 80597 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+80626 80597 SN   bash ./run.sh
+80629 80597 SN   sed -u s/^/[api] /
+80631 80597 SN   sed -u s/^/[web] /
+80654 80628 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+80655 80654 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:14:58
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:03
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:08
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:13
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:18
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:23
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:28
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:33
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:38
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:43
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:49
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:54
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:15:59
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:16:04
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:16:09
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:16:14
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:16:19
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:16:24
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:16:29
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:16:34
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:16:39
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:16:44
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:16:50
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:16:55
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:00
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:05
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:10
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:15
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:20
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:25
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:30
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:35
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:40
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:46
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:51
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:17:56
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:01
+80597     1 SN   bash ./run.sh
+83257 83237 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:06
+80597     1 SN   bash ./run.sh
+83257 83237 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:11
+80597     1 SN   bash ./run.sh
+83257 83237 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:16
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:21
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:26
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:31
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:36
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:41
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:46
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:51
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:18:57
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:02
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:07
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:12
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:17
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:22
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:27
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:32
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:37
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:42
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:47
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:52
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:19:58
+80597     1 SN   bash ./run.sh
+83257     1 SN   bash ./run.sh frontend
+83282 83266 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+83283 83282 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:03
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:08
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:13
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:18
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:23
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:28
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:33
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:38
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:43
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:48
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:53
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:20:59
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:04
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:09
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:14
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:19
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:24
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:29
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:34
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:39
+80597     1 SN   bash ./run.sh
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:44
+80597     1 SN   bash ./run.sh
+84532  8372 Ss   /bin/zsh -c source /Users/kelavathbalaji/.claude/shell-snapshots/snapshot
+84554 84532 SN   bash ./run.sh frontend
+84579 84563 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:49
+80597     1 SN   bash ./run.sh
+84532  8372 Ss   /bin/zsh -c source /Users/kelavathbalaji/.claude/shell-snapshots/snapshot
+84554 84532 SN   bash ./run.sh frontend
+84579 84563 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84582 84579 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:54
+80597     1 SN   bash ./run.sh
+84532  8372 Ss   /bin/zsh -c source /Users/kelavathbalaji/.claude/shell-snapshots/snapshot
+84554 84532 SN   bash ./run.sh frontend
+84579 84563 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84582 84579 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:21:59
+80597     1 SN   bash ./run.sh
+84532  8372 Ss   /bin/zsh -c source /Users/kelavathbalaji/.claude/shell-snapshots/snapshot
+84554 84532 SN   bash ./run.sh frontend
+84579 84563 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84582 84579 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:22:05
+80597     1 SN   bash ./run.sh
+84532  8372 Ss   /bin/zsh -c source /Users/kelavathbalaji/.claude/shell-snapshots/snapshot
+84554 84532 SN   bash ./run.sh frontend
+84579 84563 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84582 84579 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:22:10
+80597     1 SN   bash ./run.sh
+84532  8372 Ss   /bin/zsh -c source /Users/kelavathbalaji/.claude/shell-snapshots/snapshot
+84554 84532 SN   bash ./run.sh frontend
+84579 84563 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84582 84579 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:22:15
+80597     1 SN   bash ./run.sh
+84532  8372 Ss   /bin/zsh -c source /Users/kelavathbalaji/.claude/shell-snapshots/snapshot
+84554 84532 SN   bash ./run.sh frontend
+84579 84563 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84582 84579 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:22:20
+80597     1 SN   bash ./run.sh
+84554     1 SN   bash ./run.sh frontend
+84579 84563 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84582 84579 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:22:25
+80597     1 SN   bash ./run.sh
+84554     1 SN   bash ./run.sh frontend
+84579 84563 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84582 84579 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:22:30
+84869 84841 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:22:35
+84869 84841 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:22:40
+84869 84841 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:22:45
+84869 84841 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:22:50
+84869 84841 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 RN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:22:55
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:00
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:06
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:11
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:16
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:21
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:26
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:31
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:36
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:41
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:46
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:51
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:23:56
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:01
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:07
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:12
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:17
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:22
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:27
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:32
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:37
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:42
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:47
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:52
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:24:57
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:02
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:07
+84869     1 SN   bash ./run.sh
+84897 84869 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+84898 84869 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+84926 84900 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+84927 84926 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:13
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:18
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:23
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:28
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:33
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:38
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:43
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:48
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:53
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:25:58
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:26:03
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:26:08
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+86260  8372 Ss   /bin/zsh -c source /Users/kelavathbalaji/.claude/shell-snapshots/snapshot
+86287 86260 SN   bash ./run.sh
+86315 86287 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+86316 86287 SN   bash ./run.sh
+86318 86287 SN   sed -u s/^/[api] /
+86321 86287 SN   sed -u s/^/[web] /
+86350 86319 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+86351 86350 RN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:26:13
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+86260  8372 Ss   /bin/zsh -c source /Users/kelavathbalaji/.claude/shell-snapshots/snapshot
+86287 86260 SN   bash ./run.sh
+86315 86287 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+86316 86287 SN   bash ./run.sh
+86318 86287 SN   sed -u s/^/[api] /
+86321 86287 SN   sed -u s/^/[web] /
+86350 86319 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+86351 86350 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:26:19
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+86260  8372 Ss   /bin/zsh -c source /Users/kelavathbalaji/.claude/shell-snapshots/snapshot
+86287 86260 SN   bash ./run.sh
+86315 86287 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+86316 86287 SN   bash ./run.sh
+86318 86287 SN   sed -u s/^/[api] /
+86321 86287 SN   sed -u s/^/[web] /
+86350 86319 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+86351 86350 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:26:24
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+86260  8372 Ss   /bin/zsh -c source /Users/kelavathbalaji/.claude/shell-snapshots/snapshot
+86287 86260 SN   bash ./run.sh
+86315 86287 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+86316 86287 SN   bash ./run.sh
+86318 86287 SN   sed -u s/^/[api] /
+86321 86287 SN   sed -u s/^/[web] /
+86350 86319 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+86351 86350 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:26:29
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+86287     1 SN   bash ./run.sh
+86315 86287 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+86316 86287 SN   bash ./run.sh
+86318 86287 SN   sed -u s/^/[api] /
+86321 86287 SN   sed -u s/^/[web] /
+86350 86319 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+86351 86350 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:26:34
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+86287     1 SN   bash ./run.sh
+86315 86287 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+86316 86287 SN   bash ./run.sh
+86318 86287 SN   sed -u s/^/[api] /
+86321 86287 SN   sed -u s/^/[web] /
+86350 86319 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+86351 86350 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+--- 18:26:39
+84869     1 SN   bash ./run.sh
+84901 84869 SN   sed -u s/^/[api] /
+84903 84869 SN   sed -u s/^/[web] /
+86287     1 SN   bash ./run.sh
+86315 86287 SN   /Library/Frameworks/Python.framework/Versions/3.10/Resources/Python.app/C
+86316 86287 SN   bash ./run.sh
+86318 86287 SN   sed -u s/^/[api] /
+86321 86287 SN   sed -u s/^/[web] /
+86350 86319 SN   node /Users/kelavathbalaji/Downloads/sparkclone/frontend/node_modules/.bi
+86351 86350 SN   next-server (v16.3.0) 
+69901 69856 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r
+75778 75756 S+   /Users/kelavathbalaji/.codegraph/versions/v1.5.0/node -e \012const fs = r

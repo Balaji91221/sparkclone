@@ -1,17 +1,11 @@
 import type { NextConfig } from "next";
 
-const BACKEND = process.env.BACKEND_URL ?? "http://localhost:8000";
-
 const nextConfig: NextConfig = {
   // The floating dev-tools badge overlaps the sidebar footer; hide it.
   devIndicators: false,
-  async rewrites() {
-    return [
-      { source: "/api/:path*", destination: `${BACKEND}/api/:path*` },
-      { source: "/auth/:path*", destination: `${BACKEND}/auth/:path*` },
-      { source: "/health", destination: `${BACKEND}/health` },
-    ];
-  },
+  // /api, /auth and /health are proxied by route handlers (see lib/proxy.ts),
+  // not by rewrites: the dev server's rewrite proxy throws an unhandled error
+  // when the backend connection drops, which crashes the whole dev server.
 };
 
 export default nextConfig;
