@@ -19,6 +19,12 @@ Dashboard: Next.js App Router + Tailwind. Storage: Postgres (Docker) or SQLite.
 - **Google integration** — OAuth sign-in with Gmail (read + approval-gated send
   with real multipart HTML/attachments) and Drive (list/read, Docs export).
   Refresh tokens are Fernet-encrypted at rest.
+- **Connectors** — connect Slack, Telegram, Mail (IMAP/SMTP), Discord and
+  outbound webhooks from the dashboard's **Connectors** page. Credentials are
+  verified against the real service before they are saved, Fernet-encrypted at
+  rest, and never returned by any endpoint. Each connected service adds its
+  tools to the agent (reads are free, sends are approval-gated) and can be
+  flagged as a notification channel.
 - **MCP connectors** — connect any MCP server over **stdio**, **SSE**, or
   **streamable HTTP**; tools are discovered (with pagination), namespaced
   `mcp_<server>_<tool>`, and their results wrapped as untrusted content.
@@ -134,7 +140,14 @@ frontend/ (Next.js) ──► FastAPI (app/main.py + app/api routers) ──► 
 
 - **New tool**: add a function + `register(Tool(...))` in
   `app/tools/registry.py`. Set `requires_approval=True` for anything sensitive.
-- **MCP servers**: add them from Settings → MCP in the dashboard (any transport);
+- **New connector**: add one module to `app/connectors/` exporting `verify()`,
+  optional `send()`, and a `SPEC = ConnectorSpec(...)` listing its fields and
+  tools, then add it to `SPECS` in `app/connectors/registry.py`. The API, the
+  dashboard page and the agent wiring pick it up with no further changes.
+- **Connectors**: connect them from the dashboard's Connectors page. `notify`
+  delivers to every connector flagged as a notification channel plus the email
+  chain (Gmail → SMTP → stdout); `notify(channel="telegram")` targets one.
+- **MCP servers**: add them from Settings → Integrations in the dashboard (any transport);
   `scripts/demo_mcp_server.py` is a tiny test server supporting all three.
 - **Event triggers**: built in — create a task with `trigger_type="webhook"`
   and point the external service at its `webhook_url`.

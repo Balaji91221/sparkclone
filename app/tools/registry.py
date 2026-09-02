@@ -9,15 +9,10 @@ Design notes:
 """
 from __future__ import annotations
 
-import email as email_lib
-import email.header
-import imaplib
 import json
-import smtplib
 import subprocess
 import tempfile
 from dataclasses import dataclass
-from email.mime.text import MIMEText
 from typing import Any, Callable
 
 import httpx
@@ -40,51 +35,20 @@ class Tool:
     requires_approval: bool = False
 
 
-def _decode(h: str) -> str:
-    parts = email.header.decode_header(h or "")
-    return "".join(p.decode(enc or "utf-8", "replace") if isinstance(p, bytes) else p for p, enc in parts)
-
-
 # ---------------------------------------------------------------- email tools
+# The IMAP/SMTP implementation lives in connectors/mail.py; these built-ins
+# keep their names and delegate with the effective config (Mail connector row
+# when connected, else the legacy IMAP_*/SMTP_* env settings). Imported lazily:
+# the connectors package imports this module.
 
 def read_inbox(limit: int = 10, query: str = "ALL") -> str:
-    if not settings.imap_host:
-        return "IMAP is not configured. Set IMAP_HOST/IMAP_USER/IMAP_PASSWORD."
-    limit = max(1, min(int(limit), 50))
-    with imaplib.IMAP4_SSL(settings.imap_host) as m:
-        m.login(settings.imap_user, settings.imap_password)
-        m.select("INBOX", readonly=True)
-        _, data = m.search(None, query)
-        ids = data[0].split()[-limit:]
-        out = []
-        for i in reversed(ids):
-            _, msg_data = m.fetch(i, "(RFC822)")
-            msg = email_lib.message_from_bytes(msg_data[0][1])
-            body = ""
-            for part in msg.walk():
-                if part.get_content_type() == "text/plain":
-                    body = part.get_payload(decode=True).decode(
-                        part.get_content_charset() or "utf-8", "replace")
-                    break
-            out.append({
-                "from": _decode(msg.get("From", "")),
-                "subject": _decode(msg.get("Subject", "")),
-                "date": msg.get("Date", ""),
-                "body": body[:2000],
-            })
-    return UNTRUSTED_WRAP.format(body=json.dumps(out, ensure_ascii=False, indent=1))
+    from ..connectors import mail
+    return mail.read_inbox(mail.effective_config(), limit, query)
 
 
 def send_email(to: str, subject: str, body: str) -> str:
-    if not settings.smtp_host:
-        return "SMTP is not configured. Set SMTP_HOST/SMTP_USER/SMTP_PASSWORD."
-    msg = MIMEText(body)
-    msg["Subject"], msg["From"], msg["To"] = subject, settings.smtp_user, to
-    with smtplib.SMTP(settings.smtp_host, settings.smtp_port) as s:
-        s.starttls()
-        s.login(settings.smtp_user, settings.smtp_password)
-        s.send_message(msg)
-    return f"Email sent to {to}."
+    from ..connectors import mail
+    return mail.send_email(mail.effective_config(), to, subject, body)
 
 
 # --------------------------------------------------------------- google tools
@@ -246,16 +210,43 @@ def run_python(code: str) -> str:
 
 # -------------------------------------------------------------------- notify
 
-def notify(message: str, subject: str = "Astra notification") -> str:
-    if settings.notify_email:
-        # Prefer the connected Google account; it sends only to the user's own
-        # NOTIFY_EMAIL, so it stays ungated (unlike send_gmail/send_email).
-        from ..google import client as g
-        result = g.gmail_send(settings.notify_email, subject, message)
-        if not result.startswith(("Google is not connected", "Gmail send failed")):
-            return result
-        if settings.smtp_host:
-            return send_email(settings.notify_email, subject, message)
+def _notify_email(message: str, subject: str) -> str:
+    """Connected Google account first, then SMTP. Returns "" when neither can
+    deliver so the caller can fall through to stdout."""
+    from ..connectors import mail
+    from ..google import client as g
+    result = g.gmail_send(settings.notify_email, subject, message)
+    if not result.startswith(("Google is not connected", "Gmail send failed")):
+        return result
+    config = mail.effective_config()
+    if config.get("smtp_host"):
+        return mail.send_email(config, settings.notify_email, subject, message)
+    return ""
+
+
+def notify(message: str, subject: str = "Astra notification", channel: str = "auto") -> str:
+    """Deliver to the user's own configured destinations, never to a
+    model-chosen recipient — which is why this stays ungated.
+
+    channel="auto": every connector flagged as a notification channel on the
+    Connectors page, plus the email chain when NOTIFY_EMAIL is set.
+    channel="email": only the email chain. channel=<kind> ("telegram",
+    "slack", "discord", "webhook", "mail"): only that connected connector.
+    """
+    from ..connectors import registry as connectors
+    channel = (channel or "auto").strip().lower()
+    results: list[str] = []
+    if channel != "email":
+        results += connectors.deliver(message, subject, channel)
+    if channel in ("auto", "email") and settings.notify_email:
+        sent = _notify_email(message, subject)
+        if sent:
+            results.append(f"Email: {sent}")
+    if results:
+        return "\n".join(results)
+    if channel not in ("auto", "email"):
+        return (f"No connected connector for channel '{channel}'. Connect it on the "
+                "Connectors page or use channel='auto'.")
     print(f"[notify] {message}")
     return "Notification recorded (no delivery channel configured, logged to stdout)."
 
@@ -391,8 +382,12 @@ register(Tool(
 ))
 register(Tool(
     name="notify",
-    description="Send the user a notification (email if configured). Use to deliver final digests/results.",
-    input_schema={"type": "object", "properties": {"message": {"type": "string"}}, "required": ["message"]},
+    description="Send the user a notification on their own configured channels (connectors flagged for notifications — Slack, Telegram, Discord, webhook, mail — and/or email). Use to deliver final digests/results. Never needs approval because it only reaches the user's own destinations.",
+    input_schema={"type": "object", "properties": {
+        "message": {"type": "string"},
+        "subject": {"type": "string", "description": "Short title/subject line", "default": "Astra notification"},
+        "channel": {"type": "string", "description": "auto (default: all flagged channels plus email), email, or one connector kind: slack, telegram, discord, webhook, mail", "default": "auto"},
+    }, "required": ["message"]},
     fn=notify,
 ))
 

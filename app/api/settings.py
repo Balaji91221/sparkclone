@@ -18,9 +18,12 @@ class NotificationSettingsIn(BaseModel):
 
 
 def _out(prefs: dict) -> dict:
-    # delivery tells the UI whether notifications actually reach the user.
-    return {**prefs,
-            "delivery": "email" if app_config.notify_email else "stdout"}
+    # delivery tells the UI whether notifications actually reach the user;
+    # channels lists every connector flagged as a notification channel.
+    from ..connectors import registry as connectors
+    channels = [s.kind for s, _ in connectors.notify_targets()]
+    delivery = "email" if app_config.notify_email else ("connector" if channels else "stdout")
+    return {**prefs, "delivery": delivery, "channels": channels}
 
 
 @router.get("/notifications")

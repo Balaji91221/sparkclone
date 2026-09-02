@@ -1,16 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useState } from "react";
 import { AgentToolsSection } from "@/components/agent-tools";
 import { MCPSettings } from "@/components/mcp-settings";
 import { Icon } from "@/components/icons";
-import { Button, Card, PageHeader, Skeleton } from "@/components/ui";
-import {
-  getNotificationSettings,
-  googleDisconnect,
-  googleStatus,
-  updateNotificationSettings,
-} from "@/lib/api";
+import { Card, PageHeader, Skeleton } from "@/components/ui";
+import { getNotificationSettings, updateNotificationSettings } from "@/lib/api";
 import type { NotificationSettings } from "@/lib/api";
 import { usePoll } from "@/lib/use-poll";
 
@@ -55,9 +51,27 @@ export default function SettingsPage() {
             </Card>
           </Section>
 
-          <Section id="google" title="Google account"
-            lede="One sign-in covers the dashboard and the agent's access to Gmail, Drive and Calendar.">
-            <GoogleCard />
+          <Section id="google" title="Connections"
+            lede="Google, Slack, Telegram, Mail and more live on the Connectors page.">
+            <Card>
+              <div className="flex items-center gap-4 px-5 py-4">
+                <Tile icon="plug" className="bg-tint-blue text-accent" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium">Connected services</p>
+                  <p className="text-[13px] text-muted">
+                    Connect Google, Slack, Telegram, Discord, Mail or a webhook — each one
+                    adds tools the agent can call.
+                  </p>
+                </div>
+                <Link
+                  href="/connectors"
+                  className="shrink-0 rounded-full border border-line px-4 py-1.5 text-[13px]
+                    font-medium transition hover:bg-surface-2"
+                >
+                  Open Connectors
+                </Link>
+              </div>
+            </Card>
           </Section>
 
           <Section id="notifications" title="Notifications" lede="When Astra should email you.">
@@ -79,7 +93,7 @@ export default function SettingsPage() {
 
 const SECTIONS = [
   { id: "backend", label: "Backend" },
-  { id: "google", label: "Google account" },
+  { id: "google", label: "Connections" },
   { id: "notifications", label: "Notifications" },
   { id: "mcp", label: "Integrations" },
   { id: "tools", label: "Agent tools" },
@@ -141,67 +155,20 @@ function Pill({ tone, children }: { tone: keyof typeof PILL; children: React.Rea
   );
 }
 
-function GoogleCard() {
-  const [error, setError] = useState("");
-  const fetchStatus = useCallback((signal: AbortSignal) => googleStatus(signal), []);
-  const { state, reload } = usePoll(fetchStatus, 8000);
-  const status = state.kind === "ready" ? state.data : null;
-
-  const disconnect = async () => {
-    if (!window.confirm("Disconnect Google? Stored tokens are revoked and deleted.")) return;
-    setError("");
-    try {
-      await googleDisconnect();
-      reload();
-    } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : String(e));
-    }
-  };
-
-  return (
-    <Card>
-      <div className="flex items-center gap-4 px-5 py-4">
-        <Tile icon="google" className="bg-tint-blue text-accent" />
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium">Gmail, Drive &amp; Calendar</p>
-          <p className="max-w-md text-[13px] text-muted">
-            {status?.connected
-              ? `Connected as ${status.email}. The agent can read Gmail, Drive, and Calendar,
-                 and send mail or create events with your approval.`
-              : "Sign in with Google to let the agent read your inbox, Drive files, and calendar."}
-          </p>
-          {status?.connected && !status.scopes.some((s) => s.includes("calendar")) ? (
-            <p className="mt-1 max-w-md text-xs text-warn">
-              Calendar permission is missing (added after you connected) — disconnect and
-              reconnect Google to grant it.
-            </p>
-          ) : null}
-          {error ? <p className="mt-1 text-xs text-danger">{error}</p> : null}
-        </div>
-        {status?.connected ? (
-          <div className="flex shrink-0 items-center gap-2">
-            <Pill tone="ok">Connected</Pill>
-            <Button onClick={() => void disconnect()}>Disconnect</Button>
-          </div>
-        ) : (
-          <Button
-            variant="primary"
-            // Backend route (proxied), not a Next.js page — full-page navigation
-            // is required so Google's redirects can take over.
-            // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-            onClick={() => window.location.assign(`${window.location.origin}/auth/google/login`)}
-            disabled={!status}
-          >
-            Connect Google
-          </Button>
-        )}
-      </div>
-    </Card>
-  );
+function deliveryText(prefs: NotificationSettings): string {
+  const channels = prefs.channels.join(", ");
+  if (prefs.delivery === "email") {
+    return channels
+      ? `Delivered by email to your NOTIFY_EMAIL, and to ${channels}.`
+      : "Delivered by email to your configured NOTIFY_EMAIL.";
+  }
+  if (channels) return `Delivered to ${channels} (no NOTIFY_EMAIL configured).`;
+  return "No delivery channel — notifications only appear in the server log. Connect one on the Connectors page.";
 }
 
 const NOTIFY_TOGGLES: Array<{
-  key: keyof Omit<NotificationSettings, "delivery" | "failure_cooldown_minutes">;
+  key: keyof Omit<NotificationSettings,
+    "delivery" | "channels" | "failure_cooldown_minutes">;
   label: string;
   hint: string;
 }> = [
@@ -232,7 +199,7 @@ function NotificationsCard() {
   const { state, reload } = usePoll(fetchSettings, null);
   const prefs = state.kind === "ready" ? state.data : null;
 
-  const save = async (next: Omit<NotificationSettings, "delivery">) => {
+  const save = async (next: Omit<NotificationSettings, "delivery" | "channels">) => {
     setError("");
     try {
       await updateNotificationSettings(next);
@@ -300,9 +267,7 @@ function NotificationsCard() {
       </div>
       <div className="px-5 py-3.5">
         <p className="text-[13px] text-muted">
-          {prefs.delivery === "email"
-            ? "Delivered by email to your configured NOTIFY_EMAIL."
-            : "No NOTIFY_EMAIL configured — notifications only appear in the server log."}
+          {deliveryText(prefs)}
         </p>
         {error ? <p className="mt-1 text-xs text-danger">{error}</p> : null}
       </div>

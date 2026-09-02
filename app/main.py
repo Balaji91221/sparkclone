@@ -13,7 +13,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 
 from . import scheduler
-from .api import approvals, chats, hooks, mcp, runs, skills, tasks, tools
+from .api import approvals, chats, connectors, hooks, mcp, runs, skills, tasks, tools
 from .api import settings as settings_api
 from .auth.google_oauth import router as google_router
 from .config import insecure_default_secrets, settings
@@ -69,8 +69,8 @@ async def lifespan(_app: FastAPI):
 
 app = FastAPI(title="Astra", version="2.0.0", lifespan=lifespan)
 for router in (tasks.router, skills.router, runs.router, approvals.router,
-               tools.router, mcp.router, chats.router, hooks.router,
-               settings_api.router, google_router):
+               tools.router, mcp.router, connectors.router, chats.router,
+               hooks.router, settings_api.router, google_router):
     app.include_router(router)
 
 

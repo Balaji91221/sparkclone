@@ -10,8 +10,8 @@ import { Icon } from "@/components/icons";
 import { ScheduleField } from "@/components/schedule-field";
 import type { TriggerValue } from "@/components/schedule-field";
 import { Button, ErrorBanner, Modal, PageHeader, Skeleton, inputClass } from "@/components/ui";
-import { createTask, listMcpServers, listSkills } from "@/lib/api";
-import type { MCPServerInfo } from "@/lib/api";
+import { createTask, listConnectors, listMcpServers, listSkills } from "@/lib/api";
+import type { ConnectorInfo, MCPServerInfo } from "@/lib/api";
 import type { SkillDef } from "@/lib/types";
 import { usePoll } from "@/lib/use-poll";
 
@@ -80,6 +80,16 @@ const BUILTIN_APPS: AppDef[] = [
   },
 ];
 
+const connectorApp = (c: ConnectorInfo): AppDef => ({
+  key: `connector-${c.kind}`,
+  name: c.name,
+  icon: c.icon,
+  desc: c.description,
+  tools: [...c.tools.map((t) => t.name), "notify"],
+  template:
+    `Use the ${c.name} tools to <describe what to do>, then send me the result.`,
+});
+
 const mcpApp = (s: MCPServerInfo): AppDef => ({
   key: `mcp-${s.name}`,
   name: s.name,
@@ -92,18 +102,22 @@ const mcpApp = (s: MCPServerInfo): AppDef => ({
 
 export default function AppsPage() {
   const fetchAll = useCallback(async (signal: AbortSignal) => {
-    const [skills, servers] = await Promise.all([
+    const [skills, servers, connectors] = await Promise.all([
       listSkills(signal),
       listMcpServers(signal).catch(() => []),
+      listConnectors(signal).catch(() => []),
     ]);
-    return { skills, servers };
+    return { skills, servers, connectors };
   }, []);
   const { state } = usePoll(fetchAll, 15000);
   const data = state.kind === "ready" ? state.data : null;
   const [active, setActive] = useState<AppDef | null>(null);
 
+  // Built-ins keep their order and exact names; connected services follow.
   const apps = [
     ...BUILTIN_APPS,
+    ...(data?.connectors.filter((c) => c.connected && c.enabled && c.tools.length > 0)
+      .map(connectorApp) ?? []),
     ...(data?.servers.filter((s) => s.enabled).map(mcpApp) ?? []),
   ];
 
@@ -140,9 +154,10 @@ export default function AppsPage() {
         </div>
       ) : null}
 
-      {data && data.servers.filter((s) => s.enabled).length === 0 ? (
+      {data && data.connectors.filter((c) => c.connected && c.enabled).length === 0 ? (
         <p className="mt-6 text-[13px] text-muted">
-          Connect an MCP server in Settings to add your own custom apps here.
+          Connect Slack, Telegram, Mail or Discord on the Connectors page to add more apps
+          here — or add an MCP server in Settings.
         </p>
       ) : null}
 

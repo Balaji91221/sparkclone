@@ -12,9 +12,10 @@ import traceback
 
 from .. import notifications
 from ..config import settings
+from ..connectors import registry as connectors
 from ..db import Approval, Run, RunStatus, Skill, Task, db_session, utcnow
 from ..mcp import manager as mcp_manager
-from ..tools.registry import TOOLS, UNTRUSTED_WRAP, anthropic_tool_specs
+from ..tools.registry import TOOLS, UNTRUSTED_WRAP, Tool, anthropic_tool_specs
 from . import providers
 from .prompts import build_system
 
@@ -28,6 +29,7 @@ class AstraAgent:
         self.run_id = run_id
         self.messages: list[dict] = []
         self.mcp_tools: dict[str, mcp_manager.MCPToolRef] = {}
+        self.connector_tools: dict[str, Tool] = {}
 
     # ------------------------------------------------------------- lifecycle
 
@@ -87,11 +89,17 @@ class AstraAgent:
         system = build_system("task", skill_text)
 
         tools = anthropic_tool_specs(task.allowed_tools or None)
+        allowed = set(task.allowed_tools or [])
+        # Connector tools are merged per run, like MCP tools below, so a
+        # disconnected or disabled connector vanishes on the next run.
+        self.connector_tools = {
+            t.name: t for t in connectors.enabled_tools()
+            if not allowed or t.name in allowed}
+        tools += connectors.tool_specs(list(self.connector_tools.values()))
         # MCP tools are merged per run (never into the global registry) so a
         # dead or edited server config takes effect on the next run. A task
         # with allowed_tools set only gets MCP tools it names — either exactly
         # or via a server-wide "mcp_<server>_*" entry.
-        allowed = set(task.allowed_tools or [])
         self.mcp_tools = {
             t.public_name: t for t in mcp_manager.enabled_tools()
             if not allowed or t.public_name in allowed
@@ -109,7 +117,7 @@ class AstraAgent:
     def _run_tool(self, tc: dict) -> dict:
         name, args = tc["name"], tc["input"]
         mcp_ref = self.mcp_tools.get(name)
-        builtin = TOOLS.get(name)
+        builtin = TOOLS.get(name) or self.connector_tools.get(name)
         if mcp_ref is None and builtin is None:
             return {"id": tc["id"], "content": f"Unknown tool {name}"}
 

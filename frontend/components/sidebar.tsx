@@ -18,6 +18,11 @@ const NAV: NavItem[] = [
     label: "Apps",
     icon: "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
   },
+  {
+    href: "/connectors",
+    label: "Connectors",
+    icon: "M9 3v5M15 3v5M6 8h12v3a6 6 0 0 1-12 0zM12 17v4",
+  },
   { href: "/tasks", label: "Schedules", icon: "M12 3a9 9 0 110 18 9 9 0 010-18zM12 7v5l3 2" },
   { href: "/skills", label: "Skills", icon: "M6 4h9a3 3 0 013 3v13H8a2 2 0 01-2-2V4zM9 8h6M9 12h6" },
   { href: "/runs", label: "Runs", icon: "M4 17l5-5-5-5M11 19h9" },
@@ -133,7 +138,7 @@ export function Sidebar({ pendingApprovals, googleEmail, onSignOut, onClose }: S
           </div>
         ) : (
           <Link
-            href="/settings"
+            href="/connectors"
             className="mb-2 flex items-center gap-2.5 rounded-lg px-3 py-1.5 text-xs
               text-muted transition hover:bg-surface-2 hover:text-foreground"
           >

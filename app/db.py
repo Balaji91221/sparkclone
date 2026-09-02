@@ -155,6 +155,23 @@ class MCPServer(Base):
     created_at = Column(DateTime(timezone=True), default=utcnow)
 
 
+class Connector(Base):
+    """One saved connection to an outside service (Slack, Telegram, ...).
+
+    kind is the primary key: one connection per service, like Claude.ai. The
+    whole field set — secrets and plain settings alike — lives in one
+    Fernet-encrypted JSON blob; app/connectors/registry.py is its only reader.
+    """
+    __tablename__ = "connectors"
+    kind = Column(String, primary_key=True)
+    config_enc = Column(Text, nullable=False)
+    identity = Column(String, default="")       # verified label, e.g. bot name
+    enabled = Column(String, default="true")
+    notify = Column(String, default="false")    # receives notify() deliveries
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow)
+
+
 class Setting(Base):
     """Small key/value store for user-editable app settings."""
     __tablename__ = "settings"

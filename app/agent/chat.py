@@ -10,10 +10,11 @@ import time
 import traceback
 
 from .. import notifications
+from ..connectors import registry as connectors
 from ..db import Approval, Chat, ChatMessage, db_session, utcnow
 from ..mcp import manager as mcp_manager
 from ..tools.management import MANAGEMENT_TOOLS
-from ..tools.registry import TOOLS, UNTRUSTED_WRAP, anthropic_tool_specs
+from ..tools.registry import TOOLS, UNTRUSTED_WRAP, Tool, anthropic_tool_specs
 from . import providers
 from .agent import redact
 from .prompts import build_system
@@ -28,6 +29,7 @@ class ChatAgent:
     def __init__(self, chat_id: str) -> None:
         self.chat_id = chat_id
         self.mcp_tools: dict[str, mcp_manager.MCPToolRef] = {}
+        self.connector_tools: dict[str, Tool] = {}
 
     def run_turn(self) -> None:
         try:
@@ -74,6 +76,8 @@ class ChatAgent:
         tools += [{"name": t.name, "description": t.description,
                    "input_schema": t.input_schema}
                   for t in MANAGEMENT_TOOLS.values()]
+        self.connector_tools = {t.name: t for t in connectors.enabled_tools()}
+        tools += connectors.tool_specs(list(self.connector_tools.values()))
         self.mcp_tools = {t.public_name: t for t in mcp_manager.enabled_tools()}
         tools += [{
             "name": t.public_name,
@@ -86,7 +90,8 @@ class ChatAgent:
     def _run_tool(self, tc: dict) -> dict:
         name, args = tc["name"], tc["input"]
         mcp_ref = self.mcp_tools.get(name)
-        tool = MANAGEMENT_TOOLS.get(name) or TOOLS.get(name)
+        tool = (MANAGEMENT_TOOLS.get(name) or TOOLS.get(name)
+                or self.connector_tools.get(name))
         if mcp_ref is None and tool is None:
             return {"id": tc["id"], "content": f"Unknown tool {name}"}
 

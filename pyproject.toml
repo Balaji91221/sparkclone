@@ -13,6 +13,7 @@ select = ["E", "F", "I"]
 # Tool descriptions and user-facing message strings are long by design.
 "app/tools/registry.py" = ["E501"]
 "app/tools/management.py" = ["E501"]
+"app/connectors/*.py" = ["E501"]
 # conftest must set DATABASE_URL before any app import.
 "tests/conftest.py" = ["E402"]
 # Report layout script: compact table-building one-liners.

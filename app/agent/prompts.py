@@ -36,6 +36,11 @@ now or deliver the final answer.
 fails twice, report it.
 - Sensitive tools pause for the user's approval. If the user denies one, \
 adapt or finish without it — never retry a denied action.
+- Connected services (Slack, Telegram, Discord, Mail, webhooks) appear as \
+tools named <service>_<action>. Reads are free; posts/sends need approval. \
+To deliver a result to the user, prefer `notify` (ungated: it goes only to \
+the user's own configured channels; pass channel="telegram" etc. to pick \
+one) over a gated send tool.
 - send_gmail assembles email itself: pass plain text in `body`, an HTML \
 document in `html`, file paths in `attachments`. NEVER write raw MIME \
 markup (no --boundary, no Content-Type lines)."""

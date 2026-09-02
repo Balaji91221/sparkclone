@@ -184,7 +184,8 @@ export type NotificationSettings = {
   notify_on_pending_approval: boolean;
   notify_on_chat_approval: boolean;
   failure_cooldown_minutes: number;
-  delivery: "email" | "stdout";
+  delivery: "email" | "connector" | "stdout";
+  channels: string[];
 };
 
 function parseNotificationSettings(v: unknown): NotificationSettings {
@@ -195,7 +196,11 @@ function parseNotificationSettings(v: unknown): NotificationSettings {
     notify_on_chat_approval: r.notify_on_chat_approval === true,
     failure_cooldown_minutes:
       typeof r.failure_cooldown_minutes === "number" ? r.failure_cooldown_minutes : 60,
-    delivery: r.delivery === "email" ? "email" : "stdout",
+    delivery:
+      r.delivery === "email" ? "email" : r.delivery === "connector" ? "connector" : "stdout",
+    channels: Array.isArray(r.channels)
+      ? r.channels.filter((c): c is string => typeof c === "string")
+      : [],
   };
 }
 
@@ -206,7 +211,7 @@ export async function getNotificationSettings(
 }
 
 export async function updateNotificationSettings(
-  body: Omit<NotificationSettings, "delivery">,
+  body: Omit<NotificationSettings, "delivery" | "channels">,
 ): Promise<NotificationSettings> {
   return parseNotificationSettings(
     await request("/api/settings/notifications", { method: "PUT", body }),
@@ -298,6 +303,126 @@ export async function toggleMcpServer(id: string): Promise<void> {
 
 export async function toggleMcpApproval(id: string): Promise<void> {
   await request(`/api/mcp/${id}/approval`, { method: "POST" });
+}
+
+export type ConnectorField = {
+  key: string;
+  label: string;
+  secret: boolean;
+  required: boolean;
+  hint: string;
+  placeholder: string;
+  has_value: boolean;
+  value: string;
+};
+
+export type ConnectorTool = {
+  name: string;
+  description: string;
+  requires_approval: boolean;
+};
+
+export type ConnectorInfo = {
+  kind: string;
+  name: string;
+  description: string;
+  icon: string;
+  docs_url: string;
+  notes: string[];
+  fields: ConnectorField[];
+  connected: boolean;
+  identity: string;
+  enabled: boolean;
+  notify: boolean;
+  supports_notify: boolean;
+  error: string;
+  tools: ConnectorTool[];
+};
+
+function str(v: unknown, fallback = ""): string {
+  return typeof v === "string" ? v : fallback;
+}
+
+function strings(v: unknown): string[] {
+  return Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : [];
+}
+
+function parseConnectorField(v: unknown): ConnectorField | null {
+  if (typeof v !== "object" || v === null) return null;
+  const r = v as Record<string, unknown>;
+  if (typeof r.key !== "string") return null;
+  return {
+    key: r.key,
+    label: str(r.label, r.key),
+    secret: r.secret === true,
+    required: r.required === true,
+    hint: str(r.hint),
+    placeholder: str(r.placeholder),
+    has_value: r.has_value === true,
+    value: str(r.value),
+  };
+}
+
+function parseConnectorTool(v: unknown): ConnectorTool | null {
+  if (typeof v !== "object" || v === null) return null;
+  const r = v as Record<string, unknown>;
+  if (typeof r.name !== "string") return null;
+  return {
+    name: r.name,
+    description: str(r.description),
+    requires_approval: r.requires_approval === true,
+  };
+}
+
+function parseConnector(v: unknown): ConnectorInfo | null {
+  if (typeof v !== "object" || v === null) return null;
+  const r = v as Record<string, unknown>;
+  if (typeof r.kind !== "string") return null;
+  return {
+    kind: r.kind,
+    name: str(r.name, r.kind),
+    description: str(r.description),
+    icon: str(r.icon, "plug"),
+    docs_url: str(r.docs_url),
+    notes: strings(r.notes),
+    fields: parseList(r.fields, parseConnectorField),
+    connected: r.connected === true,
+    identity: str(r.identity),
+    enabled: r.enabled === true,
+    notify: r.notify === true,
+    supports_notify: r.supports_notify === true,
+    error: str(r.error),
+    tools: parseList(r.tools, parseConnectorTool),
+  };
+}
+
+export async function listConnectors(signal?: AbortSignal): Promise<ConnectorInfo[]> {
+  return parseList(await request("/api/connectors", { signal }), parseConnector);
+}
+
+export async function connectConnector(
+  kind: string,
+  config: Record<string, string>,
+  notify?: boolean,
+): Promise<void> {
+  await request(`/api/connectors/${kind}`, { method: "POST", body: { config, notify } });
+}
+
+export async function testConnector(kind: string): Promise<string> {
+  const res = await request(`/api/connectors/${kind}/test`, { method: "POST" });
+  return str((res as Record<string, unknown> | null)?.identity);
+}
+
+export async function toggleConnector(kind: string): Promise<void> {
+  await request(`/api/connectors/${kind}/toggle`, { method: "POST" });
+}
+
+export async function toggleConnectorNotify(kind: string): Promise<void> {
+  await request(`/api/connectors/${kind}/notify`, { method: "POST" });
+}
+
+export async function disconnectConnector(kind: string): Promise<void> {
+  await request(`/api/connectors/${kind}`, { method: "DELETE" });
 }
 
 export type AgentTool = {
